@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AIChat</string>
+    <string name="unknown_error_message">Unknown error</string>
+    <string name="connection_error_message">Connection error. Please check your internet connection settings</string>
+</resources>
