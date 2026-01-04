@@ -43,9 +43,12 @@ android {
 dependencies {
 
     implementation(project(":core:essentials"))
+    implementation(project(":features:init:domain"))
+    implementation(project(":core:theme"))
 
     //Hilt
     implementation(libs.hilt.android)
+    implementation(libs.hilt.navigation.compose)
 
     //Ksp
     ksp(libs.hilt.compiler)

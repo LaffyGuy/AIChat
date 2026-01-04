@@ -28,6 +28,7 @@ import com.google.firebase.ai.type.GenerativeBackend
 import com.project.aichat.ui.theme.AIChatTheme
 import com.project.essentials.logger.Logger
 import com.project.essentials.resources.StringResources
+import com.project.features.init.presentation.InitScreen
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -36,11 +37,11 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    @Inject
-    lateinit var logger: Logger
-
-    @Inject
-    lateinit var stringResources: StringResources
+//    @Inject
+//    lateinit var logger: Logger
+//
+//    @Inject
+//    lateinit var stringResources: StringResources
 
 
     private val model = Firebase.ai(backend = GenerativeBackend.googleAI())
@@ -51,54 +52,55 @@ class MainActivity : ComponentActivity() {
 
 
 
-        logger.d("dsd3sdsdsdsd")
-
-        val appName = stringResources.getString(R.string.app_name)
-        Logger.d(appName)
+//        logger.d("dsd3sdsdsdsd")
+//
+//        val appName = stringResources.getString(R.string.app_name)
+//        Logger.d(appName)
 
         enableEdgeToEdge()
         setContent {
             AIChatTheme {
 
-                val scroll = rememberScrollState()
-
-                val scope = rememberCoroutineScope()
-
-                var input by remember { mutableStateOf("How are you today ?") }
-                var result by remember { mutableStateOf("Response will appear here") }
-
-                Column(
-                    modifier = Modifier.fillMaxSize().verticalScroll(scroll),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-
-                    Text(
-                        text = result
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    TextField(
-                        value = input,
-                        onValueChange = {
-                            input = it
-                        }
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Button(
-                        onClick = {
-                              scope.launch {
-                                  try {
-                                      val response = model.generateContent(input)
-                                      result = response.text ?: "Empty response"
-                                  } catch (e: Exception) {
-                                      result = "Error: ${e.message}"
-                                  }
-                              }
-                        }
-                    ) {
-                        Text(text = "Go")
-                    }
-                }
+//                val scroll = rememberScrollState()
+//
+//                val scope = rememberCoroutineScope()
+//
+//                var input by remember { mutableStateOf("How are you today ?") }
+//                var result by remember { mutableStateOf("Response will appear here") }
+//
+//                Column(
+//                    modifier = Modifier.fillMaxSize().verticalScroll(scroll),
+//                    verticalArrangement = Arrangement.Center,
+//                    horizontalAlignment = Alignment.CenterHorizontally
+//                ) {
+//
+//                    Text(
+//                        text = result
+//                    )
+//                    Spacer(modifier = Modifier.height(16.dp))
+//                    TextField(
+//                        value = input,
+//                        onValueChange = {
+//                            input = it
+//                        }
+//                    )
+//                    Spacer(modifier = Modifier.height(16.dp))
+//                    Button(
+//                        onClick = {
+//                              scope.launch {
+//                                  try {
+//                                      val response = model.generateContent(input)
+//                                      result = response.text ?: "Empty response"
+//                                  } catch (e: Exception) {
+//                                      result = "Error: ${e.message}"
+//                                  }
+//                              }
+//                        }
+//                    ) {
+//                        Text(text = "Go")
+//                    }
+//                }
+                InitScreen()
             }
         }
     }
