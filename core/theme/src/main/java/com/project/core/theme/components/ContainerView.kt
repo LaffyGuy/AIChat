@@ -66,7 +66,7 @@ fun <T> ContainerView(
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun LoadContainerView() {
     ContainerView(
@@ -76,7 +76,7 @@ private fun LoadContainerView() {
     )
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun SuccessContainerView() {
     ContainerView(
@@ -88,7 +88,7 @@ private fun SuccessContainerView() {
     )
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun ErrorContainerView() {
     ContainerView(

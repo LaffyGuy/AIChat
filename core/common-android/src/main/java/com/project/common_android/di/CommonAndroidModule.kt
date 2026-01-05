@@ -1,7 +1,9 @@
 package com.project.common_android.di
 
+import com.project.common_android.handler.AndroidExceptionHandler
 import com.project.common_android.logger.AndroidLogger
 import com.project.common_android.resources.AndroidStringResources
+import com.project.essentials.handler.ExceptionHandler
 import com.project.essentials.logger.Logger
 import com.project.essentials.resources.StringResources
 import dagger.Binds
@@ -22,5 +24,10 @@ interface CommonAndroidModule {
     fun bindStringResources(
         impl: AndroidStringResources
     ): StringResources
+
+    @Binds
+    fun bindExceptionHandler(
+        impl: AndroidExceptionHandler
+    ): ExceptionHandler
 
 }

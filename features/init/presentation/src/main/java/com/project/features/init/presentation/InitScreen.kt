@@ -15,6 +15,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.project.core.theme.MediumVerticalSpace
 import com.project.core.theme.components.ContainerView
+import com.project.core.theme.components.ProgressButton
 import com.project.features.init.domain.entities.KeyFeature
 
 @Composable
@@ -28,18 +29,19 @@ fun InitScreen() {
         onTryAgain = {},
         content = {
             InitContent(
-                state = it
+                state = it,
+                onLetsGo = viewModel::letsGo
             )
         }
     )
-
 
 
 }
 
 @Composable
 fun InitContent(
-    state: InitUiState
+    state: InitUiState,
+    onLetsGo: () -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -55,6 +57,12 @@ fun InitContent(
         Text(
             text = keyFeature.description
         )
+        MediumVerticalSpace()
+        ProgressButton(
+            onClickAction = onLetsGo,
+            text = "Lets Go",
+            isInProgress = state.isChekAuthInProgress
+        )
 
     }
 
@@ -63,13 +71,15 @@ fun InitContent(
 @Preview(showSystemUi = true)
 @Composable
 private fun InitContentPreview() {
-     InitContent(
-         state = InitUiState(
-             keyFeature = KeyFeature(
-                 id = 1,
-                 title = "Hello",
-                 description = "Ahahahaha"
-             )
-         )
-     )
+    InitContent(
+        state = InitUiState(
+            keyFeature = KeyFeature(
+                id = 1,
+                title = "Hello",
+                description = "Ahahahaha"
+            ),
+            isChekAuthInProgress = true
+        ),
+        onLetsGo = {}
+    )
 }
