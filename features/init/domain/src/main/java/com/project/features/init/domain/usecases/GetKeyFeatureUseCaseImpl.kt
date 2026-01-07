@@ -1,7 +1,6 @@
 package com.project.features.init.domain.usecases
 
 import com.project.essentials.LoadResult
-import com.project.essentials.exceptions.UnknownException
 import com.project.features.init.domain.GetKeyFeatureUseCase
 import com.project.features.init.domain.entities.KeyFeature
 import kotlinx.coroutines.delay

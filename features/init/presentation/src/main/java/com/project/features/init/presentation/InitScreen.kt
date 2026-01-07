@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,13 +17,25 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.project.core.theme.MediumVerticalSpace
 import com.project.core.theme.components.ContainerView
 import com.project.core.theme.components.ProgressButton
+import com.project.core.theme.previews.PreviewScreenContent
+import com.project.core.theme.previews.ScreenPreview
 import com.project.features.init.domain.entities.KeyFeature
 
 @Composable
-fun InitScreen() {
+fun InitScreen(
+    onNavigateToMainScreen: () -> Unit
+) {
 
     val viewModel: InitViewModel = hiltViewModel()
     val loadResult by viewModel.stateFlow.collectAsStateWithLifecycle()
+    val effects by viewModel.effects.collectAsStateWithLifecycle()
+
+    LaunchedEffect(effects.launchMainScreen) {
+        if(effects.launchMainScreen != null) {
+            onNavigateToMainScreen()
+            viewModel.onLaunchMainScreenProcessed()
+        }
+    }
 
     ContainerView(
         loadResult = loadResult,
@@ -68,18 +81,20 @@ fun InitContent(
 
 }
 
-@Preview(showSystemUi = true)
+@ScreenPreview
 @Composable
 private fun InitContentPreview() {
-    InitContent(
-        state = InitUiState(
-            keyFeature = KeyFeature(
-                id = 1,
-                title = "Hello",
-                description = "Ahahahaha"
+    PreviewScreenContent {
+        InitContent(
+            state = InitUiState(
+                keyFeature = KeyFeature(
+                    id = 1,
+                    title = "Hello",
+                    description = "Ahahahaha"
+                ),
+                isChekAuthInProgress = true
             ),
-            isChekAuthInProgress = true
-        ),
-        onLetsGo = {}
-    )
+            onLetsGo = {}
+        )
+    }
 }

@@ -26,6 +26,9 @@ class InitViewModel @Inject constructor(
 ) : ViewModel() {
 
 
+    private val _effects = MutableStateFlow(Effects())
+    val effects: StateFlow<Effects> = _effects
+
     private val vmStateFlow = MutableStateFlow(ViewModelState())
 
     val stateFlow: StateFlow<LoadResult<InitUiState>> = combine(
@@ -53,6 +56,8 @@ class InitViewModel @Inject constructor(
         initialValue = LoadResult.Loading
     )
 
+
+
 //    val stateFlow: StateFlow<LoadResult<InitUiState>> =
 //        getKeyFeatureUseCase
 //            .invoke()
@@ -75,17 +80,23 @@ class InitViewModel @Inject constructor(
 
 
     fun letsGo() {
-        viewModelScope.launch {
-            vmStateFlow.update { it.copy(isChekAuthInProgress = true) }
-            try {
-                val isAuthorized = isAuthorizedUseCase()
+//        viewModelScope.launch {
+//            vmStateFlow.update { it.copy(isChekAuthInProgress = true) }
+//            try {
+//                val isAuthorized = isAuthorizedUseCase()
+//
+//            } catch (e: Exception) {
+//                ensureActive()
+//                vmStateFlow.update { it.copy(isChekAuthInProgress = false) }
+//                exceptionHandler.handleException(e)
+//            }
 
-            } catch (e: Exception) {
-                ensureActive()
-                vmStateFlow.update { it.copy(isChekAuthInProgress = false) }
-                exceptionHandler.handleException(e)
-            }
-        }
+            _effects.update { it.copy(launchMainScreen = Unit) }
+//        }
+    }
+
+    fun onLaunchMainScreenProcessed() {
+        _effects.update { it.copy(launchMainScreen = null) }
     }
 
 
@@ -99,4 +110,8 @@ data class InitUiState(
 
 private data class ViewModelState(
     val isChekAuthInProgress: Boolean = false
+)
+
+data class Effects(
+    val launchMainScreen: Unit? = null
 )

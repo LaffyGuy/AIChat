@@ -19,6 +19,15 @@
             <option value="$PROJECT_DIR$/features/init" />
             <option value="$PROJECT_DIR$/features/init/domain" />
             <option value="$PROJECT_DIR$/features/init/presentation" />
+            <option value="$PROJECT_DIR$/features/main" />
+            <option value="$PROJECT_DIR$/features/main/domain" />
+            <option value="$PROJECT_DIR$/features/main/presentation" />
+            <option value="$PROJECT_DIR$/features/prompts" />
+            <option value="$PROJECT_DIR$/features/prompts/domain" />
+            <option value="$PROJECT_DIR$/features/prompts/presentation" />
+            <option value="$PROJECT_DIR$/navigation" />
+            <option value="$PROJECT_DIR$/navigation/common" />
+            <option value="$PROJECT_DIR$/navigation/host" />
           </set>
         </option>
       </GradleProjectSettings>

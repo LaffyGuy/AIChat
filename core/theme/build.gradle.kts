@@ -42,6 +42,9 @@ dependencies {
 
     implementation(project(":core:essentials"))
 
+    //Coil
+    implementation(libs.coil)
+
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)

@@ -48,6 +48,7 @@ dependencies {
 
     implementation(project(":core:common-android"))
     implementation(project(":features:init:presentation"))
+    implementation(project(":navigation:host"))
 
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.ai)

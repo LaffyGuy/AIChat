@@ -4,34 +4,16 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.google.firebase.Firebase
 import com.google.firebase.ai.ai
 import com.google.firebase.ai.type.GenerativeBackend
 import com.project.aichat.ui.theme.AIChatTheme
-import com.project.essentials.logger.Logger
-import com.project.essentials.resources.StringResources
-import com.project.features.init.presentation.InitScreen
+import com.project.navigation.host.NavigationRoot
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -60,6 +42,13 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AIChatTheme {
+                Scaffold(
+                    modifier = Modifier.fillMaxSize()
+                ) { paddingValues ->
+                    NavigationRoot(
+                        modifier = Modifier.padding(paddingValues)
+                    )
+                }
 
 //                val scroll = rememberScrollState()
 //
@@ -100,7 +89,7 @@ class MainActivity : ComponentActivity() {
 //                        Text(text = "Go")
 //                    }
 //                }
-                InitScreen()
+//                InitScreen()
             }
         }
     }
