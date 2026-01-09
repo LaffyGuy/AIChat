@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import com.google.firebase.Firebase
 import com.google.firebase.ai.ai
 import com.google.firebase.ai.type.GenerativeBackend
-import com.project.aichat.ui.theme.AIChatTheme
 import com.project.navigation.host.NavigationRoot
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,7 +32,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
 
-
 //        logger.d("dsd3sdsdsdsd")
 //
 //        val appName = stringResources.getString(R.string.app_name)
@@ -41,14 +39,10 @@ class MainActivity : ComponentActivity() {
 
         enableEdgeToEdge()
         setContent {
-            AIChatTheme {
-                Scaffold(
-                    modifier = Modifier.fillMaxSize()
-                ) { paddingValues ->
-                    NavigationRoot(
-                        modifier = Modifier.padding(paddingValues)
-                    )
-                }
+//            AIChatTheme {
+
+            NavigationRoot()
+//                }
 
 //                val scroll = rememberScrollState()
 //
@@ -90,7 +84,6 @@ class MainActivity : ComponentActivity() {
 //                    }
 //                }
 //                InitScreen()
-            }
         }
     }
 }

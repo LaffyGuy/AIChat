@@ -19,7 +19,10 @@ import com.project.core.theme.components.ContainerView
 import com.project.core.theme.components.ProgressButton
 import com.project.core.theme.previews.PreviewScreenContent
 import com.project.core.theme.previews.ScreenPreview
+import com.project.essentials.entities.ImageSource
 import com.project.features.init.domain.entities.KeyFeature
+import com.project.features.init.presentation.components.KeyFeaturePager
+import java.time.ZonedDateTime
 
 @Composable
 fun InitScreen(
@@ -31,7 +34,7 @@ fun InitScreen(
     val effects by viewModel.effects.collectAsStateWithLifecycle()
 
     LaunchedEffect(effects.launchMainScreen) {
-        if(effects.launchMainScreen != null) {
+        if (effects.launchMainScreen != null) {
             onNavigateToMainScreen()
             viewModel.onLaunchMainScreenProcessed()
         }
@@ -56,29 +59,12 @@ fun InitContent(
     state: InitUiState,
     onLetsGo: () -> Unit
 ) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        val keyFeature = state.keyFeature
 
-        Text(
-            text = keyFeature.title
-        )
-        MediumVerticalSpace()
-        Text(
-            text = keyFeature.description
-        )
-        MediumVerticalSpace()
-        ProgressButton(
-            onClickAction = onLetsGo,
-            text = "Lets Go",
-            isInProgress = state.isChekAuthInProgress
-        )
-
-    }
-
+    KeyFeaturePager(
+        keyFeatures = state.keyFeatures,
+        onLetsGoAction = onLetsGo,
+        modifier = Modifier.fillMaxSize()
+    )
 }
 
 @ScreenPreview
@@ -87,12 +73,29 @@ private fun InitContentPreview() {
     PreviewScreenContent {
         InitContent(
             state = InitUiState(
-                keyFeature = KeyFeature(
-                    id = 1,
-                    title = "Hello",
-                    description = "Ahahahaha"
-                ),
-                isChekAuthInProgress = true
+                keyFeatures = listOf(
+                    KeyFeature(
+                        id = 1,
+                        title = "Hello",
+                        description = "Ahahahaha",
+                        image = ImageSource.Empty,
+                        lastDisplayTime = ZonedDateTime.now()
+                    ),
+                    KeyFeature(
+                        id = 1,
+                        title = "Hello",
+                        description = "Ahahahaha",
+                        image = ImageSource.Empty,
+                        lastDisplayTime = ZonedDateTime.now()
+                    ),
+                    KeyFeature(
+                        id = 1,
+                        title = "Hello",
+                        description = "Ahahahaha",
+                        image = ImageSource.Empty,
+                        lastDisplayTime = ZonedDateTime.now()
+                    ),
+                )
             ),
             onLetsGo = {}
         )

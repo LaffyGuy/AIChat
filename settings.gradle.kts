@@ -33,3 +33,7 @@ include(":features:main:presentation")
 
 include(":features:prompts:domain")
 include(":features:prompts:presentation")
+include(":data")
+include(":glue")
+include(":features:about:domain")
+include(":features:about:presentation")

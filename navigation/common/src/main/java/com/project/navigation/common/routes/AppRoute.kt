@@ -11,3 +11,9 @@ data object InitRoute : Route
 
 @Serializable
 data object MainRoute : Route
+
+@Serializable
+data object AboutRoute: Route
+
+@Serializable
+data object PromptsRoute: Route
