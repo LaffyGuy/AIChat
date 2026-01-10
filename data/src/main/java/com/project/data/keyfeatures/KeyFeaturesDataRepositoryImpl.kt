@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.project.data.KeyFeaturesDataRepository
+import com.project.data.R
 import com.project.data.keyfeatures.entities.KeyFeatureDataEntity
 import com.project.essentials.entities.ImageSource
 import kotlinx.coroutines.flow.first
@@ -26,19 +27,19 @@ class KeyFeaturesDataRepositoryImpl @Inject constructor(
                 id = 1,
                 title = "AI-Powered Conversations",
                 description = "Chat with an intelligent AI that understands context, asks follow-up questions, and gives meaningful answers in real time.",
-                image = ImageSource.Empty
+                image = ImageSource.DrawableRes(R.drawable.feature_ai)
             ),
             KeyFeatureDataEntity(
                 id = 2,
-                title = "ASmart Prompt Examples",
+                title = "Smart Prompt Examples",
                 description = "Learn how to write better prompts with ready-to-use examples for different tasks, styles, and goals.",
-                image = ImageSource.Empty
+                image = ImageSource.DrawableRes(R.drawable.feature_smart)
             ),
             KeyFeatureDataEntity(
                 id = 3,
                 title = "Instant Answers",
                 description = "Get clear and helpful responses instantly — no waiting, no complex setup, just ask and get results.",
-                image = ImageSource.Empty
+                image = ImageSource.DrawableRes(R.drawable.feature_answers)
             ),
         )
     }

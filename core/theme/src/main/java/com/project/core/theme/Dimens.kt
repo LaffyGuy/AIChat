@@ -10,6 +10,6 @@ object Dimens {
 
     val LargePadding = 24.dp
 
-    val LargeImageSize = 200.dp
+    val LargeImageSize = 250.dp
 
 }

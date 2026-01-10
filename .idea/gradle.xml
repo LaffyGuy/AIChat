@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/core/common-android" />
+            <option value="$PROJECT_DIR$/core/data" />
             <option value="$PROJECT_DIR$/core/essentials" />
             <option value="$PROJECT_DIR$/core/theme" />
             <option value="$PROJECT_DIR$/data" />

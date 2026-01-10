@@ -17,7 +17,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
 import com.project.core.theme.Dimens
+import com.project.core.theme.FontSize
 import com.project.core.theme.MediumVerticalSpace
 import com.project.core.theme.components.ImageView
 import com.project.core.theme.previews.PreviewScreenContent
@@ -79,17 +81,22 @@ fun KeyFeaturePortraitPager(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = feature.title)
+            Text(
+                text = feature.title,
+                fontSize = FontSize.LargeFontSize
+            )
             MediumVerticalSpace()
             ImageView(
                 imageSource = feature.image,
-                modifier = Modifier.size(Dimens.LargePadding)
+                modifier = Modifier.size(Dimens.LargeImageSize)
             )
             MediumVerticalSpace()
             Text(
                 text = feature.description,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                fontSize = FontSize.MediumFontSize
             )
+            MediumVerticalSpace()
             if(pagerState.currentPage == keyFeatures.lastIndex) {
                 Button(
                     onClick = onLetsGoAction
@@ -137,11 +144,15 @@ fun KeyFeaturesLandscapePager(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = feature.title)
+                Text(
+                    text = feature.title,
+                    fontSize = FontSize.LargeFontSize
+                )
                 MediumVerticalSpace()
                 Text(
                     text = feature.description,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
+                    fontSize = FontSize.MediumFontSize
                 )
                 MediumVerticalSpace()
                 if(pagerState.currentPage == keyFeatures.lastIndex) {
