@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import com.google.firebase.Firebase
 import com.google.firebase.ai.ai
 import com.google.firebase.ai.type.GenerativeBackend
+import com.project.aichat.appstart.AppRoot
 import com.project.navigation.host.NavigationRoot
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -41,7 +42,8 @@ class MainActivity : ComponentActivity() {
         setContent {
 //            AIChatTheme {
 
-            NavigationRoot()
+//            NavigationRoot()
+            AppRoot()
 //                }
 
 //                val scroll = rememberScrollState()

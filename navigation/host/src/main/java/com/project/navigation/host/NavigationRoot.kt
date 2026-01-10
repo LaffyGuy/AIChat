@@ -30,7 +30,7 @@ fun NavigationRoot(
     modifier: Modifier = Modifier
 ) {
     val navigationState = rememberNavigationState(
-        startRoute = InitRoute,
+        startRoute = MainRoute,
         topLevelRoutes = TOP_LEVEL_DESTINATION.keys
     )
 
@@ -55,14 +55,6 @@ fun NavigationRoot(
             onBack = navigator::goBack,
             entries = navigationState.toEntries(
                 entryProvider {
-                    entry<InitRoute> {
-                        InitScreen(
-                            onNavigateToMainScreen = {
-                                navigator.goBack()
-                                navigator.navigate(MainRoute)
-                            }
-                        )
-                    }
                     entry<MainRoute> { MainScreen() }
                     entry<AboutRoute> { AboutScreen() }
                     entry<PromptsRoute> { PromptsSampleScreen() }

@@ -15,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId = "com.project.aichat"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -64,6 +64,7 @@ dependencies {
 
     //Hilt
     implementation(libs.hilt.android)
+    implementation(libs.hilt.navigation.compose)
 
     //Ksp
     ksp(libs.hilt.compiler)

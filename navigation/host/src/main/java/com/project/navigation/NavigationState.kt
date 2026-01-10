@@ -1,5 +1,6 @@
 package com.project.navigation
 
+import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
@@ -57,6 +58,7 @@ fun rememberNavigationState(
     }
 }
 
+@SuppressLint("UnrememberedMutableState")
 @Composable
 fun NavigationState.toEntries(
     entryProvider: (NavKey) -> NavEntry<NavKey>
