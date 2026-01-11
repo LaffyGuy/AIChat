@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="data_features1_title">AI-Powered Conversations</string>
+    <string name="data_feature1_description">Chat with an intelligent AI that understands context, asks follow-up questions, and gives meaningful answers in real time.</string>
+    <string name="data_feature2_title">Smart Prompt Examples</string>
+    <string name="data_feature2_description">Learn how to write better prompts with ready-to-use examples for different tasks, styles, and goals.</string>
+    <string name="data_feature3_title">Instant Answers</string>
+    <string name="data_feature3_description">Get clear and helpful responses instantly — no waiting, no complex setup, just ask and get results.</string>
+</resources>

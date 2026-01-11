@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="data_features1_title">AI-керовані розмови</string>
+    <string name="data_feature1_description">Спілкуйтеся з розумним штучним інтелектом, який розуміє контекст, ставить уточнювальні запитання та надає змістовні відповіді в реальному часі.</string>
+    <string name="data_feature2_title">Розумні приклади промптів</string>
+    <string name="data_feature2_description">Навчіться створювати кращі промпти за допомогою готових прикладів для різних завдань, стилів і цілей.</string>
+    <string name="data_feature3_title">Миттєві відповіді</string>
+    <string name="data_feature3_description">Отримуйте чіткі та корисні відповіді миттєво — без очікування, без складних налаштувань, просто запитайте й отримайте результат.</string>
+</resources>

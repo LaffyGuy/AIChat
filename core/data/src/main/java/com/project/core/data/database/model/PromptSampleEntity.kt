@@ -8,7 +8,7 @@ data class PromptSampleEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     val title: String,
-    val promptSample: String,
+    val promptSample: List<String>,
     val promptStructure: List<String>,
     val promptExample: List<String>
 )

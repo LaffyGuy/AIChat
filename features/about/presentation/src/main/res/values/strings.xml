@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about_welcome_ai_chat">Welcome to Your AI Chat App!</string>
+    <string name="about_about_app">In this app, you can send your prompts directly to Gemini 2.5-Flash, a cutting-edge AI language model, and receive fast, accurate, and insightful answers to a wide variety of questions.</string>
+    <string name="about_help_with_prompts">The app also helps you learn how to craft effective prompts, so you can get the best responses from the AI for coding, marketing, design, learning, and creative tasks.</string>
+    <string name="about_about_model_title">About Gemini 2.5-Flash</string>
+    <string name="about_about_model_description">Gemini 2.5-Flash is a highly advanced AI model capable of understanding context, following complex instructions, and providing detailed, reliable responses. It combines speed and accuracy, making it ideal for both practical solutions and creative brainstorming.</string>
+    <string name="about_language_title">Language</string>
+    <string name="about_language">Language :</string>
+    <string name="about_settings_title">Settings</string>
+    <string name="about_theme_mode">Theme mode :</string>
+</resources>

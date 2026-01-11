@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="navigation_main_screen">Головна</string>
+    <string name="navigation_about_screen">Інформація</string>
+    <string name="navigation_prompts_screen">Промпти</string>
+</resources>

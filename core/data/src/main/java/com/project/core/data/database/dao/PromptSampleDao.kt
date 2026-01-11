@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 interface PromptSampleDao {
 
     @Query("SELECT * FROM prompt_sample")
-    fun getAllPromptSamples(): Flow<LoadResult<List<PromptSampleEntity>>>
+    fun getAllPromptSamples(): Flow<List<PromptSampleEntity>>
 
     @Query("SELECT * FROM prompt_sample WHERE id = :id")
     suspend fun getPromptSampleById(id: Long): PromptSampleEntity

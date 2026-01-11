@@ -18,7 +18,7 @@ data class BottomNavItem(
 )
 
 val TOP_LEVEL_DESTINATION = mapOf(
-    MainRoute to BottomNavItem(R.string.main_screen, icon = Icons.Default.Menu),
-    AboutRoute to BottomNavItem(R.string.about_screen, icon = Icons.Default.Info),
-    PromptsRoute to BottomNavItem(R.string.prompts_screen, icon = Icons.Default.Edit)
+    MainRoute to BottomNavItem(R.string.navigation_main_screen, icon = Icons.Default.Menu),
+    AboutRoute to BottomNavItem(R.string.navigation_about_screen, icon = Icons.Default.Info),
+    PromptsRoute to BottomNavItem(R.string.navigation_prompts_screen, icon = Icons.Default.Edit)
 )

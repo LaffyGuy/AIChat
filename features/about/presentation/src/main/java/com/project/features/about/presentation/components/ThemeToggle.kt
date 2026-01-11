@@ -54,8 +54,8 @@ fun ThemeToggle(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = if (isDarkTheme) "Night" else "Light",
-                color = Color.White,
+                text = if (isDarkTheme) "Dark" else "Light",
+                color = if(isDarkTheme) Color.Black else Color.White,
                 fontSize = 10.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -76,7 +76,7 @@ private fun ThemeToggleLightModePreview() {
 @Composable
 private fun ThemeToggleNightModePreview() {
     ThemeToggle(
-        isDarkTheme = false,
+        isDarkTheme = true,
         onSwitchTheme = {}
     )
 }

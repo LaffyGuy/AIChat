@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_app_name">АІ Чат</string>
+    <string name="app_unknown_error_message">Невідома помилка</string>
+    <string name="app_connection_error_message">Помилка зєднання. Будь ласка перевірте свої інтернет налаштування</string>
+</resources>

@@ -26,7 +26,8 @@ fun LanguageDropdownMenu(
     onSelectLanguage: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-     val languages = listOf("ENG", "UA")
+
+    val languages = listOf("ENG", "UA")
 
     var expanded by remember { mutableStateOf(false) }
 

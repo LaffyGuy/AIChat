@@ -14,9 +14,9 @@ class DefaultExceptionToMessageMapper @Inject constructor(
 
     override fun getLocalizedMessage(exception: Exception): String {
         return when (exception) {
-            is UnknownException -> context.getString(R.string.unknown_error_message)
-            is ConnectionException -> context.getString(R.string.connection_error_message)
-            else -> context.getString(R.string.unknown_error_message)
+            is UnknownException -> context.getString(R.string.app_unknown_error_message)
+            is ConnectionException -> context.getString(R.string.app_connection_error_message)
+            else -> context.getString(R.string.app_unknown_error_message)
         }
     }
 }

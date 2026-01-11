@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about_welcome_ai_chat">Ласкаво просимо до вашого AI-чат додатку!</string>
+    <string name="about_about_app">В цьому додатку ви можете надсилати свої промпти безпосередньо до Gemini 2.5-Flash — сучасної мовної моделі штучного інтелекту — та отримувати швидкі, точні й змістовні відповіді на широкий спектр запитань.</string>
+    <string name="about_help_with_prompts">Додаток також допомагає вам навчитися створювати ефективні промпти, щоб отримувати найкращі відповіді від AI для програмування, маркетингу, дизайну, навчання та творчих завдань.</string>
+    <string name="about_about_model_title">Про Gemini 2.5-Flash</string>
+    <string name="about_about_model_description">Gemini 2.5-Flash — це високорозвинена модель штучного інтелекту, здатна розуміти контекст, виконувати складні інструкції та надавати детальні й надійні відповіді. Вона поєднує швидкість і точність, що робить її ідеальною як для практичних рішень, так і для творчого брейнштормінгу.</string>
+    <string name="about_language_title">Мова</string>
+    <string name="about_language">Мова :</string>
+    <string name="about_settings_title">Налаштування</string>
+    <string name="about_theme_mode">Режим :</string>
+</resources>

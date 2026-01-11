@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.dependencies
+
 plugins {
     id("java-library")
     alias(libs.plugins.jetbrains.kotlin.jvm)
@@ -10,4 +12,14 @@ kotlin {
     compilerOptions {
         jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
     }
+}
+
+dependencies {
+
+    //Coroutines
+    implementation(libs.coroutines.core)
+
+    //Inject
+    implementation(libs.javax.inject)
+
 }

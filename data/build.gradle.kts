@@ -40,6 +40,7 @@ android {
 dependencies {
 
     api(project(":core:essentials"))
+    implementation(project(":core:data"))
 
     //DataStore
     implementation(libs.datastore.preferences)

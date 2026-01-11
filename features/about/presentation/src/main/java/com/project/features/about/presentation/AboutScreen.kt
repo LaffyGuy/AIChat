@@ -12,11 +12,15 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.project.core.theme.LargeVerticalSpace
 import com.project.core.theme.MediumVerticalSpace
 import com.project.core.theme.SmallVerticalSpace
@@ -27,11 +31,15 @@ import com.project.features.about.presentation.components.ThemeToggle
 
 @Composable
 fun AboutScreen() {
+
+    val viewModel: AboutViewModel = hiltViewModel()
+    val isDark by viewModel.isDark.collectAsStateWithLifecycle()
+    val language by viewModel.language.collectAsStateWithLifecycle()
     AboutContent(
-        isDarkTheme = false,
-        onSwitchTheme = {},
-        selectedLanguage = "UA",
-        onSelectLanguage = {}
+        isDarkTheme = isDark,
+        onSwitchTheme = viewModel::toggleTheme,
+        selectedLanguage = language,
+        onSelectLanguage = viewModel::changeLanguage
     )
 }
 
@@ -53,7 +61,7 @@ fun AboutContent(
             .padding(horizontal = 20.dp, vertical = 16.dp)
     ) {
         Text(
-            text = "Welcome to Your AI Chat App!",
+            text = stringResource(R.string.about_welcome_ai_chat),
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onBackground,
@@ -63,7 +71,7 @@ fun AboutContent(
         MediumVerticalSpace()
 
         Text(
-            text = "In this app, you can send your prompts directly to Gemini 2.5-Flash, a cutting-edge AI language model, and receive fast, accurate, and insightful answers to a wide variety of questions.",
+            text = stringResource(R.string.about_about_app),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onBackground,
             lineHeight = 20.sp
@@ -72,7 +80,7 @@ fun AboutContent(
         SmallVerticalSpace()
 
         Text(
-            text = "The app also helps you learn how to craft effective prompts, so you can get the best responses from the AI for coding, marketing, design, learning, and creative tasks.",
+            text = stringResource(R.string.about_help_with_prompts),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onBackground,
             lineHeight = 20.sp
@@ -81,7 +89,7 @@ fun AboutContent(
         LargeVerticalSpace()
 
         Text(
-            text = "About Gemini 2.5-Flash",
+            text = stringResource(R.string.about_about_model_title),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.SemiBold,
             color = MaterialTheme.colorScheme.onBackground
@@ -90,16 +98,7 @@ fun AboutContent(
         SmallVerticalSpace()
 
         Text(
-            text = "Gemini 2.5-Flash is a highly advanced AI model capable of understanding context, following complex instructions, and providing detailed, reliable responses. It combines speed and accuracy, making it ideal for both practical solutions and creative brainstorming.",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onBackground,
-            lineHeight = 20.sp
-        )
-
-        LargeVerticalSpace()
-
-        Text(
-            text = "We designed this app to make your AI experience simple, productive, and enjoyable!",
+            text = stringResource(R.string.about_about_model_description),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onBackground,
             lineHeight = 20.sp
@@ -112,7 +111,7 @@ fun AboutContent(
         MediumVerticalSpace()
 
         Text(
-            text = "Language",
+            text = stringResource(R.string.about_language_title),
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.SemiBold,
             color = MaterialTheme.colorScheme.onBackground
@@ -124,10 +123,10 @@ fun AboutContent(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-           Text(text = "Language :")
+           Text(text = stringResource(R.string.about_language))
             LanguageDropdownMenu(
                 selectedLanguage = selectedLanguage,
-                onSelectLanguage = {}
+                onSelectLanguage = onSelectLanguage
             )
         }
 
@@ -138,7 +137,7 @@ fun AboutContent(
         MediumVerticalSpace()
 
         Text(
-            text = "Setting",
+            text = stringResource(R.string.about_settings_title),
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.SemiBold,
             color = MaterialTheme.colorScheme.onBackground
@@ -149,7 +148,7 @@ fun AboutContent(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text("Theme mode :")
+            Text(stringResource(R.string.about_theme_mode))
             ThemeToggle(
                 isDarkTheme = isDarkTheme,
                 onSwitchTheme = onSwitchTheme

@@ -42,7 +42,7 @@ android {
 
 dependencies {
 
-    implementation(project(":features:main:domain"))
+    api(project(":features:main:domain"))
     implementation(project(":core:theme"))
 
     //Hilt

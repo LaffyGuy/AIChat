@@ -42,7 +42,8 @@ android {
 
 dependencies {
 
-    implementation(project(":features:prompts:domain"))
+    implementation((project(":core:essentials")))
+    api(project(":features:prompts:domain"))
     implementation(project(":core:theme"))
 
     //Hilt

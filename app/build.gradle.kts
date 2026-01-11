@@ -53,6 +53,7 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":features:main:presentation"))
     implementation(project(":features:prompts:presentation"))
+    implementation(project(":core:theme"))
 
 
 

@@ -101,7 +101,7 @@ fun KeyFeaturePortraitPager(
                 Button(
                     onClick = onLetsGoAction
                 ) {
-                    Text(text = stringResource(R.string.let_s_go))
+                    Text(text = stringResource(R.string.init_let_s_go))
                 }
             }
         }
@@ -159,7 +159,7 @@ fun KeyFeaturesLandscapePager(
                     Button(
                         onClick = onLetsGoAction
                     ) {
-                        Text(text = stringResource(R.string.let_s_go))
+                        Text(text = stringResource(R.string.init_let_s_go))
                     }
                 }
             }
