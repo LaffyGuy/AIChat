@@ -4,6 +4,7 @@ import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
 
 
+
 interface Route : NavKey
 
 @Serializable
@@ -17,3 +18,8 @@ data object AboutRoute: Route
 
 @Serializable
 data object PromptsRoute: Route
+
+@Serializable
+data class PromptDetailsRoute(
+    val promptId: Long
+): Route

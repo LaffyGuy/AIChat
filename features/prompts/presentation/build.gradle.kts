@@ -45,6 +45,7 @@ dependencies {
     implementation((project(":core:essentials")))
     api(project(":features:prompts:domain"))
     implementation(project(":core:theme"))
+    implementation(project(":navigation:common"))
 
     //Hilt
     implementation(libs.hilt.android)
