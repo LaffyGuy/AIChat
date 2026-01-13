@@ -9,6 +9,6 @@ fun PromptSampleDataEntity.toPromptSample(): PromptSample {
         title = title,
         promptSample = promptSample,
         promptStructure = promptStructure,
-        promptsExample = promptStructure
+        promptsExample = promptsExample
     )
 }

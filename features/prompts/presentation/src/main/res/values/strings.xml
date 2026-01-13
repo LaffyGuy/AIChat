@@ -4,4 +4,6 @@
     <string name="hello_prompt">This prompt type helps you clearly define your intent, context, and constraints to get high-quality AI responses.</string>
     <string name="prompt_structure">Prompt structure</string>
     <string name="examples">Examples</string>
+    <string name="structured_prompts">A curated collection of structured prompts designed to improve the quality and accuracy of AI responses.</string>
+    <string name="example_format">Each example demonstrates role definition, context, constraints, and expected output format.</string>
 </resources>

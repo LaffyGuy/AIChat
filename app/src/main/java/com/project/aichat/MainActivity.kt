@@ -27,7 +27,7 @@ import kotlinx.coroutines.runBlocking
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val model = Firebase.ai(backend = GenerativeBackend.googleAI())
+    private val model = Firebase.ai()
         .generativeModel("gemini-2.5-flash")
 
     override fun onCreate(savedInstanceState: Bundle?) {

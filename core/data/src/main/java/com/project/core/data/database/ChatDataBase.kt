@@ -9,7 +9,7 @@ import com.project.core.data.database.model.PromptSampleEntity
 import com.project.core.data.database.utils.PromptSampleTypeConverter
 
 @TypeConverters(PromptSampleTypeConverter::class)
-@Database(entities = [PromptSampleEntity::class], version = 2)
+@Database(entities = [PromptSampleEntity::class], version = 5)
 abstract class ChatDataBase: RoomDatabase() {
 
     abstract fun getPromptSampleDao(): PromptSampleDao

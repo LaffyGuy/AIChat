@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="prompt_template">Шаблон запиту</string>
+    <string name="hello_prompt">Цей тип запиту допомагає чітко визначити вашу мету, контекст і обмеження, щоб отримати якісні відповіді від штучного інтелекту.
+</string>
+    <string name="prompt_structure">Структура запиту</string>
+    <string name="examples">Приклади</string>
+    <string name="structured_prompts">Добірка структурованих запитів, створених для покращення якості та точності відповідей штучного інтелекту.</string>
+    <string name="example_format">Кожен приклад демонструє визначення ролі, контекст, обмеження та очікуваний формат відповіді.</string>
+</resources>

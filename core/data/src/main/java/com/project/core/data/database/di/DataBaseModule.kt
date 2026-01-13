@@ -24,7 +24,7 @@ object DataBaseModule {
             context,
             ChatDataBase::class.java,
             "chat.db"
-        ).createFromAsset("promptsamplecgatdb.db")
+        ).createFromAsset("promptsampledetails.db")
             .fallbackToDestructiveMigration()
             .build()
     }
