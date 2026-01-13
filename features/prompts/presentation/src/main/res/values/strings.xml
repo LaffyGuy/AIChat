@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="prompt_template">Prompt template</string>
+    <string name="hello_prompt">This prompt type helps you clearly define your intent, context, and constraints to get high-quality AI responses.</string>
+    <string name="prompt_structure">Prompt structure</string>
+    <string name="examples">Examples</string>
+</resources>

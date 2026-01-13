@@ -12,6 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -21,7 +23,9 @@ import com.project.core.theme.MediumVerticalSpace
 import com.project.core.theme.components.ContainerView
 import com.project.core.theme.previews.PreviewScreenContent
 import com.project.core.theme.previews.ScreenPreview
+import com.project.essentials.logger.Logger
 import com.project.features.prompts.domain.entities.PromptSample
+import com.project.features.prompts.presentation.R
 import com.project.features.prompts.presentation.promptsdetails.components.BulletItem
 import com.project.features.prompts.presentation.promptsdetails.components.PromptCodeBlock
 import com.project.features.prompts.presentation.promptsdetails.components.SectionTitle
@@ -68,7 +72,7 @@ fun PromptsDetailsContent(
         // ─── DESCRIPTION ────────────────────────────────────────
         item {
             Text(
-                text = "This prompt type helps you clearly define your intent, context, and constraints to get high-quality AI responses.",
+                text = stringResource(R.string.hello_prompt),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 lineHeight = 20.sp
@@ -79,11 +83,12 @@ fun PromptsDetailsContent(
 
         if (prompt.promptSample.isNotEmpty()) {
             item {
-                SectionTitle(text = "Prompt template")
+                SectionTitle(text = stringResource(R.string.prompt_template))
                 MediumVerticalSpace()
             }
 
             items(prompt.promptSample) { template ->
+                Logger.d("AAAA - promptSample - $template")
                 Text(
                     text = template,
                     style = MaterialTheme.typography.bodyMedium
@@ -98,11 +103,12 @@ fun PromptsDetailsContent(
         // ─── STRUCTURE ──────────────────────────────────────────
         if (prompt.promptStructure.isNotEmpty()) {
             item {
-                SectionTitle(text = "Prompt structure")
+                SectionTitle(text = stringResource(R.string.prompt_structure))
                 MediumVerticalSpace()
             }
 
             items(prompt.promptStructure) { structureItem ->
+                Logger.d("AAAA - promptStructure - $structureItem")
                 PromptCodeBlock(
                     text = structureItem,
                     modifier = Modifier.padding(bottom = Dimens.MediumPadding)
@@ -119,11 +125,12 @@ fun PromptsDetailsContent(
         // ─── EXAMPLES ─────────────────────────────────────────
         if (prompt.promptsExample.isNotEmpty()) {
             item {
-                SectionTitle(text = "Examples")
+                SectionTitle(text = stringResource(R.string.examples))
                 MediumVerticalSpace()
             }
 
             items(prompt.promptsExample) { example ->
+                Logger.d("AAAA - promptExample - $example")
                  BulletItem(
                      text = example
                  )
