@@ -47,8 +47,13 @@ dependencies {
 
     //Hilt
     implementation(libs.hilt.android)
+    
     //Ksp
     ksp(libs.hilt.compiler)
+
+    //Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.ai)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

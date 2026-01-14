@@ -20,7 +20,7 @@ import com.project.essentials.exceptions.ConnectionException
 import com.project.essentials.exceptions.ExceptionToMessageMapper
 
 @Composable
-fun <T> ContainerView(
+fun <T> LoadResultView(
     loadResult: LoadResult<T>,
     content: @Composable (T) -> Unit,
     exceptionToMessageMapper: ExceptionToMessageMapper = ExceptionToMessageMapper,
@@ -68,8 +68,8 @@ fun <T> ContainerView(
 
 @Preview(showBackground = true)
 @Composable
-private fun LoadContainerView() {
-    ContainerView(
+private fun LoadLoadResultView() {
+    LoadResultView(
         loadResult = LoadResult.Loading,
         onTryAgain = {},
         content = {}
@@ -78,8 +78,8 @@ private fun LoadContainerView() {
 
 @Preview(showBackground = true)
 @Composable
-private fun SuccessContainerView() {
-    ContainerView(
+private fun SuccessLoadResultView() {
+    LoadResultView(
         loadResult = LoadResult.Success("Hello"),
         onTryAgain = {},
         content = { value ->
@@ -90,8 +90,8 @@ private fun SuccessContainerView() {
 
 @Preview(showBackground = true)
 @Composable
-private fun ErrorContainerView() {
-    ContainerView(
+private fun ErrorLoadResultView() {
+    LoadResultView(
         loadResult = LoadResult.Error(ConnectionException()),
         onTryAgain = {},
         content = {}

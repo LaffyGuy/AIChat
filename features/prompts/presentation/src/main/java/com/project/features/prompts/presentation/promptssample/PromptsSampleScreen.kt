@@ -20,7 +20,7 @@ import com.project.core.theme.Dimens
 import com.project.core.theme.LargeVerticalSpace
 import com.project.core.theme.MediumVerticalSpace
 import com.project.core.theme.SmallVerticalSpace
-import com.project.core.theme.components.ContainerView
+import com.project.core.theme.components.LoadResultView
 import com.project.core.theme.previews.PreviewScreenContent
 import com.project.core.theme.previews.ScreenPreview
 import com.project.features.prompts.domain.entities.PromptSample
@@ -35,7 +35,7 @@ fun PromptsSampleScreen(
     val viewModel: PromptsSampleViewModel = hiltViewModel()
     val loadResult by viewModel.stateFlow.collectAsStateWithLifecycle()
 
-    ContainerView(
+    LoadResultView(
         loadResult = loadResult,
         onTryAgain = {},
         content = { promptsSampleList ->

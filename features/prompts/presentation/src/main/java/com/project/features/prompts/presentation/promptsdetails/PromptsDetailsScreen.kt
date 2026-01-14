@@ -16,7 +16,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.project.core.theme.Dimens
 import com.project.core.theme.LargeVerticalSpace
 import com.project.core.theme.MediumVerticalSpace
-import com.project.core.theme.components.ContainerView
+import com.project.core.theme.components.LoadResultView
 import com.project.core.theme.previews.PreviewScreenContent
 import com.project.core.theme.previews.ScreenPreview
 import com.project.features.prompts.domain.entities.PromptSample
@@ -30,7 +30,7 @@ fun PromptsDetailsScreen(viewModel: PromptsDetailsViewModel) {
 
     val loadResult by viewModel.promptFlow.collectAsStateWithLifecycle()
 
-    ContainerView(
+    LoadResultView(
         loadResult = loadResult,
         onTryAgain = {},
         content = { promptDetails ->

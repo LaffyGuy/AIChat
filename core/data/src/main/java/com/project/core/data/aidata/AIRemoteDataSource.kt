@@ -1,4 +1,7 @@
 package com.project.core.data.aidata
 
-class AIRemoteDataSource {
-}
+//interface AIRemoteDataSource {
+//
+//    suspend fun generateResponse(prompt: String): String
+//
+//}

@@ -56,6 +56,10 @@ dependencies {
     //Serialization
     implementation(libs.kotlin.serialization.json)
 
+    //Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.ai)
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

@@ -7,13 +7,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.entryProvider
-import androidx.navigation3.runtime.rememberNavBackStack
-import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.project.features.about.presentation.AboutScreen
-import com.project.features.init.presentation.InitScreen
 import com.project.features.main.presentation.MainScreen
 import com.project.features.prompts.presentation.promptsdetails.PromptsDetailsScreen
 import com.project.features.prompts.presentation.promptsdetails.PromptsDetailsViewModel
@@ -21,7 +17,6 @@ import com.project.features.prompts.presentation.promptssample.PromptsSampleScre
 import com.project.navigation.Navigator
 import com.project.navigation.TOP_LEVEL_DESTINATION
 import com.project.navigation.common.routes.AboutRoute
-import com.project.navigation.common.routes.InitRoute
 import com.project.navigation.common.routes.MainRoute
 import com.project.navigation.common.routes.PromptDetailsRoute
 import com.project.navigation.common.routes.PromptsRoute
