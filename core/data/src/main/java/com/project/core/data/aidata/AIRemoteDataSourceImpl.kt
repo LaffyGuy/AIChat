@@ -9,13 +9,14 @@ class AIRemoteDataSourceImpl @Inject constructor(
 
     private val model = firebaseAI.generativeModel("gemini-2.5-flash")
 
+    private val chat = model.startChat()
+
     private suspend fun response(prompt: String): String {
         return model.generateContent(prompt).text.orEmpty()
     }
 
-    suspend fun generateResponse(prompt: String): String {
-        val response = model.generateContent(prompt)
-        return response.text.orEmpty()
+    suspend fun generateResponse(text: String): String? {
+        return chat.sendMessage(text).text
     }
 
     suspend fun generateRecipe(ingredients: String): String {

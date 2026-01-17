@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class GetAIChatResponseUseCaseImpl @Inject constructor(private val aiChatRepository: AIChatRepository): GetAIChatResponseUseCase {
 
-    override suspend fun invoke(prompt: String): String {
+    override suspend fun invoke(prompt: String): String? {
         return aiChatRepository.generateResponse(prompt)
     }
 }

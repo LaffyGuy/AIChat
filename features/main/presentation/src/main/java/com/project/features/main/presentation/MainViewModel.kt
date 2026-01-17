@@ -11,12 +11,10 @@ import com.project.features.main.domain.entities.MessageAuthor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
@@ -89,7 +87,7 @@ class MainViewModel @Inject constructor(
                     list.map {
                         if (it.isLoading && it.author == MessageAuthor.AI) {
                             it.copy(
-                                text = response,
+                                text = response ?: "No response",
                                 isLoading = false
                             )
                         } else it

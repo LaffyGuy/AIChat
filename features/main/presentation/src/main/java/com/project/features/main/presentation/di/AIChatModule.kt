@@ -23,4 +23,5 @@ interface AIChatModule {
         impl: GetRecipeAIResponseUseCaseImpl
     ): GetRecipeAIResponseUseCase
 
+
 }

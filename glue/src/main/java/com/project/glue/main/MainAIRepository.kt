@@ -6,11 +6,12 @@ import javax.inject.Inject
 
 class MainAIRepository @Inject constructor(private val aiChatDataRepository: AIChatDataRepository): AIChatRepository {
 
-    override suspend fun generateResponse(prompt: String): String {
+    override suspend fun generateResponse(prompt: String): String? {
         return aiChatDataRepository.generateResponse(prompt)
     }
 
     override suspend fun getRecipeResponse(prompt: String): String {
         return aiChatDataRepository.generateRecipe(prompt)
     }
+
 }
