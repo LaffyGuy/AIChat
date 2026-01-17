@@ -23,6 +23,7 @@ fun InitScreen(
     val viewModel: InitViewModel = hiltViewModel()
     val loadResult by viewModel.stateFlow.collectAsStateWithLifecycle()
     val effects by viewModel.effects.collectAsStateWithLifecycle()
+    val pagerCount by viewModel.pagerCount.collectAsStateWithLifecycle()
 
     LaunchedEffect(effects.launchMainScreen) {
         if (effects.launchMainScreen != null) {
@@ -37,7 +38,9 @@ fun InitScreen(
         content = {
             InitContent(
                 state = it,
-                onLetsGo = viewModel::letsGo
+                onLetsGo = viewModel::letsGo,
+                currentPage = pagerCount,
+                onPageChanged = viewModel::changePageCount
             )
         }
     )
@@ -48,12 +51,16 @@ fun InitScreen(
 @Composable
 fun InitContent(
     state: InitUiState,
+    currentPage: Int,
+    onPageChanged: (Int) -> Unit,
     onLetsGo: () -> Unit
 ) {
 
     KeyFeaturePager(
         keyFeatures = state.keyFeatures,
         onLetsGoAction = onLetsGo,
+        currentPage = currentPage,
+        onPageChanged = onPageChanged,
         modifier = Modifier.fillMaxSize()
     )
 }
@@ -88,7 +95,9 @@ private fun InitContentPreview() {
                     ),
                 )
             ),
-            onLetsGo = {}
+            onLetsGo = {},
+            currentPage = 1,
+            onPageChanged = {}
         )
     }
 }

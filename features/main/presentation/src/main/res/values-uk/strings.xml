@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="welcome_item_text1">Це місце, де ви можете ставити запитання та отримувати розумні текстові відповіді.\n</string>
+    <string name="welcome_item_text2">Просто введіть те, що вас цікавить або з чим вам потрібна допомога.\n\n</string>
+    <string name="welcome_item_text3">Приклад:\n</string>
+    <string name="welcome_item_text4">Що приготувати на вечерю?</string>
+</resources>

@@ -21,6 +21,8 @@ class InitViewModel @Inject constructor(
     private val exceptionHandler: ExceptionHandler
 ) : ViewModel() {
 
+    private val _pagerCount = MutableStateFlow(0)
+    val pagerCount: StateFlow<Int> = _pagerCount
 
     private val _effects = MutableStateFlow(Effects())
     val effects: StateFlow<Effects> = _effects
@@ -49,6 +51,10 @@ class InitViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(1000),
             initialValue = LoadResult.Loading
         )
+
+    fun changePageCount(page: Int) {
+        _pagerCount.value = page
+    }
 
     fun letsGo() {
             _effects.update { it.copy(launchMainScreen = Unit) }

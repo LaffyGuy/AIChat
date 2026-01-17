@@ -19,8 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.project.core.theme.previews.PreviewScreenContent
 import com.project.essentials.longToTime
-import com.project.features.main.presentation.ChatMessage
-import com.project.features.main.presentation.MessageAuthor
+import com.project.features.main.domain.entities.ChatMessage
+import com.project.features.main.domain.entities.MessageAuthor
 import com.project.features.main.presentation.R
 
 @Composable
@@ -33,9 +33,9 @@ fun MessageItem(
         modifier = Modifier
             .background(
                 color = if (isUser)
-                    colorResource(R.color.medium_gray)
+                    colorResource(R.color.medium_gray).copy(alpha = 0.5f)
                 else
-                    MaterialTheme.colorScheme.surfaceVariant,
+                    MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
                 shape = RoundedCornerShape(16.dp)
             )
             .padding(12.dp)
@@ -77,7 +77,7 @@ private fun MessageItemPreview() {
             message = ChatMessage(
                 id = "dsds",
                 text = "Ahahahah",
-                author = MessageAuthor.USER
+                author = MessageAuthor.AI
             ),
             isUser = true
         )

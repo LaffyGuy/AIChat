@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="welcome_item_text1">This is a place to ask questions and get smart text answers.\n</string>
+    <string name="welcome_item_text2">Just type what you’re curious about or need help with.\n\n</string>
+    <string name="welcome_item_text3">Example:\n</string>
+    <string name="welcome_item_text4">What to cook for dinner?</string>
+</resources>

@@ -10,4 +10,7 @@ class MainAIRepository @Inject constructor(private val aiChatDataRepository: AIC
         return aiChatDataRepository.generateResponse(prompt)
     }
 
+    override suspend fun getRecipeResponse(prompt: String): String {
+        return aiChatDataRepository.generateRecipe(prompt)
+    }
 }

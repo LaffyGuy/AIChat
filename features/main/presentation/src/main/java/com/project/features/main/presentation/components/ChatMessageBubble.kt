@@ -15,8 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.project.core.theme.previews.PreviewScreenContent
-import com.project.features.main.presentation.ChatMessage
-import com.project.features.main.presentation.MessageAuthor
+import com.project.features.main.domain.entities.ChatMessage
+import com.project.features.main.domain.entities.MessageAuthor
 
 @Composable
 fun ChatMessageBubble(message: ChatMessage) {

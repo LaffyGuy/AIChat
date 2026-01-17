@@ -8,4 +8,8 @@ class AIChatDataRepositoryImpl @Inject constructor(private val aiRemoteDataSourc
     override suspend fun generateResponse(prompt: String): String {
        return aiRemoteDataSource.generateResponse(prompt)
     }
+
+    override suspend fun generateRecipe(prompt: String): String {
+        return aiRemoteDataSource.generateRecipe(prompt)
+    }
 }

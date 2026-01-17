@@ -8,10 +8,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -33,21 +35,36 @@ import java.time.ZonedDateTime
 fun KeyFeaturePager(
     keyFeatures: List<KeyFeature>,
     onLetsGoAction: () -> Unit,
+    currentPage: Int,
+    onPageChanged: (Int) -> Unit,
     modifier: Modifier = Modifier,
     configuration: Configuration = LocalConfiguration.current
 ) {
+
+    val pagerState = rememberPagerState(
+      initialPage = currentPage,
+      pageCount = {
+            keyFeatures.size
+      }
+    )
 
     if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
        KeyFeaturesLandscapePager(
            modifier = modifier,
            keyFeatures = keyFeatures,
-           onLetsGoAction = onLetsGoAction
+           pagerState = pagerState,
+           onLetsGoAction = onLetsGoAction,
+           currentPage = currentPage,
+           onPageChanged = onPageChanged
        )
     } else {
         KeyFeaturePortraitPager(
             modifier = modifier,
             keyFeatures = keyFeatures,
-            onLetsGoAction = onLetsGoAction
+            pagerState = pagerState,
+            onLetsGoAction = onLetsGoAction,
+            currentPage = currentPage,
+            onPageChanged = onPageChanged
         )
     }
 
@@ -57,15 +74,24 @@ fun KeyFeaturePager(
 @Composable
 fun KeyFeaturePortraitPager(
     keyFeatures: List<KeyFeature>,
+    pagerState: PagerState,
     onLetsGoAction: () -> Unit,
+    currentPage: Int,
+    onPageChanged: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val pagerState = rememberPagerState(
-        initialPage = 0,
-        pageCount = {
-            keyFeatures.size
-        }
-    )
+//    val pagerState = rememberPagerState(
+//        initialPage = currentPage,
+//        pageCount = {
+//            keyFeatures.size
+//        }
+//    )
+
+    LaunchedEffect(pagerState.currentPage) {
+        onPageChanged(pagerState.currentPage)
+    }
+
+
 
     HorizontalPager(
         modifier = modifier,
@@ -111,15 +137,23 @@ fun KeyFeaturePortraitPager(
 @Composable
 fun KeyFeaturesLandscapePager(
     keyFeatures: List<KeyFeature>,
+    pagerState: PagerState,
     onLetsGoAction: () -> Unit,
+    currentPage: Int,
+    onPageChanged: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val pagerState = rememberPagerState(
-        initialPage = 0,
-        pageCount = {
-            keyFeatures.size
-        }
-    )
+//    val pagerState = rememberPagerState(
+//        initialPage = currentPage,
+//        pageCount = {
+//            keyFeatures.size
+//        }
+//    )
+
+    LaunchedEffect(pagerState.currentPage) {
+        onPageChanged(pagerState.currentPage)
+    }
+
 
     HorizontalPager(
         modifier = modifier.fillMaxSize(),
@@ -195,7 +229,9 @@ private fun KeyFeaturePagerPreview() {
                     lastDisplayTime = ZonedDateTime.now()
                 )
             ),
-            onLetsGoAction = {}
+            onLetsGoAction = {},
+            currentPage = 1,
+            onPageChanged = {}
         )
     }
 
