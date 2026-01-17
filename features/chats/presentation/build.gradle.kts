@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.project.common_android"
+    namespace = "com.project.features.chats.presentation"
     compileSdk {
         version = release(36)
     }
@@ -42,13 +42,11 @@ android {
 
 dependencies {
 
-    api(project(":core:essentials"))
-
-    //Timber
-    implementation(libs.timber)
+    implementation(project(":features:chats:domain"))
 
     //Hilt
     implementation(libs.hilt.android)
+    implementation(libs.hilt.navigation.compose)
 
     //Ksp
     ksp(libs.hilt.compiler)

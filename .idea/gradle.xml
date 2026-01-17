@@ -21,6 +21,9 @@
             <option value="$PROJECT_DIR$/features/about" />
             <option value="$PROJECT_DIR$/features/about/domain" />
             <option value="$PROJECT_DIR$/features/about/presentation" />
+            <option value="$PROJECT_DIR$/features/chats" />
+            <option value="$PROJECT_DIR$/features/chats/domain" />
+            <option value="$PROJECT_DIR$/features/chats/presentation" />
             <option value="$PROJECT_DIR$/features/init" />
             <option value="$PROJECT_DIR$/features/init/domain" />
             <option value="$PROJECT_DIR$/features/init/presentation" />
