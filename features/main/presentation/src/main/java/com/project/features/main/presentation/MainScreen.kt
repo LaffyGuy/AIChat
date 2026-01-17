@@ -64,10 +64,10 @@ fun MainScreen() {
         prompts = state.readyPromptsList,
         onGenerateClick = viewModel::generateAIResponse,
         onTextChanged = viewModel::onTextChanged,
-        onPromptClick = { prompt ->
-            viewModel.onTextChanged(prompt.text) // оновлюємо текст у TextField
-            viewModel.generateRecipeResponse(prompt.text, prompt.type)
-        }
+//        onPromptClick = { prompt ->
+//            viewModel.onTextChanged(prompt.text) // оновлюємо текст у TextField
+//            viewModel.generateAIResponse(prompt.text)
+//        }
 
     )
 }
@@ -79,7 +79,7 @@ fun MainContent(
     prompts: List<ReadyPrompt>,
     onGenerateClick: (String) -> Unit,
     onTextChanged: (String) -> Unit,
-    onPromptClick: (ReadyPrompt) -> Unit,
+//    onPromptClick: (ReadyPrompt) -> Unit,
 ) {
 
     val sheetState = rememberModalBottomSheetState(
@@ -118,7 +118,7 @@ fun MainContent(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable {
-                                    onPromptClick(prompt)
+//                                    onPromptClick(prompt)
                                     isSheetVisible = false
                                 }
                                 .padding(vertical = 8.dp)
@@ -161,20 +161,20 @@ fun MainContent(
                         ChatMessageBubble(message)
                     }
 
-                    item {
-                        LoadResultView(
-                            loadResult = uiState.responseStatus,
-                            onTryAgain = {
-                                val lastUserMessage = uiState.messages
-                                    .lastOrNull { it.author == MessageAuthor.USER }
-                                    ?.text
-                                if (lastUserMessage != null) {
-                                    onGenerateClick(lastUserMessage)
-                                }
-                            },
-                            content = {}
-                        )
-                    }
+//                    item {
+//                        LoadResultView(
+//                            loadResult = uiState.responseStatus,
+//                            onTryAgain = {
+//                                val lastUserMessage = uiState.messages
+//                                    .lastOrNull { it.author == MessageAuthor.USER }
+//                                    ?.text
+//                                if (lastUserMessage != null) {
+//                                    onGenerateClick(lastUserMessage)
+//                                }
+//                            },
+//                            content = {}
+//                        )
+//                    }
                 }
             }
         }

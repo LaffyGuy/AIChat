@@ -5,8 +5,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,29 +43,54 @@ fun MessageItem(
             .padding(12.dp)
             .widthIn(max = 280.dp)
     ) {
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.Start
-        ) {
-            Text(
-                text = message.text,
-                color = if (isUser)
-                    Color.Black
-                else
-                    MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(2.dp)
+//        Column(
+//            verticalArrangement = Arrangement.Center,
+//            horizontalAlignment = Alignment.Start
+//        ) {
+//            if(!isUser && !isGenerated) {
+//                CircularProgressIndicator()
+//            } else {
+//                Text(
+//                    text = message.text,
+//                    color = if (isUser)
+//                        Color.Black
+//                    else
+//                        MaterialTheme.colorScheme.onSurfaceVariant,
+//                    modifier = Modifier.padding(2.dp)
+//                )
+//                Text(
+//                    text = message.timestamp.longToTime(),
+//                    fontSize = 12.sp,
+//                    color = if (isUser)
+//                        Color.Black
+//                    else
+//                        MaterialTheme.colorScheme.onSurfaceVariant,
+//                    modifier = Modifier
+//                        .align(Alignment.End)
+//                        .padding(2.dp)
+//                )
+//            }
+//        }
+//    }
+
+        if (message.isLoading) {
+            CircularProgressIndicator(
+                modifier = Modifier.size(24.dp),
+                strokeWidth = 2.dp
             )
-            Text(
-                text = message.timestamp.longToTime(),
-                fontSize = 12.sp,
-                color = if (isUser)
-                    Color.Black
-                else
-                    MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier
-                    .align(Alignment.End)
-                    .padding(2.dp)
-            )
+        } else {
+            Column {
+                if(!message.isError) {
+                    Text(text = message.text)
+                    Text(
+                        text = message.timestamp.longToTime(),
+                        fontSize = 12.sp,
+                        modifier = Modifier.align(Alignment.End)
+                    )
+                } else {
+                    Text(text = message.errorText ?: "Error")
+                }
+            }
         }
     }
 
@@ -79,7 +106,7 @@ private fun MessageItemPreview() {
                 text = "Ahahahah",
                 author = MessageAuthor.AI
             ),
-            isUser = true
+            isUser = false
         )
     }
 }

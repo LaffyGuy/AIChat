@@ -14,6 +14,8 @@ kotlin {
 
 dependencies {
 
+    implementation(project(":core:essentials"))
+
     //Inject
     implementation(libs.javax.inject)
 

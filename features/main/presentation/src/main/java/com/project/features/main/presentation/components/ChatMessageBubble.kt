@@ -19,7 +19,9 @@ import com.project.features.main.domain.entities.ChatMessage
 import com.project.features.main.domain.entities.MessageAuthor
 
 @Composable
-fun ChatMessageBubble(message: ChatMessage) {
+fun ChatMessageBubble(
+    message: ChatMessage
+) {
     val isUser = message.author == MessageAuthor.USER
 
     Row(
