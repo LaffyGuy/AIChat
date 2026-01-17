@@ -40,9 +40,11 @@ android {
     }
 }
 
+
 dependencies {
 
     implementation(project(":features:chats:domain"))
+    implementation((project(":core:theme")))
 
     //Hilt
     implementation(libs.hilt.android)

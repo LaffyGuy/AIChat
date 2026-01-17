@@ -14,7 +14,7 @@ kotlin {
 
 dependencies {
 
-    implementation(project(":core:essentials"))
+    api(project(":core:essentials"))
 
     //Coroutines
     implementation(libs.coroutines.core)

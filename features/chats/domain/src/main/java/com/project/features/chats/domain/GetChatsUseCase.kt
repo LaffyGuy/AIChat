@@ -6,6 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface GetChatsUseCase {
 
-    operator fun invoke(): LoadResult<Flow<List<Chat>>>
+    operator fun invoke(): Flow<LoadResult<List<Chat>>>
 
 }

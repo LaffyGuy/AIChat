@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_unknown_error_message">Unknown error</string>
+    <string name="app_connection_error_message">Connection error. Please check your internet connection settings</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+</resources>

@@ -48,6 +48,7 @@ dependencies {
     implementation(project(":features:main:presentation"))
     implementation(project(":features:prompts:presentation"))
     implementation(project(":features:about:presentation"))
+    implementation(project(":core:common-android"))
 
     //Navigation
     implementation(libs.androidx.navigation3.ui)

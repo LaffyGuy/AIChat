@@ -36,6 +36,7 @@ fun NavigationRoot(
     val navigator = remember {
         Navigator(navigationState)
     }
+
     Scaffold(
         modifier = modifier,
         bottomBar = {

@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface ChatsRepository {
 
-    fun getChats(): LoadResult<Flow<List<Chat>>>
+    fun getChats(): Flow<LoadResult<List<Chat>>>
 
     suspend fun deleteChat(chatId: Long)
 

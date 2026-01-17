@@ -11,7 +11,7 @@ class GetChatsUseCaseImpl @Inject constructor(
     private val chatsRepository: ChatsRepository
 ) : GetChatsUseCase {
 
-    override fun invoke(): LoadResult<Flow<List<Chat>>> {
+    override fun invoke(): Flow<LoadResult<List<Chat>>> {
         return chatsRepository.getChats()
     }
 
