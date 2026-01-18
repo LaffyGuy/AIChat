@@ -3,6 +3,7 @@ package com.project.core.data.database.di
 import android.content.Context
 import androidx.room.Room
 import com.project.core.data.database.ChatDataBase
+import com.project.core.data.database.dao.AIChatDao
 import com.project.core.data.database.dao.PromptSampleDao
 import dagger.Module
 import dagger.Provides
@@ -33,6 +34,12 @@ object DataBaseModule {
     @Singleton
     fun providePromptSampleDao(chatDb: ChatDataBase): PromptSampleDao {
         return chatDb.getPromptSampleDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideAIChatDao(chatDb: ChatDataBase): AIChatDao {
+        return chatDb.getAIChatDao()
     }
 
 }

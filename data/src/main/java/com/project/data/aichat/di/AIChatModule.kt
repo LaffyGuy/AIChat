@@ -16,5 +16,4 @@ interface AIChatModule {
         impl: AIChatDataRepositoryImpl
     ): AIChatDataRepository
 
-
 }

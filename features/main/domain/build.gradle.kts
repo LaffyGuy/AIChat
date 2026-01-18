@@ -16,6 +16,9 @@ dependencies {
 
     implementation(project(":core:essentials"))
 
+    //Coroutines
+    implementation(libs.coroutines.core)
+
     //Inject
     implementation(libs.javax.inject)
 

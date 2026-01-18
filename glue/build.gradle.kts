@@ -50,6 +50,9 @@ dependencies {
     //Ksp
     ksp(libs.hilt.compiler)
 
+    //Firebase
+    implementation(libs.firebase.ai)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

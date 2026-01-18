@@ -48,7 +48,7 @@ import com.project.core.theme.SmallVerticalSpace
 import com.project.core.theme.components.LoadResultView
 import com.project.core.theme.previews.PreviewScreenContent
 import com.project.core.theme.previews.ScreenPreview
-import com.project.features.main.domain.entities.MessageAuthor
+import com.project.essentials.entities.MessageAuthor
 import com.project.features.main.presentation.components.ChatMessageBubble
 import com.project.features.main.presentation.components.ReadyPromptList
 import kotlinx.coroutines.launch
@@ -64,10 +64,6 @@ fun MainScreen() {
         prompts = state.readyPromptsList,
         onGenerateClick = viewModel::generateAIResponse,
         onTextChanged = viewModel::onTextChanged,
-//        onPromptClick = { prompt ->
-//            viewModel.onTextChanged(prompt.text) // оновлюємо текст у TextField
-//            viewModel.generateAIResponse(prompt.text)
-//        }
 
     )
 }
@@ -78,8 +74,7 @@ fun MainContent(
     uiState: MainUiState,
     prompts: List<ReadyPrompt>,
     onGenerateClick: (String) -> Unit,
-    onTextChanged: (String) -> Unit,
-//    onPromptClick: (ReadyPrompt) -> Unit,
+    onTextChanged: (String) -> Unit
 ) {
 
     val sheetState = rememberModalBottomSheetState(
@@ -160,21 +155,6 @@ fun MainContent(
                     items(uiState.messages) { message ->
                         ChatMessageBubble(message)
                     }
-
-//                    item {
-//                        LoadResultView(
-//                            loadResult = uiState.responseStatus,
-//                            onTryAgain = {
-//                                val lastUserMessage = uiState.messages
-//                                    .lastOrNull { it.author == MessageAuthor.USER }
-//                                    ?.text
-//                                if (lastUserMessage != null) {
-//                                    onGenerateClick(lastUserMessage)
-//                                }
-//                            },
-//                            content = {}
-//                        )
-//                    }
                 }
             }
         }

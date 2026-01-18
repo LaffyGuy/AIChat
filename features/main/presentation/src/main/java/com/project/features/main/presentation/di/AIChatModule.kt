@@ -1,9 +1,11 @@
 package com.project.features.main.presentation.di
 
 import com.project.features.main.domain.GetAIChatResponseUseCase
-import com.project.features.main.domain.GetRecipeAIResponseUseCase
+import com.project.features.main.domain.SaveNewChatUseCase
+//import com.project.features.main.domain.GetRecipeAIResponseUseCase
 import com.project.features.main.domain.usecases.GetAIChatResponseUseCaseImpl
-import com.project.features.main.domain.usecases.GetRecipeAIResponseUseCaseImpl
+import com.project.features.main.domain.usecases.SaveNewChatUseCaseImpl
+//import com.project.features.main.domain.usecases.GetRecipeAIResponseUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -18,10 +20,16 @@ interface AIChatModule {
         impl: GetAIChatResponseUseCaseImpl
     ): GetAIChatResponseUseCase
 
+//    @Binds
+//    fun bindGetRecipeAIResponseUseCase(
+//        impl: GetRecipeAIResponseUseCaseImpl
+//    ): GetRecipeAIResponseUseCase
+//
+
     @Binds
-    fun bindGetRecipeAIResponseUseCase(
-        impl: GetRecipeAIResponseUseCaseImpl
-    ): GetRecipeAIResponseUseCase
+    fun bindSaveNewChatUseCase(
+        impl: SaveNewChatUseCaseImpl
+    ): SaveNewChatUseCase
 
 
 }

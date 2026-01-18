@@ -5,9 +5,11 @@ import androidx.lifecycle.viewModelScope
 import com.project.essentials.LoadResult
 import com.project.essentials.exceptions.ConnectionException
 import com.project.features.main.domain.GetAIChatResponseUseCase
-import com.project.features.main.domain.GetRecipeAIResponseUseCase
-import com.project.features.main.domain.entities.ChatMessage
-import com.project.features.main.domain.entities.MessageAuthor
+//import com.project.features.main.domain.GetRecipeAIResponseUseCase
+import com.project.essentials.entities.MessageAuthor
+import com.project.features.main.domain.SaveNewChatUseCase
+import com.project.features.main.domain.entities.ChatSession
+import com.project.features.main.presentation.mappers.toDomain
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -15,19 +17,23 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getAIChatResponseUseCase: GetAIChatResponseUseCase,
-    private val getRecipeAIResponseUseCase: GetRecipeAIResponseUseCase
+    private val saveNewChatUseCase: SaveNewChatUseCase
 ): ViewModel() {
 
     private val _inputState = MutableStateFlow(TextInputUiState())
 
-    private val _messages = MutableStateFlow<List<ChatMessage>>(emptyList())
+    private val _messages = MutableStateFlow<List<ChatMessageUiState>>(emptyList())
 
     val _aiResponse = MutableStateFlow<LoadResult<String>>(LoadResult.Loading)
+
+    private val _chatSessionId = MutableStateFlow<Long?>(null)
+
 
     val uiState = combine(
         _inputState,
@@ -57,12 +63,16 @@ class MainViewModel @Inject constructor(
             return
         }
 
-        val userMessage = ChatMessage(
+        val history = _messages.value
+            .filter { !it.isLoading && !it.isError }
+            .map { it.toDomain() }
+
+        val userMessage = ChatMessageUiState(
             text = prompt,
             author = MessageAuthor.USER
         )
 
-        val loadingAiMessage = ChatMessage(
+        val loadingAiMessage = ChatMessageUiState(
             text = "",
             author = MessageAuthor.AI,
             isLoading = true
@@ -80,19 +90,26 @@ class MainViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            try {
-                val response = getAIChatResponseUseCase(prompt)
 
-                _messages.update { list ->
-                    list.map {
-                        if (it.isLoading && it.author == MessageAuthor.AI) {
-                            it.copy(
-                                text = response ?: "No response",
-                                isLoading = false
-                            )
-                        } else it
+            if (_chatSessionId.value == null) {
+                val chatSession = ChatSession(
+                    id = 0L,
+                    title = prompt.take(20)
+                )
+                saveNewChatUseCase(chatSession)
+            }
+
+            try {
+                getAIChatResponseUseCase(history, prompt)
+                    .collect { response ->
+                        _messages.update { list ->
+                            list.map {
+                                if (it.isLoading && it.author == MessageAuthor.AI) {
+                                    it.copy(text = response, isLoading = false)
+                                } else it
+                            }
+                        }
                     }
-                }
 
             } catch (e: ConnectionException) {
                 _messages.update { list ->
@@ -116,74 +133,11 @@ class MainViewModel @Inject constructor(
             }
         }
     }
-
-//    fun generateRecipeResponse(prompt: String, promptType: Prompts) {
-//
-//        if (prompt.isBlank()) {
-//            _inputState.update { it.copy(isError = true, errorMessage = "Prompt cannot be empty") }
-//            return
-//        }
-//
-//        val userMessage = ChatMessage(
-//            text = prompt,
-//            author = MessageAuthor.USER
-//        )
-//
-//        _messages.update { it + userMessage }
-//
-//        _inputState.update {
-//            it.copy(
-//                text = "",
-//                isEnabled = false,
-//                isTrailingIconEnabled = false,
-//                isError = false
-//            )
-//        }
-//
-//        _aiResponse.value = LoadResult.Loading
-//
-//        viewModelScope.launch {
-//            try {
-//                val response = when(promptType) {
-//                    Prompts.ONE -> {
-//                        _inputState.update { it.copy(hint = "Write ingredients") }
-//                        getAIChatResponseUseCase(prompt)
-//                    }
-//                    Prompts.TWO -> {
-//                        _inputState.update { it.copy(hint = "Key words") }
-//                        getRecipeAIResponseUseCase(prompt)
-//
-//                    }
-////                    Prompts.THREE -> {}
-////                    Prompts.FOUR -> {}
-//                }
-////                val response = getRecipeAIResponseUseCase(prompt)
-//
-//                val aiMessage = ChatMessage(
-//                    text = response,
-//                    author = MessageAuthor.AI
-//                )
-//
-//                _messages.update { it + aiMessage }
-//                _aiResponse.value = LoadResult.Success(response)
-//            } catch (e: Exception) {
-//                _aiResponse.value = LoadResult.Error(e)
-//            } finally {
-//                _inputState.update {
-//                    it.copy(
-//                        isEnabled = true,
-//                        isTrailingIconEnabled = true
-//                    )
-//                }
-//            }
-//        }
-//    }
-//
 }
 
 data class MainUiState(
     val textInputState: TextInputUiState = TextInputUiState(),
-    val messages: List<ChatMessage> = emptyList(),
+    val messages: List<ChatMessageUiState> = emptyList(),
     val shouldShowWelcomeItem: Boolean = true,
     val readyPromptsList: List<ReadyPrompt> = readyPrompts,
     val isMessageGenerated: Boolean = false
