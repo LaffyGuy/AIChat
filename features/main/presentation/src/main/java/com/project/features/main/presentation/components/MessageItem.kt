@@ -70,7 +70,7 @@ private fun MessageItemPreview() {
     PreviewScreenContent {
         MessageItem(
             message = ChatMessageUiState(
-                id = "dsds",
+                id = 1,
                 text = "Ahahahah",
                 author = MessageAuthor.AI
             ),

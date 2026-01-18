@@ -1,6 +1,6 @@
 package com.project.features.chats.domain.entities
 
-data class Chat(
+data class ChatSession(
     val id: Long,
     val title: String,
     val lastMessage: String

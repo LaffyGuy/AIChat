@@ -8,7 +8,7 @@ import com.project.features.main.domain.GetAIChatResponseUseCase
 //import com.project.features.main.domain.GetRecipeAIResponseUseCase
 import com.project.essentials.entities.MessageAuthor
 import com.project.features.main.domain.SaveNewChatUseCase
-import com.project.features.main.domain.entities.ChatSession
+import com.project.features.main.domain.entities.MainChatSession
 import com.project.features.main.presentation.mappers.toDomain
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
@@ -43,7 +42,7 @@ class MainViewModel @Inject constructor(
         MainUiState(
             textInputState = input,
             messages = messages,
-            shouldShowWelcomeItem = response !is LoadResult.Success && response !is  LoadResult.Error
+            shouldShowWelcomeItem = messages.isEmpty()
 
         )
     }.stateIn(
@@ -68,11 +67,13 @@ class MainViewModel @Inject constructor(
             .map { it.toDomain() }
 
         val userMessage = ChatMessageUiState(
+            id = 0,
             text = prompt,
             author = MessageAuthor.USER
         )
 
         val loadingAiMessage = ChatMessageUiState(
+            id = 0,
             text = "",
             author = MessageAuthor.AI,
             isLoading = true
@@ -92,11 +93,14 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
 
             if (_chatSessionId.value == null) {
-                val chatSession = ChatSession(
+                val chatSession = MainChatSession(
                     id = 0L,
-                    title = prompt.take(20)
+                    title = prompt.take(20),
+                    lastMessage = prompt
                 )
-                saveNewChatUseCase(chatSession)
+                val newChatId = saveNewChatUseCase(chatSession)
+
+                _chatSessionId.value = newChatId
             }
 
             try {

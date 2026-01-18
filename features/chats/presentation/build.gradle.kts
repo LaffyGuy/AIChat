@@ -43,7 +43,7 @@ android {
 
 dependencies {
 
-    implementation(project(":features:chats:domain"))
+    api(project(":features:chats:domain"))
     implementation((project(":core:theme")))
 
     //Hilt

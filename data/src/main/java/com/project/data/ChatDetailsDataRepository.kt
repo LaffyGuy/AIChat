@@ -1,15 +1,17 @@
 package com.project.data
 
 import com.google.firebase.ai.type.Content
+import com.project.data.aichat.entities.ChatMessageDataEntity
 import com.project.data.aichat.entities.ChatSessionDataEntity
+import com.project.essentials.LoadResult
+import kotlinx.coroutines.flow.Flow
 
-interface AIChatDataRepository {
+interface ChatDetailsDataRepository {
 
 //    suspend fun generateRecipe(prompt: String): String
 
     suspend fun getAiResponse(history: List<Content>, prompt: String): String?
 
     suspend fun saveChat(chatSessionDataEntity: ChatSessionDataEntity): Long
-
 
 }

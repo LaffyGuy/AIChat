@@ -4,7 +4,7 @@ import com.project.essentials.entities.MessageAuthor
 import java.util.UUID
 
 data class ChatMessage(
-    val id: String = UUID.randomUUID().toString(),
+    val id: Long,
     val text: String,
     val author: MessageAuthor,
     val timestamp: Long = System.currentTimeMillis()

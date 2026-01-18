@@ -17,7 +17,8 @@ import com.project.core.data.database.utils.PromptSampleTypeConverter
         ChatSessionEntity::class,
         ChatMessageEntity::class
                ],
-    version = 6)
+    version = 7
+)
 abstract class ChatDataBase: RoomDatabase() {
 
     abstract fun getPromptSampleDao(): PromptSampleDao

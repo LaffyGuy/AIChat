@@ -2,14 +2,21 @@ package com.project.core.data.database.di
 
 import android.content.Context
 import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.project.core.data.database.ChatDataBase
 import com.project.core.data.database.dao.AIChatDao
 import com.project.core.data.database.dao.PromptSampleDao
+import com.project.core.data.database.seed.PromptSampleSeed
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import jakarta.inject.Provider
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Singleton
 
 @Module
@@ -19,13 +26,27 @@ object DataBaseModule {
     @Provides
     @Singleton
     fun provideDataBase(
-        @ApplicationContext context: Context
+        @ApplicationContext context: Context,
+        promptSampleDao: Provider<PromptSampleDao>
     ): ChatDataBase {
         return Room.databaseBuilder(
             context,
             ChatDataBase::class.java,
             "chat.db"
-        ).createFromAsset("promptsampledetails.db")
+        ).addCallback(object : RoomDatabase.Callback() {
+            override fun onCreate(db: SupportSQLiteDatabase) {
+                super.onCreate(db)
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    val dao = promptSampleDao.get()
+                    if(dao.count() == 0) {
+                        dao.insertAll(PromptSampleSeed.getSamples())
+                    }
+
+                }
+            }
+
+        })
             .fallbackToDestructiveMigration()
             .build()
     }

@@ -23,3 +23,6 @@ data object PromptsRoute: Route
 data class PromptDetailsRoute(
     val promptId: Long
 ): Route
+
+@Serializable
+data object ChatsRoute: Route

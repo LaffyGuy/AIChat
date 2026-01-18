@@ -1,7 +1,7 @@
 package com.project.data.aichat.di
 
-import com.project.data.AIChatDataRepository
-import com.project.data.aichat.AIChatDataRepositoryImpl
+import com.project.data.ChatDetailsDataRepository
+import com.project.data.aichat.ChatDetailsDataRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -13,7 +13,7 @@ interface AIChatModule {
 
     @Binds
     fun bindAIChatDataRepository(
-        impl: AIChatDataRepositoryImpl
-    ): AIChatDataRepository
+        impl: ChatDetailsDataRepositoryImpl
+    ): ChatDetailsDataRepository
 
 }

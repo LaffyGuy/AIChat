@@ -5,10 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.project.essentials.LoadResult
 import com.project.features.chats.domain.DeleteChatUseCase
 import com.project.features.chats.domain.GetChatsUseCase
-import com.project.features.chats.domain.entities.Chat
+import com.project.features.chats.domain.entities.ChatSession
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
@@ -39,5 +37,5 @@ class ChatViewModel @Inject constructor(
 }
 
 data class ChatsUiState(
-    val data: List<Chat>
+    val data: List<ChatSession>
 )

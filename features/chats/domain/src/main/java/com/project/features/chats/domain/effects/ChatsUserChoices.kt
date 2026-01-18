@@ -1,9 +1,9 @@
 package com.project.features.chats.domain.effects
 
-import com.project.features.chats.domain.entities.Chat
+import com.project.features.chats.domain.entities.ChatSession
 
 interface ChatsUserChoices {
 
-    suspend fun confirmChatDeletion(chat: Chat): Boolean
+    suspend fun confirmChatDeletion(chat: ChatSession): Boolean
 
 }

@@ -40,7 +40,7 @@ private fun ChatMessageBubblePreview() {
     PreviewScreenContent {
         ChatMessageBubble(
             message = ChatMessageUiState(
-                id = "1",
+                id = 1,
                 text = "AHahhahaha",
                 author = MessageAuthor.USER
             )

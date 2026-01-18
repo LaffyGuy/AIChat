@@ -12,7 +12,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.project.core.theme.components.LoadResultView
 import com.project.core.theme.previews.PreviewScreenContent
-import com.project.features.chats.domain.entities.Chat
+import com.project.features.chats.domain.entities.ChatSession
 import com.project.features.chats.presentation.components.ChatItem
 
 @Composable
@@ -35,7 +35,7 @@ fun ChatsScreen() {
 
 @Composable
 fun ChatsContent(
-    listChats: List<Chat>
+    listChats: List<ChatSession>
 ) {
 
     LazyColumn(
@@ -59,12 +59,12 @@ private fun ChatsContentPreview() {
     PreviewScreenContent {
         ChatsContent(
             listChats = listOf(
-                Chat(
+                ChatSession(
                     id = 1L,
                     title = "Test title",
                     lastMessage = "Test last message Test last message Test last message"
                 ),
-                Chat(
+                ChatSession(
                     id = 1L,
                     title = "Test title",
                     lastMessage = "Test last message Test last message Test last message"

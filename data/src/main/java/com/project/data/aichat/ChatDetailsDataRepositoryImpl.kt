@@ -3,15 +3,15 @@ package com.project.data.aichat
 import com.google.firebase.ai.GenerativeModel
 import com.google.firebase.ai.type.Content
 import com.project.core.data.database.dao.AIChatDao
-import com.project.core.data.database.model.ChatSessionEntity
-import com.project.data.AIChatDataRepository
+import com.project.data.ChatDetailsDataRepository
 import com.project.data.aichat.entities.ChatSessionDataEntity
+import com.project.data.aichat.entities.toChatSessionEntity
 import javax.inject.Inject
 
-class AIChatDataRepositoryImpl @Inject constructor(
+class ChatDetailsDataRepositoryImpl @Inject constructor(
     private val generativeModel: GenerativeModel,
     private val aiChatDao: AIChatDao
-): AIChatDataRepository {
+): ChatDetailsDataRepository {
 
 //    override suspend fun generateRecipe(prompt: String): String {
 //        return aiRemoteDataSource.generateRecipe(prompt)
@@ -24,12 +24,10 @@ class AIChatDataRepositoryImpl @Inject constructor(
     }
 
     override suspend fun saveChat(chatSessionDataEntity: ChatSessionDataEntity): Long {
-        return aiChatDao.addNewChat(
-            chatSessionEntity =
-                ChatSessionEntity(
-                    title = chatSessionDataEntity.title
-                )
-        )
+        val chatSessionEntity = chatSessionDataEntity.toChatSessionEntity()
+        return aiChatDao.addNewChat(chatSessionEntity)
     }
+
+
 
 }

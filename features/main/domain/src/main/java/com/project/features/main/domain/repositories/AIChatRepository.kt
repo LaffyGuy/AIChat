@@ -1,7 +1,7 @@
 package com.project.features.main.domain.repositories
 
 import com.project.features.main.domain.entities.ChatMessage
-import com.project.features.main.domain.entities.ChatSession
+import com.project.features.main.domain.entities.MainChatSession
 import kotlinx.coroutines.flow.Flow
 
 interface AIChatRepository {
@@ -10,7 +10,7 @@ interface AIChatRepository {
 
     fun getAiResponse(history: List<ChatMessage>, prompt: String): Flow<String>
 
-    suspend fun saveNewChat(chatSession: ChatSession): Long
+    suspend fun saveNewChat(chatSession: MainChatSession): Long
 
 
 }
