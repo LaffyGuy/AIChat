@@ -1,6 +1,7 @@
 package com.project.features.main.presentation
 
 import com.project.essentials.entities.MessageAuthor
+import com.project.features.main.domain.entities.ChatMessage
 import java.util.UUID
 
 data class ChatMessageUiState(
@@ -12,3 +13,11 @@ data class ChatMessageUiState(
     val errorText: String? = null,
     val timestamp: Long = System.currentTimeMillis()
 )
+
+fun ChatMessage.toUiState(): ChatMessageUiState {
+    return ChatMessageUiState(
+        id = id,
+        text = text,
+        author = author
+    )
+}

@@ -10,14 +10,17 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import com.project.features.about.presentation.AboutScreen
+import com.project.features.chats.presentation.ChatsScreen
 import com.project.features.main.presentation.MainScreen
+import com.project.features.main.presentation.MainViewModel
 import com.project.features.prompts.presentation.promptsdetails.PromptsDetailsScreen
 import com.project.features.prompts.presentation.promptsdetails.PromptsDetailsViewModel
 import com.project.features.prompts.presentation.promptssample.PromptsSampleScreen
 import com.project.navigation.Navigator
 import com.project.navigation.TOP_LEVEL_DESTINATION
 import com.project.navigation.common.routes.AboutRoute
-import com.project.navigation.common.routes.MainRoute
+import com.project.navigation.common.routes.ChatsRoute
+import com.project.navigation.common.routes.ChatRoute
 import com.project.navigation.common.routes.PromptDetailsRoute
 import com.project.navigation.common.routes.PromptsRoute
 import com.project.navigation.components.BottomNavigationBar
@@ -29,7 +32,7 @@ fun NavigationRoot(
     modifier: Modifier = Modifier
 ) {
     val navigationState = rememberNavigationState(
-        startRoute = MainRoute,
+        startRoute = ChatsRoute,
         topLevelRoutes = TOP_LEVEL_DESTINATION.keys
     )
 
@@ -55,7 +58,16 @@ fun NavigationRoot(
             onBack = navigator::goBack,
             entries = navigationState.toEntries(
                 entryProvider {
-                    entry<MainRoute> { MainScreen() }
+                    entry<ChatRoute> { key ->
+                        val viewModel = hiltViewModel<MainViewModel, MainViewModel.Factory>(
+                            creationCallback = { factory ->
+                                factory.create(key)
+                            }
+                        )
+                        MainScreen(
+                            viewModel = viewModel
+                        )
+                    }
                     entry<AboutRoute> { AboutScreen() }
                     entry<PromptsRoute> {
                         PromptsSampleScreen(
@@ -65,13 +77,24 @@ fun NavigationRoot(
                         )
                     }
                     entry<PromptDetailsRoute> { key ->
-                        val viewModel = hiltViewModel<PromptsDetailsViewModel, PromptsDetailsViewModel.Factory>(
-                            creationCallback = { factory ->
-                                factory.create(key)
-                            }
-                        )
+                        val viewModel =
+                            hiltViewModel<PromptsDetailsViewModel, PromptsDetailsViewModel.Factory>(
+                                creationCallback = { factory ->
+                                    factory.create(key)
+                                }
+                            )
                         PromptsDetailsScreen(
-                             viewModel = viewModel
+                            viewModel = viewModel
+                        )
+                    }
+                    entry<ChatsRoute> {
+                        ChatsScreen(
+                            launchChatScreen = {
+                                navigator.navigate(ChatRoute(chatId = null))
+                            },
+                            onClickToChatSession = { chatId ->
+                                navigator.navigate(ChatRoute(chatId = chatId))
+                            }
                         )
                     }
                 }

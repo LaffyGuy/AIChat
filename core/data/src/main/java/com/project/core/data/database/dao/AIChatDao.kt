@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.project.core.data.database.model.ChatMessageEntity
 import com.project.core.data.database.model.ChatSessionEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -22,5 +23,11 @@ interface AIChatDao {
 
     @Query("DELETE FROM chat_session WHERE id = :chatId")
     suspend fun deleteChat(chatId: Long)
+
+    @Query("SELECT * FROM chat_message_entity WHERE chatId = :chatId ORDER BY timestamp ASC")
+    fun getMessagesByChatId(chatId: Long): Flow<List<ChatMessageEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertMessage(message: ChatMessageEntity)
 
 }

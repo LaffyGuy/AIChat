@@ -4,8 +4,14 @@ import com.google.firebase.ai.GenerativeModel
 import com.google.firebase.ai.type.Content
 import com.project.core.data.database.dao.AIChatDao
 import com.project.data.ChatDetailsDataRepository
+import com.project.data.aichat.entities.ChatMessageDataEntity
 import com.project.data.aichat.entities.ChatSessionDataEntity
+import com.project.data.aichat.entities.toChatMessageDataEntity
+import com.project.data.aichat.entities.toChatMessageEntity
 import com.project.data.aichat.entities.toChatSessionEntity
+import com.project.essentials.entities.MessageAuthor
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class ChatDetailsDataRepositoryImpl @Inject constructor(
@@ -26,6 +32,18 @@ class ChatDetailsDataRepositoryImpl @Inject constructor(
     override suspend fun saveChat(chatSessionDataEntity: ChatSessionDataEntity): Long {
         val chatSessionEntity = chatSessionDataEntity.toChatSessionEntity()
         return aiChatDao.addNewChat(chatSessionEntity)
+    }
+
+    override fun getMessages(chatId: Long): Flow<List<ChatMessageDataEntity>> {
+        return aiChatDao.getMessagesByChatId(chatId).map { list ->
+            list.map { it.toChatMessageDataEntity() }
+        }
+    }
+
+    override suspend fun saveMessage(chatId: Long, text: String, author: MessageAuthor) {
+        aiChatDao.insertMessage(
+            ChatMessageDataEntity(chatId = chatId, text = text, author = author).toChatMessageEntity()
+        )
     }
 
 }

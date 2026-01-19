@@ -7,21 +7,21 @@ import com.project.features.chats.domain.entities.ChatSession
 import com.project.features.chats.domain.resources.ChatsStringProvider
 import javax.inject.Inject
 
-class ChatsUserChoicesImpl @Inject constructor(
-    private val dialogs: Dialogs,
-    private val chatsStringProvider: ChatsStringProvider,
-//    private val coreStringProvider: CoreStringProvider
-): ChatsUserChoices {
-
-    override suspend fun confirmChatDeletion(chat: ChatSession): Boolean {
-       val config = DialogConfig(
-           title = chatsStringProvider.confirmDeleteDialogTitle,
-           message = chatsStringProvider.confirmDeleteDialogMessage(chat.title),
-//           positiveButton = coreStringProvider.deleteAction,
-//           negativeButton = coreStringProvider.cancelAction
-           positiveButton = "Delete",
-           negativeButton = "Cancel"
-       )
-        return dialogs.showAlertDialog(config)
-    }
-}
+//class ChatsUserChoicesImpl @Inject constructor(
+////    private val dialogs: Dialogs,
+//    private val chatsStringProvider: ChatsStringProvider,
+////    private val coreStringProvider: CoreStringProvider
+//): ChatsUserChoices {
+//
+//    override suspend fun confirmChatDeletion(chat: ChatSession): Boolean {
+//       val config = DialogConfig(
+//           title = chatsStringProvider.confirmDeleteDialogTitle,
+//           message = chatsStringProvider.confirmDeleteDialogMessage(chat.title),
+////           positiveButton = coreStringProvider.deleteAction,
+////           negativeButton = coreStringProvider.cancelAction
+//           positiveButton = "Delete",
+//           negativeButton = "Cancel"
+//       )
+//        return dialogs.showAlertDialog(config)
+//    }
+//}

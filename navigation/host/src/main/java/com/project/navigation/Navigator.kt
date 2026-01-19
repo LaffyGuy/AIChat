@@ -26,5 +26,4 @@ class Navigator(val navigationState: NavigationState) {
 
     }
 
-
 }

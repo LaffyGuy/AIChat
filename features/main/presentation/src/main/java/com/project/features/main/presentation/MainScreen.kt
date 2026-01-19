@@ -7,61 +7,43 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Send
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.project.core.theme.SmallVerticalSpace
-import com.project.core.theme.components.LoadResultView
 import com.project.core.theme.previews.PreviewScreenContent
-import com.project.core.theme.previews.ScreenPreview
-import com.project.essentials.entities.MessageAuthor
 import com.project.features.main.presentation.components.ChatMessageBubble
-import com.project.features.main.presentation.components.ReadyPromptList
-import kotlinx.coroutines.launch
 
 @Composable
-fun MainScreen() {
-    val viewModel: MainViewModel = hiltViewModel()
+fun MainScreen(viewModel: MainViewModel) {
 
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     MainContent(
         uiState = state,
-        prompts = state.readyPromptsList,
         onGenerateClick = viewModel::generateAIResponse,
         onTextChanged = viewModel::onTextChanged,
 
@@ -72,56 +54,16 @@ fun MainScreen() {
 @Composable
 fun MainContent(
     uiState: MainUiState,
-    prompts: List<ReadyPrompt>,
     onGenerateClick: (String) -> Unit,
     onTextChanged: (String) -> Unit
 ) {
 
-    val sheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = false
-    )
 
-    val scope = rememberCoroutineScope()
-    var isSheetVisible by remember { mutableStateOf(false) }
 
-    if(isSheetVisible) {
-        ModalBottomSheet(
-            onDismissRequest = { isSheetVisible = false },
-            sheetState = sheetState,
-            modifier = Modifier.fillMaxSize(),
-            shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
-        ) {
-            // Твоє меню ReadyPromptList
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .heightIn(max = (LocalConfiguration.current.screenHeightDp.dp / 3)) // 1/3 екрана
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text("Select a ready prompt", fontWeight = FontWeight.Bold)
-                SmallVerticalSpace()
-
-                LazyColumn(
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    items(prompts) { prompt ->
-                        Text(
-                            text = prompt.text,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clickable {
-//                                    onPromptClick(prompt)
-                                    isSheetVisible = false
-                                }
-                                .padding(vertical = 8.dp)
-                        )
-                        HorizontalDivider()
-                    }
-                }
-            }
+    val listState = rememberLazyListState()
+    LaunchedEffect(uiState.messages.size) {
+        if (uiState.messages.isNotEmpty()) {
+            listState.animateScrollToItem(uiState.messages.size - 1)
         }
     }
 
@@ -129,15 +71,12 @@ fun MainContent(
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-
-        // ── Основний контент зверху (чат або WelcomeItem) ──
         Box(
             modifier = Modifier
-                .weight(1f) // займає весь доступний простір
+                .weight(1f)
                 .fillMaxWidth()
         ) {
             if (uiState.messages.isEmpty() && uiState.shouldShowWelcomeItem) {
-                // WelcomeItem по центру
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
@@ -145,12 +84,12 @@ fun MainContent(
                     WelcomeItem()
                 }
             } else {
-                // Чат
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(horizontal = 8.dp),
-                    contentPadding = PaddingValues(bottom = 8.dp)
+                    contentPadding = PaddingValues(bottom = 8.dp),
+                    state = listState
                 ) {
                     items(uiState.messages) { message ->
                         ChatMessageBubble(message)
@@ -159,20 +98,6 @@ fun MainContent(
             }
         }
 
-        // ── ReadyPromptList ──
-        ReadyPromptList(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable {
-                    scope.launch {
-                        sheetState.show() // тут ми використовуємо coroutineScope
-                        isSheetVisible = true // за бажанням для логіки UI
-                    }
-                }
-                .padding(horizontal = 8.dp, vertical = 4.dp)
-        )
-
-        // ── Поле вводу ──
         ChatTextField(
             value = uiState.textInputState.text,
             hint = uiState.textInputState.hint,

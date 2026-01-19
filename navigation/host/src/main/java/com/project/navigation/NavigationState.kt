@@ -28,11 +28,8 @@ class NavigationState(
     var topLevelRoute by topLevelRoute
 
     val stackInUse: List<NavKey>
-        get() = if (topLevelRoute == startRoute) {
-            listOf(startRoute)
-        } else {
-            listOf(startRoute, topLevelRoute)
-        }
+        get() = listOf(topLevelRoute)
+
 }
 
 @Composable
@@ -58,34 +55,25 @@ fun rememberNavigationState(
     }
 }
 
-@SuppressLint("UnrememberedMutableState")
 @Composable
 fun NavigationState.toEntries(
     entryProvider: (NavKey) -> NavEntry<NavKey>
 ): SnapshotStateList<NavEntry<NavKey>> {
-
-    if (topLevelRoute == startRoute) {
-        return mutableStateListOf(
-            entryProvider(startRoute)
-        )
-    }
-
 
     val decoratedEntries = backStacks.mapValues { (_, stack) ->
         val decorators = listOf(
             rememberSaveableStateHolderNavEntryDecorator<NavKey>(),
             rememberViewModelStoreNavEntryDecorator()
         )
+
         rememberDecoratedNavEntries(
             backStack = stack,
             entryDecorators = decorators,
             entryProvider = entryProvider
         )
-
     }
 
     return stackInUse
         .flatMap { decoratedEntries[it] ?: emptyList() }
         .toMutableStateList()
-
 }

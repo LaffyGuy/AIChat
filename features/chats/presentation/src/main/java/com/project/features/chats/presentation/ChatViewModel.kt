@@ -3,7 +3,7 @@ package com.project.features.chats.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.project.essentials.LoadResult
-import com.project.features.chats.domain.DeleteChatUseCase
+//import com.project.features.chats.domain.DeleteChatUseCase
 import com.project.features.chats.domain.GetChatsUseCase
 import com.project.features.chats.domain.entities.ChatSession
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ChatViewModel @Inject constructor(
     private val getChatsUseCase: GetChatsUseCase,
-    private val deleteChatUseCase: DeleteChatUseCase
+//    private val deleteChatUseCase: DeleteChatUseCase
 ): ViewModel() {
 
 

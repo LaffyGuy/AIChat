@@ -7,8 +7,10 @@ import com.project.essentials.entities.MessageAuthor
 import com.project.features.main.domain.entities.ChatMessage
 import com.project.features.main.domain.entities.MainChatSession
 import com.project.features.main.domain.repositories.AIChatRepository
+import com.project.glue.main.mappers.toChatMessage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class MainAIRepository @Inject constructor(private val aiChatDataRepository: ChatDetailsDataRepository): AIChatRepository {
@@ -45,5 +47,15 @@ class MainAIRepository @Inject constructor(private val aiChatDataRepository: Cha
 //                lastMessage = chatSession.lastMessage
             )
         )
+    }
+
+    override fun getMessages(chatId: Long): Flow<List<ChatMessage>> {
+        return aiChatDataRepository.getMessages(chatId).map { list ->
+            list.map { it.toChatMessage() }
+        }
+    }
+
+    override suspend fun saveMessage(chatId: Long, text: String, author: MessageAuthor) {
+        aiChatDataRepository.saveMessage(chatId, text, author)
     }
 }

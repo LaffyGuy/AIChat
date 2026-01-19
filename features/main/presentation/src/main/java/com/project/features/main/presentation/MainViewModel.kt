@@ -3,13 +3,18 @@ package com.project.features.main.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.project.essentials.LoadResult
+import com.project.essentials.entities.MessageAuthor
 import com.project.essentials.exceptions.ConnectionException
 import com.project.features.main.domain.GetAIChatResponseUseCase
-//import com.project.features.main.domain.GetRecipeAIResponseUseCase
-import com.project.essentials.entities.MessageAuthor
+import com.project.features.main.domain.GetChatHistoryUseCase
+import com.project.features.main.domain.SaveMessageUseCase
 import com.project.features.main.domain.SaveNewChatUseCase
 import com.project.features.main.domain.entities.MainChatSession
 import com.project.features.main.presentation.mappers.toDomain
+import com.project.navigation.common.routes.ChatRoute
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -17,13 +22,19 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class MainViewModel @Inject constructor(
+@HiltViewModel(assistedFactory = MainViewModel.Factory::class)
+class MainViewModel @AssistedInject constructor(
     private val getAIChatResponseUseCase: GetAIChatResponseUseCase,
-    private val saveNewChatUseCase: SaveNewChatUseCase
+    private val saveNewChatUseCase: SaveNewChatUseCase,
+    private val getChatHistoryUseCase: GetChatHistoryUseCase,
+    private val saveMessageUseCase: SaveMessageUseCase,
+    @Assisted navKey: ChatRoute
 ): ViewModel() {
+
+    private val _chatSessionId = MutableStateFlow(
+        if (navKey.chatId != -1L) navKey.chatId else null
+    )
 
     private val _inputState = MutableStateFlow(TextInputUiState())
 
@@ -31,8 +42,12 @@ class MainViewModel @Inject constructor(
 
     val _aiResponse = MutableStateFlow<LoadResult<String>>(LoadResult.Loading)
 
-    private val _chatSessionId = MutableStateFlow<Long?>(null)
 
+    init {
+        _chatSessionId.value?.let { id ->
+            loadChatHistory(id)
+        }
+    }
 
     val uiState = combine(
         _inputState,
@@ -55,6 +70,14 @@ class MainViewModel @Inject constructor(
         _inputState.update { it.copy(text = input) }
     }
 
+    private fun loadChatHistory(chatId: Long) {
+        viewModelScope.launch {
+            getChatHistoryUseCase(chatId).collect { history ->
+                _messages.update { history.map { it.toUiState() } }
+            }
+        }
+    }
+
     fun generateAIResponse(prompt: String) {
 
         if (prompt.isBlank()) {
@@ -62,9 +85,7 @@ class MainViewModel @Inject constructor(
             return
         }
 
-        val history = _messages.value
-            .filter { !it.isLoading && !it.isError }
-            .map { it.toDomain() }
+        val currentChatId = _chatSessionId.value
 
         val userMessage = ChatMessageUiState(
             id = 0,
@@ -92,19 +113,20 @@ class MainViewModel @Inject constructor(
 
         viewModelScope.launch {
 
-            if (_chatSessionId.value == null) {
-                val chatSession = MainChatSession(
-                    id = 0L,
-                    title = prompt.take(20),
-//                    lastMessage = prompt
-                )
-                val newChatId = saveNewChatUseCase(chatSession)
+            val id = if (currentChatId == null) {
+                val newId = saveNewChatUseCase(MainChatSession(0L, prompt.take(20)))
+                _chatSessionId.value = newId
+                newId
+            } else currentChatId
 
-                _chatSessionId.value = newChatId
-            }
+            saveMessageUseCase(id, prompt, MessageAuthor.USER)
+
+            val historyForAi = _messages.value
+                .filter { !it.isLoading && !it.isError }
+                .map { it.toDomain() }
 
             try {
-                getAIChatResponseUseCase(history, prompt)
+                getAIChatResponseUseCase(historyForAi, prompt)
                     .collect { response ->
                         _messages.update { list ->
                             list.map {
@@ -113,6 +135,7 @@ class MainViewModel @Inject constructor(
                                 } else it
                             }
                         }
+                        saveMessageUseCase(id, response, MessageAuthor.AI)
                     }
 
             } catch (e: ConnectionException) {
@@ -136,6 +159,11 @@ class MainViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    @AssistedFactory
+    interface Factory {
+        fun create(navKey: ChatRoute): MainViewModel
     }
 }
 

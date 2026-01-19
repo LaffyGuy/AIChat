@@ -8,6 +8,7 @@ import com.project.essentials.entities.MessageAuthor
 data class ChatMessageEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0L,
+    val chatId: Long,
     val text: String,
     val author: MessageAuthor,
     val timestamp: Long = System.currentTimeMillis()
