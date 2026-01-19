@@ -19,7 +19,7 @@ import com.project.core.theme.previews.PreviewScreenContent
 @Composable
 fun ChatItem(
     title: String,
-    lastMessage: String,
+//    lastMessage: String,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -36,12 +36,12 @@ fun ChatItem(
 
         SmallVerticalSpace()
 
-        Text(
-            text = lastMessage,
-            style = MaterialTheme.typography.bodyMedium,
-            lineHeight = 20.sp,
-            modifier = Modifier.padding(start = 4.dp, end = 8.dp, bottom = 8.dp)
-        )
+//        Text(
+//            text = lastMessage,
+//            style = MaterialTheme.typography.bodyMedium,
+//            lineHeight = 20.sp,
+//            modifier = Modifier.padding(start = 4.dp, end = 8.dp, bottom = 8.dp)
+//        )
     }
 }
 
@@ -51,7 +51,7 @@ private fun ChatItemPreview() {
     PreviewScreenContent {
         ChatItem(
             title = "Test title",
-            lastMessage = "Test last message Test last message Test last message"
+//            lastMessage = "Test last message Test last message Test last message"
         )
     }
 }

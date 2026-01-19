@@ -96,7 +96,7 @@ class MainViewModel @Inject constructor(
                 val chatSession = MainChatSession(
                     id = 0L,
                     title = prompt.take(20),
-                    lastMessage = prompt
+//                    lastMessage = prompt
                 )
                 val newChatId = saveNewChatUseCase(chatSession)
 

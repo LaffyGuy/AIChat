@@ -20,7 +20,7 @@ interface AIChatDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addNewChat(chatSessionEntity: ChatSessionEntity): Long
 
-    @Delete
+    @Query("DELETE FROM chat_session WHERE id = :chatId")
     suspend fun deleteChat(chatId: Long)
 
 }

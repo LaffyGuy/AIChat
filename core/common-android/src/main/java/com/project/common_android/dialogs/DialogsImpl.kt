@@ -9,11 +9,12 @@ import com.project.essentials.dialogs.DialogConfig
 import com.project.essentials.dialogs.Dialogs
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.suspendCancellableCoroutine
+import javax.inject.Inject
 import kotlin.coroutines.resume
 
 
 @ActivityRetainedScoped
-class DialogsImpl: Dialogs {
+class DialogsImpl @Inject constructor(): Dialogs {
 
     private val dialogsState = mutableStateOf<DialogRecord?>(null)
 

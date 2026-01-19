@@ -42,7 +42,7 @@ class MainAIRepository @Inject constructor(private val aiChatDataRepository: Cha
             chatSessionDataEntity = ChatSessionDataEntity(
                 id = chatSession.id,
                 title = chatSession.title,
-                lastMessage = chatSession.lastMessage
+//                lastMessage = chatSession.lastMessage
             )
         )
     }

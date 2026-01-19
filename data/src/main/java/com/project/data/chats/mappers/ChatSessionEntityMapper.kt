@@ -7,6 +7,6 @@ fun ChatSessionEntity.toChatSessionDataEntity(): ChatSessionDataEntity {
     return ChatSessionDataEntity(
         id = id,
         title = title,
-        lastMessage = lastMessage
+//        lastMessage = lastMessage
     )
 }

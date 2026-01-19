@@ -28,6 +28,4 @@ class ChatDetailsDataRepositoryImpl @Inject constructor(
         return aiChatDao.addNewChat(chatSessionEntity)
     }
 
-
-
 }

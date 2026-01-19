@@ -44,7 +44,7 @@ fun ChatsContent(
         items(listChats) { chat ->
             ChatItem(
                 title = chat.title,
-                lastMessage = chat.lastMessage
+//                lastMessage = chat.lastMessage
             )
             HorizontalDivider()
         }
@@ -62,12 +62,12 @@ private fun ChatsContentPreview() {
                 ChatSession(
                     id = 1L,
                     title = "Test title",
-                    lastMessage = "Test last message Test last message Test last message"
+//                    lastMessage = "Test last message Test last message Test last message"
                 ),
                 ChatSession(
                     id = 1L,
                     title = "Test title",
-                    lastMessage = "Test last message Test last message Test last message"
+//                    lastMessage = "Test last message Test last message Test last message"
                 )
             )
         )
