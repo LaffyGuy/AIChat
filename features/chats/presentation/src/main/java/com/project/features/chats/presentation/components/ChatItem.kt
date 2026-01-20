@@ -2,6 +2,7 @@ package com.project.features.chats.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -15,26 +16,33 @@ import androidx.compose.ui.unit.sp
 import com.project.core.theme.Dimens
 import com.project.core.theme.SmallVerticalSpace
 import com.project.core.theme.previews.PreviewScreenContent
+import com.project.essentials.formatToDate
+import java.time.LocalDate
 
 @Composable
 fun ChatItem(
     title: String,
+    createdAt: LocalDate,
 //    lastMessage: String,
     modifier: Modifier = Modifier
 ) {
-    Column(
-        modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.Start
-    ) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.titleMedium,
-            lineHeight = 24.sp,
-            modifier = Modifier.padding(start = 4.dp, end = 8.dp, top = 8.dp)
-        )
+    Row(
+    modifier = modifier.fillMaxWidth().padding(Dimens.MediumPadding),
+    verticalAlignment = Alignment.CenterVertically,
+    horizontalArrangement = Arrangement.SpaceBetween
+) {
+    Text(
+        text = title,
+        style = MaterialTheme.typography.titleMedium,
+        lineHeight = 24.sp
+    )
 
-        SmallVerticalSpace()
+    Text(
+        text = "Created at:\n${createdAt.formatToDate()}",
+        style = MaterialTheme.typography.bodySmall,
+        lineHeight = 20.sp
+    )
+
 
 //        Text(
 //            text = lastMessage,
@@ -42,7 +50,7 @@ fun ChatItem(
 //            lineHeight = 20.sp,
 //            modifier = Modifier.padding(start = 4.dp, end = 8.dp, bottom = 8.dp)
 //        )
-    }
+}
 }
 
 @Preview(showSystemUi = true)
@@ -51,6 +59,7 @@ private fun ChatItemPreview() {
     PreviewScreenContent {
         ChatItem(
             title = "Test title",
+            createdAt = LocalDate.now()
 //            lastMessage = "Test last message Test last message Test last message"
         )
     }

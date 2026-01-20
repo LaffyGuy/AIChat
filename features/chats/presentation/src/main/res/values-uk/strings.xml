@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="chat_deletion_title">Видалення чату</string>
+    <string name="chat_deletion_message">Ви впевнені в видаленні чату %1$s</string>
+    <string name="no_chat_message">Немає чатів</string>
+</resources>

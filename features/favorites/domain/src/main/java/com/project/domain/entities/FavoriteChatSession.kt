@@ -1,9 +1,10 @@
-package com.project.features.main.domain.entities
+package com.project.domain.entities
 
 import java.time.LocalDate
 
-data class MainChatSession(
+data class FavoriteChatSession(
     val id: Long,
     val title: String,
+    val isFavorite: Boolean,
     val createdAt: LocalDate
 )

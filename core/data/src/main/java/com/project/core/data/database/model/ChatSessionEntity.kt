@@ -8,5 +8,5 @@ data class ChatSessionEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0L,
     val title: String,
-//    val lastMessage: String
+    val createdAt: Long = System.currentTimeMillis()
 )

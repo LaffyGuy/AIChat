@@ -10,4 +10,5 @@ class SaveMessageUseCaseImpl @Inject constructor(private val aiChatRepository: A
     override suspend fun invoke(chatId: Long, text: String, author: MessageAuthor) {
        aiChatRepository.saveMessage(chatId, text, author)
     }
+
 }

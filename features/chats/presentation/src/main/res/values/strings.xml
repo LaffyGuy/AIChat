@@ -2,4 +2,5 @@
 <resources>
     <string name="chat_deletion_title">Chat Deletion</string>
     <string name="chat_deletion_message">Are you sure you want delete the chat %1$s</string>
+    <string name="no_chat_message">There are no chats</string>
 </resources>

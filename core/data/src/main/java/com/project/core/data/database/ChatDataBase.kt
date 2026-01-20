@@ -17,7 +17,7 @@ import com.project.core.data.database.utils.PromptSampleTypeConverter
         ChatSessionEntity::class,
         ChatMessageEntity::class
                ],
-    version = 9
+    version = 10
 )
 abstract class ChatDataBase: RoomDatabase() {
 

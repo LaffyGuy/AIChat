@@ -22,6 +22,9 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
 
 @HiltViewModel(assistedFactory = MainViewModel.Factory::class)
 class MainViewModel @AssistedInject constructor(
@@ -114,7 +117,13 @@ class MainViewModel @AssistedInject constructor(
         viewModelScope.launch {
 
             val id = if (currentChatId == null) {
-                val newId = saveNewChatUseCase(MainChatSession(0L, prompt.take(20)))
+                val newId = saveNewChatUseCase(
+                    MainChatSession(
+                        id =0L,
+                        title = prompt.take(20),
+                        createdAt = LocalDate.now()
+                    )
+                )
                 _chatSessionId.value = newId
                 newId
             } else currentChatId

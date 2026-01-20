@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.project.features.chats.presentation"
+    namespace = "com.project.presentation"
     compileSdk {
         version = release(36)
     }
@@ -40,11 +40,11 @@ android {
     }
 }
 
-
 dependencies {
 
-    api(project(":features:chats:domain"))
-    implementation((project(":core:theme")))
+    implementation(project(":core:essentials"))
+    implementation(project(":core:theme"))
+    implementation(project(":features:favorites:domain"))
 
     //Hilt
     implementation(libs.hilt.android)

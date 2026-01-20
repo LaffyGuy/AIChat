@@ -1,8 +1,13 @@
 package com.project.features.chats.presentation
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -10,17 +15,28 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.project.core.theme.Dimens
+import com.project.core.theme.MediumVerticalSpace
+import com.project.core.theme.components.ImageView
 import com.project.core.theme.components.LoadResultView
 import com.project.core.theme.previews.PreviewScreenContent
+import com.project.essentials.entities.ImageSource
 import com.project.features.chats.domain.entities.ChatSession
 import com.project.features.chats.presentation.components.ChatItem
+import java.time.LocalDate
 
 @Composable
 fun ChatsScreen(
@@ -48,10 +64,14 @@ fun ChatsScreen(
             loadResult = loadResult,
             onTryAgain = {},
             content = { chatState ->
-                ChatsContent(
-                    listChats = chatState.data,
-                    onClickToChatSession = onClickToChatSession
-                )
+                if (!chatState.data.isEmpty()) {
+                    ChatsContent(
+                        listChats = chatState.data,
+                        onClickToChatSession = onClickToChatSession
+                    )
+                } else {
+                    EmptyChatsContent()
+                }
             }
         )
     }
@@ -70,16 +90,47 @@ fun ChatsContent(
         items(listChats) { chat ->
             ChatItem(
                 title = chat.title,
+                createdAt = chat.createAt,
                 modifier = Modifier.clickable {
                     onClickToChatSession(chat.id)
                 }
-//                lastMessage = chat.lastMessage
             )
             HorizontalDivider()
         }
 
     }
 
+}
+
+@Composable
+fun EmptyChatsContent() {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        ImageView(
+            imageSource = ImageSource.DrawableRes(R.drawable.ic_no_chats),
+            modifier = Modifier
+                .size(Dimens.MediumImageSize)
+                .alpha(0.5f)
+        )
+        MediumVerticalSpace()
+
+        Text(
+            text = stringResource(R.string.no_chat_message),
+            style = MaterialTheme.typography.titleLarge
+        )
+
+    }
+}
+
+@Preview(showSystemUi = true)
+@Composable
+private fun EmptyChatsContentPreview() {
+    PreviewScreenContent {
+        EmptyChatsContent()
+    }
 }
 
 @Preview
@@ -90,12 +141,14 @@ private fun ChatsContentPreview() {
             listChats = listOf(
                 ChatSession(
                     id = 1L,
+                    createAt = LocalDate.now(),
                     title = "Test title",
 //                    lastMessage = "Test last message Test last message Test last message"
                 ),
                 ChatSession(
                     id = 1L,
                     title = "Test title",
+                    createAt = LocalDate.now()
 //                    lastMessage = "Test last message Test last message Test last message"
                 )
             ),
