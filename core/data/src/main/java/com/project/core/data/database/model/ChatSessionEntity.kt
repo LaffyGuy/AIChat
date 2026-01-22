@@ -8,5 +8,6 @@ data class ChatSessionEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0L,
     val title: String,
+    val isFavorite: Boolean,
     val createdAt: Long = System.currentTimeMillis()
 )

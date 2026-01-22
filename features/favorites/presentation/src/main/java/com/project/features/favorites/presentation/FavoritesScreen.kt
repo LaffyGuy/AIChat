@@ -1,4 +1,4 @@
-package com.project.presentation
+package com.project.features.favorites.presentation
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -20,13 +20,15 @@ import com.project.core.theme.Dimens
 import com.project.core.theme.MediumVerticalSpace
 import com.project.core.theme.components.ImageView
 import com.project.core.theme.previews.PreviewScreenContent
-import com.project.domain.entities.FavoriteChatSession
+import com.project.features.favorites.domain.entities.FavoriteChatSession
 import com.project.essentials.entities.ImageSource
-import com.project.presentation.components.FavoriteChatItem
+import com.project.features.favorites.presentation.components.FavoriteChatItem
 import java.time.LocalDate
 
 @Composable
 fun FavoritesScreen() {
+
+    EmptyFavoriteChatsContent()
 
 }
 
@@ -62,7 +64,7 @@ fun EmptyFavoriteChatsContent() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         ImageView(
-            imageSource = ImageSource.DrawableRes(R),
+            imageSource = ImageSource.DrawableRes(R.drawable.ic_no_favorites_chats),
             modifier = Modifier
                 .size(Dimens.MediumImageSize)
                 .alpha(0.5f)
@@ -70,7 +72,7 @@ fun EmptyFavoriteChatsContent() {
         MediumVerticalSpace()
 
         Text(
-            text = stringResource(),
+            text = stringResource(R.string.no_favorites_chats),
             style = MaterialTheme.typography.titleLarge
         )
 
@@ -96,16 +98,12 @@ private fun FavoritesContentPreview() {
                     id = 1L,
                     isFavorite = false,
                     createdAt = LocalDate.now(),
-                    title = "Test title",
-//                    lastMessage = "Test last message Test last message Test last message"
-                ),
+                    title = "Test title"),
                 FavoriteChatSession(
                     id = 1L,
                     title = "Test title",
                     isFavorite = false,
-                    createdAt = LocalDate.now()
-//                    lastMessage = "Test last message Test last message Test last message"
-                )
+                    createdAt = LocalDate.now())
             ),
             onClickToChatSession = {}
         )

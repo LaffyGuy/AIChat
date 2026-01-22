@@ -1,9 +1,7 @@
 package com.project.features.chats.presentation
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -23,7 +21,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -118,7 +115,7 @@ fun EmptyChatsContent() {
         MediumVerticalSpace()
 
         Text(
-            text = stringResource(R.string.no_chat_message),
+            text = stringResource(R.string.no_chats),
             style = MaterialTheme.typography.titleLarge
         )
 

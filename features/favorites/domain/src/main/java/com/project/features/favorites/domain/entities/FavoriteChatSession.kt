@@ -1,4 +1,4 @@
-package com.project.domain.entities
+package com.project.features.favorites.domain.entities
 
 import java.time.LocalDate
 

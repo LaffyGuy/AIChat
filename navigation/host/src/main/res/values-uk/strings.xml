@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="navigation_chats_screen">Чати</string>
+    <string name="navigation_favorites_screen">Обрані</string>
     <string name="navigation_about_screen">Інформація</string>
     <string name="navigation_prompts_screen">Промпти</string>
 </resources>

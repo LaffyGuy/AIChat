@@ -121,6 +121,7 @@ class MainViewModel @AssistedInject constructor(
                     MainChatSession(
                         id =0L,
                         title = prompt.take(20),
+                        isFavorite = false,
                         createdAt = LocalDate.now()
                     )
                 )

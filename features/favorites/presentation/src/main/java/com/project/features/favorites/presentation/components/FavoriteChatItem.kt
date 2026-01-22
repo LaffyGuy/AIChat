@@ -1,4 +1,4 @@
-package com.project.presentation.components
+package com.project.features.favorites.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

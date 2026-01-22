@@ -9,6 +9,7 @@ fun ChatSessionEntity.toChatSessionDataEntity(): ChatSessionDataEntity {
     return ChatSessionDataEntity(
         id = id,
         title = title,
+        isFavorite = isFavorite,
         createdAt = Instant
             .ofEpochMilli(createdAt)
             .atZone(ZoneId.systemDefault())

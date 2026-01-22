@@ -29,3 +29,6 @@ data class PromptDetailsRoute(
 
 @Serializable
 data object ChatsRoute: Route
+
+@Serializable
+data object FavoritesRoute: Route

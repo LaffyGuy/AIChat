@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.project.presentation"
+    namespace = "com.project.features.favorites.presentation"
     compileSdk {
         version = release(36)
     }

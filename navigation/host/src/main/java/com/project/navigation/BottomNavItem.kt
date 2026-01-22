@@ -3,11 +3,13 @@ package com.project.navigation
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.project.navigation.common.routes.AboutRoute
 import com.project.navigation.common.routes.ChatsRoute
+import com.project.navigation.common.routes.FavoritesRoute
 import com.project.navigation.common.routes.PromptsRoute
 import com.project.navigation.host.R
 
@@ -18,6 +20,7 @@ data class BottomNavItem(
 
 val TOP_LEVEL_DESTINATION = mapOf(
     ChatsRoute to BottomNavItem(R.string.navigation_chats_screen, icon = Icons.Default.Menu),
+    FavoritesRoute to BottomNavItem(R.string.navigation_favorites_screen, icon = Icons.Default.Favorite),
     AboutRoute to BottomNavItem(R.string.navigation_about_screen, icon = Icons.Default.Info),
     PromptsRoute to BottomNavItem(R.string.navigation_prompts_screen, icon = Icons.Default.Edit)
 )

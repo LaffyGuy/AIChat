@@ -11,6 +11,7 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import com.project.features.about.presentation.AboutScreen
 import com.project.features.chats.presentation.ChatsScreen
+import com.project.features.favorites.presentation.FavoritesScreen
 import com.project.features.main.presentation.MainScreen
 import com.project.features.main.presentation.MainViewModel
 import com.project.features.prompts.presentation.promptsdetails.PromptsDetailsScreen
@@ -21,6 +22,7 @@ import com.project.navigation.TOP_LEVEL_DESTINATION
 import com.project.navigation.common.routes.AboutRoute
 import com.project.navigation.common.routes.ChatsRoute
 import com.project.navigation.common.routes.ChatRoute
+import com.project.navigation.common.routes.FavoritesRoute
 import com.project.navigation.common.routes.PromptDetailsRoute
 import com.project.navigation.common.routes.PromptsRoute
 import com.project.navigation.components.BottomNavigationBar
@@ -97,6 +99,7 @@ fun NavigationRoot(
                             }
                         )
                     }
+                    entry<FavoritesRoute> { FavoritesScreen() }
                 }
             )
         )

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="navigation_chats_screen">Chats</string>
+    <string name="navigation_favorites_screen">Favorites</string>
     <string name="navigation_about_screen">About</string>
     <string name="navigation_prompts_screen">Prompts</string>
 </resources>

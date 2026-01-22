@@ -12,5 +12,5 @@ class ChatsStringProviderImpl @Inject constructor(
 
     override val confirmDeleteDialogTitle = context.getString(R.string.chat_deletion_title)
 
-    override fun confirmDeleteDialogMessage(title: String) = context.getString(R.string.chat_deletion_message, title)
+    override fun confirmDeleteDialogMessage(title: String) = context.getString(R.string.chat_deletion, title)
 }

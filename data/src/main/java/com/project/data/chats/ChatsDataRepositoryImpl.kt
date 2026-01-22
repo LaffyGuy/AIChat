@@ -20,9 +20,7 @@ class ChatsDataRepositoryImpl @Inject constructor(private val aiChatDao: AIChatD
                 LoadResult.Success(list.map { it.toChatSessionDataEntity() })
             }
             .onStart { emit(LoadResult.Loading) }
-            .catch {
-                emit(LoadResult.Error(it as Exception))
-            }
+            .catch { emit(LoadResult.Error(it as Exception)) }
     }
 
     override suspend fun getChatById(chatId: Long): ChatSessionDataEntity {
@@ -33,4 +31,16 @@ class ChatsDataRepositoryImpl @Inject constructor(private val aiChatDao: AIChatD
         aiChatDao.deleteChat(chatId)
     }
 
+    override fun getAllFavoritesChats(): Flow<LoadResult<List<ChatSessionDataEntity>>> {
+        return aiChatDao.getAllFavoritesChat()
+            .map<List<ChatSessionEntity>, LoadResult<List<ChatSessionDataEntity>>> { list ->
+                LoadResult.Success(list.map { it.toChatSessionDataEntity() })
+            }
+            .onStart { emit(LoadResult.Loading) }
+            .catch { emit(LoadResult.Error(it as Exception)) }
+    }
+
+    override suspend fun updateFavoriteStatus(chatId: Long, isFavorite: Boolean) {
+        aiChatDao.updateFavoriteStatus(chatId, isFavorite)
+    }
 }

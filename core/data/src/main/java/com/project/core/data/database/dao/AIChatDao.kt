@@ -30,4 +30,10 @@ interface AIChatDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMessage(message: ChatMessageEntity)
 
+    @Query("UPDATE chat_session SET isFavorite =:isFavorite WHERE id =:chatId")
+    suspend fun updateFavoriteStatus(chatId: Long, isFavorite: Boolean)
+
+    @Query("SELECT * FROM chat_session WHERE isFavorite = 1 ORDER BY createdAt DESC")
+    fun getAllFavoritesChat(): Flow<List<ChatSessionEntity>>
+
 }

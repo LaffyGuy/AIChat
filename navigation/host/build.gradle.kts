@@ -49,6 +49,7 @@ dependencies {
     implementation(project(":features:prompts:presentation"))
     implementation(project(":features:about:presentation"))
     implementation(project(":features:chats:presentation"))
+    implementation(project(":features:favorites:presentation"))
     implementation(project(":core:common-android"))
 
     //Navigation

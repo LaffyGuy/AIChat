@@ -12,4 +12,8 @@ interface ChatsDataRepository {
 
     suspend fun deleteChat(chatId: Long)
 
+    fun getAllFavoritesChats(): Flow<LoadResult<List<ChatSessionDataEntity>>>
+
+    suspend fun updateFavoriteStatus(chatId: Long, isFavorite: Boolean)
+
 }
