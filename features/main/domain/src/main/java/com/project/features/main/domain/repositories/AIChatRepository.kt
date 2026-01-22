@@ -6,8 +6,6 @@ import com.project.features.main.domain.entities.MainChatSession
 import kotlinx.coroutines.flow.Flow
 
 interface AIChatRepository {
-//
-//    suspend fun getRecipeResponse(prompt: String): String
 
     fun getAiResponse(history: List<ChatMessage>, prompt: String): Flow<String>
 
@@ -16,6 +14,5 @@ interface AIChatRepository {
     fun getMessages(chatId: Long): Flow<List<ChatMessage>>
 
     suspend fun saveMessage(chatId: Long, text: String, author: MessageAuthor)
-
 
 }

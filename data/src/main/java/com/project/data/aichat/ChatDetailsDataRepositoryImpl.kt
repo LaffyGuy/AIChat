@@ -19,10 +19,6 @@ class ChatDetailsDataRepositoryImpl @Inject constructor(
     private val aiChatDao: AIChatDao
 ): ChatDetailsDataRepository {
 
-//    override suspend fun generateRecipe(prompt: String): String {
-//        return aiRemoteDataSource.generateRecipe(prompt)
-//    }
-
     override suspend fun getAiResponse(history: List<Content>, prompt: String): String? {
         val chat = generativeModel.startChat(history)
         val response = chat.sendMessage(prompt)

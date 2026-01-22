@@ -15,10 +15,6 @@ import javax.inject.Inject
 
 class MainAIRepository @Inject constructor(private val aiChatDataRepository: ChatDetailsDataRepository): AIChatRepository {
 
-//    override suspend fun getRecipeResponse(prompt: String): String {
-//        return aiChatDataRepository.generateRecipe(prompt)
-//    }
-
     override fun getAiResponse(history: List<ChatMessage>, prompt: String): Flow<String> = flow {
         val firebaseHistory = history
             .map { msg ->
@@ -46,7 +42,6 @@ class MainAIRepository @Inject constructor(private val aiChatDataRepository: Cha
                 title = chatSession.title,
                 isFavorite = chatSession.isFavorite,
                 createdAt = chatSession.createdAt
-//                lastMessage = chatSession.lastMessage
             )
         )
     }
@@ -60,4 +55,5 @@ class MainAIRepository @Inject constructor(private val aiChatDataRepository: Cha
     override suspend fun saveMessage(chatId: Long, text: String, author: MessageAuthor) {
         aiChatDataRepository.saveMessage(chatId, text, author)
     }
+
 }

@@ -2,7 +2,6 @@ package com.project.features.main.presentation
 
 import com.project.essentials.entities.MessageAuthor
 import com.project.features.main.domain.entities.ChatMessage
-import java.util.UUID
 
 data class ChatMessageUiState(
     val id: Long,

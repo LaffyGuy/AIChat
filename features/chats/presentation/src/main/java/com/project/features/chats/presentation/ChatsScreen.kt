@@ -148,16 +148,13 @@ private fun ChatsContentPreview() {
                     id = 1L,
                     title = "Test title",
                     isFavorite = false,
-                    createdAt = LocalDate.now(),
-
-//                    lastMessage = "Test last message Test last message Test last message"
+                    createdAt = LocalDate.now()
                 ),
                 ChatSession(
                     id = 1L,
                     title = "Test title",
                     isFavorite = true,
                     createdAt = LocalDate.now()
-//                    lastMessage = "Test last message Test last message Test last message"
                 )
             ),
             onClickToChatSession = {},

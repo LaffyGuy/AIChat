@@ -45,29 +45,7 @@ fun PromptItem(
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f)
         )
     }
-//    Box(
-//        modifier = modifier.fillMaxWidth(),
-//        contentAlignment = Alignment.CenterStart
-//    ) {
-//        Column(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .clickable {
-//                    onClick(promptSample.id)
-//                }
-//            ,
-//            verticalArrangement = Arrangement.Center,
-//            horizontalAlignment = Alignment.Start
-//        ) {
-//            Text(
-//                text = promptSample.title,
-//                fontSize = FontSize.LargeFontSize,
-//                fontWeight = FontWeight.Medium,
-//                modifier = Modifier.padding(16.dp)
-//            )
-//            HorizontalDivider()
-//        }
-//    }
+
 }
 
 @Preview(showSystemUi = true)

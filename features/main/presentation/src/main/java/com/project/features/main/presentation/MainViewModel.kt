@@ -2,7 +2,6 @@ package com.project.features.main.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.project.essentials.LoadResult
 import com.project.essentials.entities.MessageAuthor
 import com.project.essentials.exceptions.ConnectionException
 import com.project.features.main.domain.GetAIChatResponseUseCase
@@ -23,8 +22,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.LocalTime
 
 @HiltViewModel(assistedFactory = MainViewModel.Factory::class)
 class MainViewModel @AssistedInject constructor(
@@ -178,7 +175,6 @@ data class MainUiState(
     val textInputState: TextInputUiState = TextInputUiState(),
     val messages: List<ChatMessageUiState> = emptyList(),
     val shouldShowWelcomeItem: Boolean = true,
-    val readyPromptsList: List<ReadyPrompt> = readyPrompts,
     val isMessageGenerated: Boolean = false
 )
 

@@ -1,6 +1,5 @@
 package com.project.glue.chats
 
-import com.project.data.ChatDetailsDataRepository
 import com.project.data.ChatsDataRepository
 import com.project.essentials.LoadResult
 import com.project.features.chats.domain.entities.ChatSession

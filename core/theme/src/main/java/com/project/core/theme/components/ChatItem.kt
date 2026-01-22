@@ -35,7 +35,6 @@ fun ChatItem(
     createdAt: LocalDate,
     isFavorite: Boolean,
     onAddDeleteFavorites: () -> Unit,
-//    lastMessage: String,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -94,12 +93,6 @@ fun ChatItem(
         }
 
 
-//        Text(
-//            text = lastMessage,
-//            style = MaterialTheme.typography.bodyMedium,
-//            lineHeight = 20.sp,
-//            modifier = Modifier.padding(start = 4.dp, end = 8.dp, bottom = 8.dp)
-//        )
     }
 }
 
@@ -112,7 +105,6 @@ private fun ChatItemPreview() {
             createdAt = LocalDate.now(),
             isFavorite = true,
             onAddDeleteFavorites = {}
-//            lastMessage = "Test last message Test last message Test last message"
         )
     }
 }

@@ -7,7 +7,6 @@ import com.project.features.favorites.domain.DeleteChatFromFavoritesUseCase
 import com.project.features.favorites.domain.GetAllFavoritesChatsUseCase
 import com.project.features.favorites.domain.entities.FavoriteChatSession
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
@@ -17,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FavoritesViewModel @Inject constructor(
-    private val getAllFavoritesChatsUseCase: GetAllFavoritesChatsUseCase,
+    getAllFavoritesChatsUseCase: GetAllFavoritesChatsUseCase,
     private val deleteChatFromFavoritesUseCase: DeleteChatFromFavoritesUseCase
 ): ViewModel() {
 

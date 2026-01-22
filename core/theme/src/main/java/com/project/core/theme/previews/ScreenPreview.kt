@@ -2,7 +2,6 @@ package com.project.core.theme.previews
 
 import android.content.res.Configuration
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 
 private const val LongDimension = 800
 private const val ShortDimension = 400

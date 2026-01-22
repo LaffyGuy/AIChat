@@ -16,6 +16,4 @@ interface ChatsDataRepository {
 
     suspend fun updateFavoriteStatus(chatId: Long, isFavorite: Boolean)
 
-//    suspend fun updateFavoriteChat(chatId: Long, isFavorite: Boolean)
-
 }

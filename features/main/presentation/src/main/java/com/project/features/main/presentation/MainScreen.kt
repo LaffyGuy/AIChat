@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.project.core.theme.previews.PreviewScreenContent
+import com.project.core.theme.previews.ScreenPreview
 import com.project.features.main.presentation.components.ChatMessageBubble
 
 @Composable
@@ -48,6 +49,7 @@ fun MainScreen(viewModel: MainViewModel) {
         onTextChanged = viewModel::onTextChanged,
 
     )
+
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -58,15 +60,12 @@ fun MainContent(
     onTextChanged: (String) -> Unit
 ) {
 
-
-
     val listState = rememberLazyListState()
     LaunchedEffect(uiState.messages.size) {
         if (uiState.messages.isNotEmpty()) {
             listState.animateScrollToItem(uiState.messages.size - 1)
         }
     }
-
 
     Column(
         modifier = Modifier.fillMaxSize()
@@ -233,26 +232,25 @@ private fun ChatTextFieldPreview() {
     }
 }
 
-//@ScreenPreview
-//@Composable
-//fun MainContentPreview() {
-//    PreviewScreenContent {
-//        MainContent(
-//            uiState = MainUiState(
-////                textInputState = TextInputUiState(
-////                    "",
-////                    true,
-////                    true,
-////                    false,
-////                    null,
-////                )
-//            ),
-//            prompts = emptyList(),
-//            onGenerateClick = {},
-//            onTextChanged = {
-//
-//            }
-//        )
-//    }
-//
-//}
+@ScreenPreview
+@Composable
+fun MainContentPreview() {
+    PreviewScreenContent {
+        MainContent(
+            uiState = MainUiState(
+                textInputState = TextInputUiState(
+                    text = "",
+                    hint = "Hello",
+                    isEnabled = true,
+                    isTrailingIconEnabled = false,
+                    isError = false,
+                )
+            ),
+            onGenerateClick = {},
+            onTextChanged = {
+
+            }
+        )
+    }
+
+}

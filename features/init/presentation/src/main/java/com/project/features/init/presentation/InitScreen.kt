@@ -45,7 +45,6 @@ fun InitScreen(
         }
     )
 
-
 }
 
 @Composable
@@ -100,4 +99,5 @@ private fun InitContentPreview() {
             onPageChanged = {}
         )
     }
+
 }

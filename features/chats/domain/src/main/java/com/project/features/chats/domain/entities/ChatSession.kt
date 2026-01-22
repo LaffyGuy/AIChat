@@ -7,5 +7,4 @@ data class ChatSession(
     val title: String,
     val isFavorite: Boolean,
     val createdAt: LocalDate
-//    val lastMessage: String
 )

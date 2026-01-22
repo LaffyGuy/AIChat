@@ -26,7 +26,6 @@ import com.project.core.theme.MediumVerticalSpace
 import com.project.core.theme.SmallVerticalSpace
 import com.project.core.theme.previews.PreviewScreenContent
 import com.project.core.theme.previews.ScreenPreview
-import com.project.features.about.presentation.components.LanguageDropdownMenu
 import com.project.features.about.presentation.components.ThemeToggle
 
 @Composable
@@ -34,21 +33,18 @@ fun AboutScreen() {
 
     val viewModel: AboutViewModel = hiltViewModel()
     val isDark by viewModel.isDark.collectAsStateWithLifecycle()
-    val language by viewModel.language.collectAsStateWithLifecycle()
+
     AboutContent(
         isDarkTheme = isDark,
-        onSwitchTheme = viewModel::toggleTheme,
-        selectedLanguage = language,
-        onSelectLanguage = viewModel::changeLanguage
+        onSwitchTheme = viewModel::toggleTheme
     )
+
 }
 
 
 @Composable
 fun AboutContent(
     isDarkTheme: Boolean,
-    selectedLanguage: String,
-    onSelectLanguage: (String) -> Unit,
     onSwitchTheme: (Boolean) -> Unit
 ) {
 
@@ -111,32 +107,6 @@ fun AboutContent(
         MediumVerticalSpace()
 
         Text(
-            text = stringResource(R.string.about_language_title),
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.SemiBold,
-            color = MaterialTheme.colorScheme.onBackground
-        )
-
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-           Text(text = stringResource(R.string.about_language))
-            LanguageDropdownMenu(
-                selectedLanguage = selectedLanguage,
-                onSelectLanguage = onSelectLanguage
-            )
-        }
-
-        MediumVerticalSpace()
-
-        HorizontalDivider()
-
-        MediumVerticalSpace()
-
-        Text(
             text = stringResource(R.string.about_settings_title),
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.SemiBold,
@@ -161,18 +131,13 @@ fun AboutContent(
     }
 }
 
-
-
-
 @ScreenPreview
 @Composable
 fun AboutContentPreview() {
     PreviewScreenContent {
         AboutContent(
             isDarkTheme = false,
-            onSwitchTheme = {},
-            selectedLanguage = "UA",
-            onSelectLanguage = {}
+            onSwitchTheme = {}
         )
     }
 }

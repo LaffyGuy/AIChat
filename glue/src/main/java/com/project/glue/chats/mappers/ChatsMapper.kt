@@ -9,6 +9,5 @@ fun ChatSessionDataEntity.toChatSession(): ChatSession {
         title = title,
         isFavorite = isFavorite,
         createdAt = createdAt
-//        lastMessage = lastMessage
     )
 }

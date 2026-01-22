@@ -19,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.sp
 import com.project.core.theme.Dimens
 import com.project.core.theme.FontSize
 import com.project.core.theme.MediumVerticalSpace
@@ -54,7 +53,6 @@ fun KeyFeaturePager(
            keyFeatures = keyFeatures,
            pagerState = pagerState,
            onLetsGoAction = onLetsGoAction,
-           currentPage = currentPage,
            onPageChanged = onPageChanged
        )
     } else {
@@ -63,7 +61,6 @@ fun KeyFeaturePager(
             keyFeatures = keyFeatures,
             pagerState = pagerState,
             onLetsGoAction = onLetsGoAction,
-            currentPage = currentPage,
             onPageChanged = onPageChanged
         )
     }
@@ -76,16 +73,9 @@ fun KeyFeaturePortraitPager(
     keyFeatures: List<KeyFeature>,
     pagerState: PagerState,
     onLetsGoAction: () -> Unit,
-    currentPage: Int,
     onPageChanged: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-//    val pagerState = rememberPagerState(
-//        initialPage = currentPage,
-//        pageCount = {
-//            keyFeatures.size
-//        }
-//    )
 
     LaunchedEffect(pagerState.currentPage) {
         onPageChanged(pagerState.currentPage)
@@ -139,21 +129,13 @@ fun KeyFeaturesLandscapePager(
     keyFeatures: List<KeyFeature>,
     pagerState: PagerState,
     onLetsGoAction: () -> Unit,
-    currentPage: Int,
     onPageChanged: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-//    val pagerState = rememberPagerState(
-//        initialPage = currentPage,
-//        pageCount = {
-//            keyFeatures.size
-//        }
-//    )
 
     LaunchedEffect(pagerState.currentPage) {
         onPageChanged(pagerState.currentPage)
     }
-
 
     HorizontalPager(
         modifier = modifier.fillMaxSize(),

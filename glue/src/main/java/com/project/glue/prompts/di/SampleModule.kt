@@ -23,4 +23,5 @@ interface SampleModule {
     fun bindPromptSampleDetailsRepository(
          impl: SampleDetailsRepository
     ): PromptSampleDetailsRepository
+
 }

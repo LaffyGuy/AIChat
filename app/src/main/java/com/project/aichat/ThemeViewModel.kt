@@ -2,7 +2,6 @@ package com.project.aichat
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.project.data.LanguageDataRepository
 import com.project.data.ThemeDataRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -12,8 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ThemeViewModel @Inject constructor(
-    themeDataRepository: ThemeDataRepository,
-    languageDataRepository: LanguageDataRepository
+    themeDataRepository: ThemeDataRepository
 ): ViewModel() {
 
     val isDark: StateFlow<Boolean> =
@@ -23,13 +21,5 @@ class ThemeViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(1000),
             initialValue = false
         )
-
-    val language: StateFlow<String> =
-        languageDataRepository.getLanguage()
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(1000),
-                initialValue = "en"
-            )
 
 }

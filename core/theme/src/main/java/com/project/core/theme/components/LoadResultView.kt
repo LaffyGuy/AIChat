@@ -23,9 +23,11 @@ import com.project.essentials.exceptions.ExceptionToMessageMapper
 fun <T> LoadResultView(
     loadResult: LoadResult<T>,
     content: @Composable (T) -> Unit,
-    exceptionToMessageMapper: ExceptionToMessageMapper = ExceptionToMessageMapper,
     onTryAgain: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    exceptionToMessageMapper: ExceptionToMessageMapper = ExceptionToMessageMapper,
+
+
 ) {
     Box(modifier = modifier) {
         when (loadResult) {

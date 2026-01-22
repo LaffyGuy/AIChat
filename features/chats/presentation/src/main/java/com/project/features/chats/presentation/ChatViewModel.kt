@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ChatViewModel @Inject constructor(
-    private val getChatsUseCase: GetChatsUseCase,
+    getChatsUseCase: GetChatsUseCase,
     private val updateFavoriteStatusUseCase: UpdateFavoriteStatusUseCase
 //    private val deleteChatUseCase: DeleteChatUseCase
 ): ViewModel() {

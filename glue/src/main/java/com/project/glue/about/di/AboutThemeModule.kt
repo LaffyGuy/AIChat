@@ -1,8 +1,6 @@
 package com.project.glue.about.di
 
-import com.project.features.about.domain.repositories.LanguageRepository
 import com.project.features.about.domain.repositories.ThemeRepository
-import com.project.glue.about.AboutLanguageRepository
 import com.project.glue.about.AboutThemeRepository
 import dagger.Binds
 import dagger.Module
@@ -18,8 +16,4 @@ interface AboutThemeModule {
         impl: AboutThemeRepository
     ): ThemeRepository
 
-    @Binds
-    fun bindLanguageRepository(
-        impl: AboutLanguageRepository
-    ): LanguageRepository
 }

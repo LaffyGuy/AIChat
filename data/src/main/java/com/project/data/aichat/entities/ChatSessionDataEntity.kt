@@ -22,6 +22,5 @@ fun ChatSessionDataEntity.toChatSessionEntity(): ChatSessionEntity {
             .atStartOfDay(ZoneId.systemDefault())
             .toInstant()
             .toEpochMilli()
-//        lastMessage = lastMessage
     )
 }

@@ -39,5 +39,4 @@ class ShowKeyFeatureUseCaseImpl @Inject constructor(
         keyFeaturesRepository.saveDisplayTime(keyFeatures, now)
     }
 
-
 }

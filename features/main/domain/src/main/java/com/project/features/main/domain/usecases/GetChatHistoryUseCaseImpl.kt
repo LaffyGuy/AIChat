@@ -13,4 +13,5 @@ class GetChatHistoryUseCaseImpl @Inject constructor(
     override fun invoke(chatId: Long): Flow<List<ChatMessage>> {
         return aiChatRepository.getMessages(chatId)
     }
+
 }

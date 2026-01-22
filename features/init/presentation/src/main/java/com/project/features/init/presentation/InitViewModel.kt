@@ -27,7 +27,6 @@ class InitViewModel @Inject constructor(
     private val _effects = MutableStateFlow(Effects())
     val effects: StateFlow<Effects> = _effects
 
-    private val vmStateFlow = MutableStateFlow(ViewModelState())
 
     val stateFlow: StateFlow<LoadResult<InitUiState>> = flow {
         emit(LoadResult.Loading)
@@ -64,9 +63,7 @@ class InitViewModel @Inject constructor(
         _effects.update { it.copy(launchMainScreen = null) }
     }
 
-
 }
-
 
 data class InitUiState(
     val keyFeatures: List<KeyFeature>,

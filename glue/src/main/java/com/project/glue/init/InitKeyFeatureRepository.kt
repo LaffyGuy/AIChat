@@ -28,4 +28,5 @@ class InitKeyFeatureRepository @Inject constructor(
     ) {
         keyFeaturesDataRepository.saveLastDisplayTime(keyFeatures.first().id, displayTime)
     }
+
 }

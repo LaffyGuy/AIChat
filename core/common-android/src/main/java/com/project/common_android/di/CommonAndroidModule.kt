@@ -1,10 +1,8 @@
 package com.project.common_android.di
 
-import com.project.common_android.dialogs.DialogsImpl
 import com.project.common_android.handler.AndroidExceptionHandler
 import com.project.common_android.logger.AndroidLogger
 import com.project.common_android.resources.CoreStringProviderImpl
-import com.project.essentials.dialogs.Dialogs
 import com.project.essentials.exceptions.ExceptionToMessageMapper
 import com.project.essentials.exceptions.mapper.DefaultExceptionToMessageMapper
 import com.project.essentials.handler.ExceptionHandler

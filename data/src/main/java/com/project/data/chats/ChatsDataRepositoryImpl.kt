@@ -44,8 +44,4 @@ class ChatsDataRepositoryImpl @Inject constructor(private val aiChatDao: AIChatD
         aiChatDao.updateFavoriteStatus(chatId, isFavorite)
     }
 
-//    override suspend fun updateFavoriteChat(chatId: Long, isFavorite: Boolean) {
-//        aiChatDao.
-//    }
-
 }
