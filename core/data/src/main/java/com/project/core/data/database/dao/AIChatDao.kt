@@ -36,4 +36,7 @@ interface AIChatDao {
     @Query("SELECT * FROM chat_session WHERE isFavorite = 1 ORDER BY createdAt DESC")
     fun getAllFavoritesChat(): Flow<List<ChatSessionEntity>>
 
+//    @Query("UPDATE chat_session SET isFavorite = :isFavorite WHERE id = :chatId")
+//    suspend fun updateFavoriteChat(chatId: Long, isFavorite: Boolean)
+
 }

@@ -2,8 +2,10 @@ package com.project.features.chats.presentation.di
 
 //import com.project.features.chats.domain.DeleteChatUseCase
 import com.project.features.chats.domain.GetChatsUseCase
+import com.project.features.chats.domain.UpdateFavoriteStatusUseCase
 //import com.project.features.chats.domain.usecases.DeleteChatUseCaseImpl
 import com.project.features.chats.domain.usecases.GetChatsUseCaseImpl
+import com.project.features.chats.domain.usecases.UpdateFavoriteStatusUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -22,5 +24,10 @@ interface ChatsModule {
 //    fun bindDeleteChatUseCase(
 //        impl: DeleteChatUseCaseImpl
 //    ): DeleteChatUseCase
+
+    @Binds
+    fun bindUpdateFavoriteStatusUseCase(
+        impl: UpdateFavoriteStatusUseCaseImpl
+    ): UpdateFavoriteStatusUseCase
 
 }

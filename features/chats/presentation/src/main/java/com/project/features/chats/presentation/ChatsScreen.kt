@@ -27,12 +27,12 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.project.core.theme.Dimens
 import com.project.core.theme.MediumVerticalSpace
+import com.project.core.theme.components.ChatItem
 import com.project.core.theme.components.ImageView
 import com.project.core.theme.components.LoadResultView
 import com.project.core.theme.previews.PreviewScreenContent
 import com.project.essentials.entities.ImageSource
 import com.project.features.chats.domain.entities.ChatSession
-import com.project.features.chats.presentation.components.ChatItem
 import java.time.LocalDate
 
 @Composable
@@ -64,7 +64,10 @@ fun ChatsScreen(
                 if (!chatState.data.isEmpty()) {
                     ChatsContent(
                         listChats = chatState.data,
-                        onClickToChatSession = onClickToChatSession
+                        onClickToChatSession = onClickToChatSession,
+                        onAddToFavorites = { chatId ->
+                            viewModel.updateFavoriteStatus(chatId, true)
+                        }
                     )
                 } else {
                     EmptyChatsContent()
@@ -78,7 +81,8 @@ fun ChatsScreen(
 @Composable
 fun ChatsContent(
     listChats: List<ChatSession>,
-    onClickToChatSession: (Long) -> Unit
+    onClickToChatSession: (Long) -> Unit,
+    onAddToFavorites: (Long) -> Unit
 ) {
 
     LazyColumn(
@@ -87,7 +91,11 @@ fun ChatsContent(
         items(listChats) { chat ->
             ChatItem(
                 title = chat.title,
-                createdAt = chat.createAt,
+                createdAt = chat.createdAt,
+                isFavorite = chat.isFavorite,
+                onAddDeleteFavorites = {
+                    onAddToFavorites(chat.id)
+                },
                 modifier = Modifier.clickable {
                     onClickToChatSession(chat.id)
                 }
@@ -138,18 +146,22 @@ private fun ChatsContentPreview() {
             listChats = listOf(
                 ChatSession(
                     id = 1L,
-                    createAt = LocalDate.now(),
                     title = "Test title",
+                    isFavorite = false,
+                    createdAt = LocalDate.now(),
+
 //                    lastMessage = "Test last message Test last message Test last message"
                 ),
                 ChatSession(
                     id = 1L,
                     title = "Test title",
-                    createAt = LocalDate.now()
+                    isFavorite = true,
+                    createdAt = LocalDate.now()
 //                    lastMessage = "Test last message Test last message Test last message"
                 )
             ),
-            onClickToChatSession = {}
+            onClickToChatSession = {},
+            onAddToFavorites = {}
         )
     }
 }

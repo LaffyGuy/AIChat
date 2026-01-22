@@ -7,7 +7,8 @@ fun ChatSessionDataEntity.toChatSession(): ChatSession {
     return ChatSession(
         id =  id,
         title = title,
-        createAt = createdAt
+        isFavorite = isFavorite,
+        createdAt = createdAt
 //        lastMessage = lastMessage
     )
 }

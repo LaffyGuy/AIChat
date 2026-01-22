@@ -30,4 +30,8 @@ class ChatsGlueRepository @Inject constructor(private val aiChatDataRepository: 
        return aiChatDataRepository.getChatById(chatId).toChatSession()
     }
 
+    override suspend fun updateFavoriteChatStatus(chatId: Long, isFavorite: Boolean) {
+        aiChatDataRepository.updateFavoriteStatus(chatId, isFavorite)
+    }
+
 }

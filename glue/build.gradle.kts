@@ -45,6 +45,7 @@ dependencies {
     implementation(project(":features:about:presentation"))
     implementation(project(":features:prompts:presentation"))
     implementation(project(":features:chats:presentation"))
+    implementation(project(":features:favorites:presentation"))
 
     //Hilt
     implementation(libs.hilt.android)

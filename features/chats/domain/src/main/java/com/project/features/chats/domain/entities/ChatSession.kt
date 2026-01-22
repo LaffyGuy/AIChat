@@ -5,6 +5,7 @@ import java.time.LocalDate
 data class ChatSession(
     val id: Long,
     val title: String,
-    val createAt: LocalDate
+    val isFavorite: Boolean,
+    val createdAt: LocalDate
 //    val lastMessage: String
 )

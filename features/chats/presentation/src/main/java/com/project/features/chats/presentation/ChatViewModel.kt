@@ -5,17 +5,20 @@ import androidx.lifecycle.viewModelScope
 import com.project.essentials.LoadResult
 //import com.project.features.chats.domain.DeleteChatUseCase
 import com.project.features.chats.domain.GetChatsUseCase
+import com.project.features.chats.domain.UpdateFavoriteStatusUseCase
 import com.project.features.chats.domain.entities.ChatSession
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ChatViewModel @Inject constructor(
     private val getChatsUseCase: GetChatsUseCase,
+    private val updateFavoriteStatusUseCase: UpdateFavoriteStatusUseCase
 //    private val deleteChatUseCase: DeleteChatUseCase
 ): ViewModel() {
 
@@ -33,6 +36,13 @@ class ChatViewModel @Inject constructor(
                 started = SharingStarted.WhileSubscribed(1000),
                 initialValue = LoadResult.Loading
             )
+
+
+    fun updateFavoriteStatus(chatId: Long, isFavorite: Boolean) {
+        viewModelScope.launch {
+            updateFavoriteStatusUseCase(chatId, isFavorite)
+        }
+    }
 
 }
 

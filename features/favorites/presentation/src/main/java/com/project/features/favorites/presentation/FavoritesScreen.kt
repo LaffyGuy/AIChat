@@ -11,30 +11,57 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.project.core.theme.Dimens
 import com.project.core.theme.MediumVerticalSpace
+import com.project.core.theme.components.ChatItem
 import com.project.core.theme.components.ImageView
+import com.project.core.theme.components.LoadResultView
 import com.project.core.theme.previews.PreviewScreenContent
 import com.project.features.favorites.domain.entities.FavoriteChatSession
 import com.project.essentials.entities.ImageSource
-import com.project.features.favorites.presentation.components.FavoriteChatItem
 import java.time.LocalDate
 
 @Composable
-fun FavoritesScreen() {
+fun FavoritesScreen(
+    onClickToChatSession: (Long) -> Unit
+) {
 
-    EmptyFavoriteChatsContent()
+
+    val viewModel: FavoritesViewModel = hiltViewModel()
+    val loadResult by viewModel.loadResultFlow.collectAsStateWithLifecycle()
+
+    LoadResultView(
+        loadResult = loadResult,
+        onTryAgain = {},
+        content = { state ->
+            if(!state.data.isEmpty()) {
+                FavoritesContent(
+                    listChats = state.data,
+                    onClickToChatSession = onClickToChatSession,
+                    onDeleteFromFavorites = { chatId ->
+                        viewModel.deleteFromFavorites(chatId, false)
+                    }
+                )
+            } else {
+                EmptyFavoriteChatsContent()
+            }
+        }
+    )
 
 }
 
 @Composable
 fun FavoritesContent(
     listChats: List<FavoriteChatSession>,
+    onDeleteFromFavorites: (Long) -> Unit,
     onClickToChatSession: (Long) -> Unit
 ) {
 
@@ -42,9 +69,13 @@ fun FavoritesContent(
         modifier = Modifier.fillMaxSize()
     ) {
         items(listChats) { chat ->
-            FavoriteChatItem(
+            ChatItem(
                 title = chat.title,
                 createdAt = chat.createdAt,
+                isFavorite = chat.isFavorite,
+                onAddDeleteFavorites = {
+                    onDeleteFromFavorites(chat.id)
+                },
                 modifier = Modifier.clickable {
                     onClickToChatSession(chat.id)
                 }
@@ -105,7 +136,8 @@ private fun FavoritesContentPreview() {
                     isFavorite = false,
                     createdAt = LocalDate.now())
             ),
-            onClickToChatSession = {}
+            onClickToChatSession = {},
+            onDeleteFromFavorites = {}
         )
     }
 }

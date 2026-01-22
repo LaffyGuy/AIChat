@@ -31,7 +31,7 @@ import com.project.navigation.toEntries
 
 @Composable
 fun NavigationRoot(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val navigationState = rememberNavigationState(
         startRoute = ChatsRoute,
@@ -99,7 +99,13 @@ fun NavigationRoot(
                             }
                         )
                     }
-                    entry<FavoritesRoute> { FavoritesScreen() }
+                    entry<FavoritesRoute> {
+                        FavoritesScreen(
+                            onClickToChatSession = { chatId ->
+                                navigator.navigate(ChatRoute(chatId = chatId))
+                            }
+                        )
+                    }
                 }
             )
         )

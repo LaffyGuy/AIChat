@@ -43,8 +43,7 @@ class MainViewModel @AssistedInject constructor(
 
     private val _messages = MutableStateFlow<List<ChatMessageUiState>>(emptyList())
 
-    val _aiResponse = MutableStateFlow<LoadResult<String>>(LoadResult.Loading)
-
+    private val _generatingMessage = MutableStateFlow<ChatMessageUiState?>(null)
 
     init {
         _chatSessionId.value?.let { id ->
@@ -55,11 +54,12 @@ class MainViewModel @AssistedInject constructor(
     val uiState = combine(
         _inputState,
         _messages,
-        _aiResponse
-    ) { input, messages, response ->
+        _generatingMessage
+    ) { input, messages, generating ->
+        val allMessages = if (generating != null) messages + generating else messages
         MainUiState(
             textInputState = input,
-            messages = messages,
+            messages = allMessages,
             shouldShowWelcomeItem = messages.isEmpty()
 
         )
@@ -126,40 +126,37 @@ class MainViewModel @AssistedInject constructor(
                     )
                 )
                 _chatSessionId.value = newId
+                loadChatHistory(newId)
                 newId
             } else currentChatId
 
             saveMessageUseCase(id, prompt, MessageAuthor.USER)
 
-            val historyForAi = _messages.value
-                .filter { !it.isLoading && !it.isError }
-                .map { it.toDomain() }
+            _inputState.update { it.copy(text = "", isEnabled = false, isTrailingIconEnabled = false) }
+
+            _generatingMessage.value = ChatMessageUiState(
+                id = -1,
+                text = "",
+                author = MessageAuthor.AI,
+                isLoading = true,
+                timestamp = System.currentTimeMillis()
+            )
 
             try {
+
+                val historyForAi = _messages.value.map { it.toDomain() }
+
                 getAIChatResponseUseCase(historyForAi, prompt)
                     .collect { response ->
-                        _messages.update { list ->
-                            list.map {
-                                if (it.isLoading && it.author == MessageAuthor.AI) {
-                                    it.copy(text = response, isLoading = false)
-                                } else it
-                            }
-                        }
-                        saveMessageUseCase(id, response, MessageAuthor.AI)
+                        _generatingMessage.update { it?.copy(text = response, isLoading = true) }
                     }
 
+                val finalAiText = _generatingMessage.value?.text ?: ""
+                saveMessageUseCase(id, finalAiText, MessageAuthor.AI)
+                _generatingMessage.value = null
+
             } catch (e: ConnectionException) {
-                _messages.update { list ->
-                    list.map {
-                        if (it.isLoading && it.author == MessageAuthor.AI) {
-                            it.copy(
-                                isError = true,
-                                errorText = e.message,
-                                isLoading = false
-                            )
-                        } else it
-                    }
-                }
+                _generatingMessage.update { it?.copy(isLoading = false, isError = true, errorText = e.message) }
             } finally {
                 _inputState.update {
                     it.copy(

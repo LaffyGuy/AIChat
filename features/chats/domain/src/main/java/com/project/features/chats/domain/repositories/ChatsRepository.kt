@@ -12,4 +12,6 @@ interface ChatsRepository {
 
     suspend fun getChatById(chatId: Long): ChatSession
 
+    suspend fun updateFavoriteChatStatus(chatId: Long, isFavorite: Boolean)
+
 }

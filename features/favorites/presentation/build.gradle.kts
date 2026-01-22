@@ -44,7 +44,7 @@ dependencies {
 
     implementation(project(":core:essentials"))
     implementation(project(":core:theme"))
-    implementation(project(":features:favorites:domain"))
+    api(project(":features:favorites:domain"))
 
     //Hilt
     implementation(libs.hilt.android)
