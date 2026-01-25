@@ -4,4 +4,10 @@
     <string name="welcome_item_text2">Просто введіть те, що вас цікавить або з чим вам потрібна допомога.\n\n</string>
     <string name="welcome_item_text3">Приклад:\n</string>
     <string name="welcome_item_text4">Що приготувати на вечерю?</string>
+    <string name="quota_exceeded_error_message">What to cook for dinner?</string>
+    <string name="safety_blocked_error_message">What to cook for dinner?</string>
+    <string name="server_overloaded_error_message">What to cook for dinner?</string>
+    <string name="prompt_invalid_error_message">What to cook for dinner?</string>
+    <string name="unknown_error_message">Unknown error</string>
+    <string name="empty_prompt_error_message">Промт не може бути пустим</string>
 </resources>
