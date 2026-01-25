@@ -81,8 +81,6 @@ fun KeyFeaturePortraitPager(
         onPageChanged(pagerState.currentPage)
     }
 
-
-
     HorizontalPager(
         modifier = modifier,
         state = pagerState

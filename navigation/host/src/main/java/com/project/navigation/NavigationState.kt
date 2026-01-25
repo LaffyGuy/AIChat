@@ -24,6 +24,11 @@ class NavigationState(
 
     var topLevelRoute by topLevelRoute
 
+    val currentRoute: NavKey
+        get() = backStacks[topLevelRoute]
+            ?.lastOrNull()
+            ?: topLevelRoute
+
     val stackInUse: List<NavKey>
         get() = listOf(topLevelRoute)
 

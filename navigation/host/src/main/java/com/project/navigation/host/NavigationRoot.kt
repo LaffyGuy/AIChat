@@ -2,6 +2,10 @@ package com.project.navigation.host
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -31,7 +35,7 @@ import com.project.navigation.toEntries
 
 @Composable
 fun NavigationRoot(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val navigationState = rememberNavigationState(
         startRoute = ChatsRoute,
@@ -51,6 +55,20 @@ fun NavigationRoot(
                     navigator.navigate(it)
                 }
             )
+        },
+        floatingActionButton = {
+            when (navigationState.currentRoute) {
+                is ChatsRoute -> {
+                    FloatingActionButton(
+                        onClick = {
+                            navigator.navigate(ChatRoute(chatId = null))
+                        }
+                    ) {
+                        Icon(imageVector = Icons.Default.Add, contentDescription = null)
+                    }
+                }
+                else -> Unit
+            }
         }
     ) { innerPadding ->
         NavDisplay(
@@ -91,9 +109,6 @@ fun NavigationRoot(
                     }
                     entry<ChatsRoute> {
                         ChatsScreen(
-                            launchChatScreen = {
-                                navigator.navigate(ChatRoute(chatId = null))
-                            },
                             onClickToChatSession = { chatId ->
                                 navigator.navigate(ChatRoute(chatId = chatId))
                             }

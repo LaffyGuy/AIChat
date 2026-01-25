@@ -70,10 +70,6 @@ data class InitUiState(
     val isChekAuthInProgress: Boolean = false
 )
 
-private data class ViewModelState(
-    val isChekAuthInProgress: Boolean = false
-)
-
 data class Effects(
     val launchMainScreen: Unit? = null
 )

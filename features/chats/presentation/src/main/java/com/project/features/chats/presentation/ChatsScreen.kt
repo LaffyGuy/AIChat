@@ -37,44 +37,31 @@ import java.time.LocalDate
 
 @Composable
 fun ChatsScreen(
-    onClickToChatSession: (Long) -> Unit,
-    launchChatScreen: () -> Unit
+    onClickToChatSession: (Long) -> Unit
 ) {
 
     val viewModel: ChatViewModel = hiltViewModel()
     val loadResult by viewModel.chatsFlow.collectAsStateWithLifecycle()
 
-    Scaffold(
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = launchChatScreen
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = null
+
+    LoadResultView(
+        modifier = Modifier.fillMaxSize(),
+        loadResult = loadResult,
+        onTryAgain = {},
+        content = { chatState ->
+            if (!chatState.data.isEmpty()) {
+                ChatsContent(
+                    listChats = chatState.data,
+                    onClickToChatSession = onClickToChatSession,
+                    onAddToFavorites = { chatId ->
+                        viewModel.updateFavoriteStatus(chatId, true)
+                    }
                 )
+            } else {
+                EmptyChatsContent()
             }
         }
-    ) { innerPadding ->
-        LoadResultView(
-            modifier = Modifier.padding(innerPadding),
-            loadResult = loadResult,
-            onTryAgain = {},
-            content = { chatState ->
-                if (!chatState.data.isEmpty()) {
-                    ChatsContent(
-                        listChats = chatState.data,
-                        onClickToChatSession = onClickToChatSession,
-                        onAddToFavorites = { chatId ->
-                            viewModel.updateFavoriteStatus(chatId, true)
-                        }
-                    )
-                } else {
-                    EmptyChatsContent()
-                }
-            }
-        )
-    }
+    )
 
 }
 
@@ -82,7 +69,7 @@ fun ChatsScreen(
 fun ChatsContent(
     listChats: List<ChatSession>,
     onClickToChatSession: (Long) -> Unit,
-    onAddToFavorites: (Long) -> Unit
+    onAddToFavorites: (Long) -> Unit,
 ) {
 
     LazyColumn(
