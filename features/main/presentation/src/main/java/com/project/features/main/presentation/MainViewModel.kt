@@ -9,6 +9,7 @@ import com.project.features.main.domain.GetChatHistoryUseCase
 import com.project.features.main.domain.SaveMessageUseCase
 import com.project.features.main.domain.SaveNewChatUseCase
 import com.project.features.main.domain.entities.MainChatSession
+import com.project.features.main.domain.resources.MainStringProvider
 import com.project.features.main.presentation.mappers.toDomain
 import com.project.navigation.common.routes.ChatRoute
 import dagger.assisted.Assisted
@@ -29,6 +30,7 @@ class MainViewModel @AssistedInject constructor(
     private val saveNewChatUseCase: SaveNewChatUseCase,
     private val getChatHistoryUseCase: GetChatHistoryUseCase,
     private val saveMessageUseCase: SaveMessageUseCase,
+    private val mainStringProvider: MainStringProvider,
     @Assisted navKey: ChatRoute
 ): ViewModel() {
 
@@ -81,7 +83,7 @@ class MainViewModel @AssistedInject constructor(
     fun generateAIResponse(prompt: String) {
 
         if (prompt.isBlank()) {
-            _inputState.update { it.copy(isError = true, errorMessage = "Prompt cannot be empty") }
+            _inputState.update { it.copy(isError = true, errorMessage = mainStringProvider.emptyPromptErrorMessage) }
             return
         }
 

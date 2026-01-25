@@ -4,4 +4,10 @@
     <string name="welcome_item_text2">Just type what you’re curious about or need help with.\n\n</string>
     <string name="welcome_item_text3">Example:\n</string>
     <string name="welcome_item_text4">What to cook for dinner?</string>
+    <string name="quota_exceeded_error_message">What to cook for dinner?</string>
+    <string name="safety_blocked_error_message">What to cook for dinner?</string>
+    <string name="server_overloaded_error_message">What to cook for dinner?</string>
+    <string name="prompt_invalid_error_message">What to cook for dinner?</string>
+    <string name="unknown_error_message">Unknown error</string>
+    <string name="empty_prompt_error_message">Prompt cannot be empty</string>
 </resources>
