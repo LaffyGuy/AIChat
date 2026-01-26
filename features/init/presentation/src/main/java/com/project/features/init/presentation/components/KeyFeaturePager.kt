@@ -1,24 +1,33 @@
 package com.project.features.init.presentation.components
 
 import android.content.res.Configuration
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import com.project.core.theme.Dimens
 import com.project.core.theme.FontSize
 import com.project.core.theme.MediumVerticalSpace
@@ -111,12 +120,13 @@ fun KeyFeaturePortraitPager(
                 fontSize = FontSize.MediumFontSize
             )
             MediumVerticalSpace()
+            PagerIndicator(
+                pageCount = keyFeatures.size,
+                currentPage = pagerState.currentPage
+            )
+            MediumVerticalSpace()
             if(pagerState.currentPage == keyFeatures.lastIndex) {
-                Button(
-                    onClick = onLetsGoAction
-                ) {
-                    Text(text = stringResource(R.string.init_let_s_go))
-                }
+                PagerButton(onLetsGoAction = onLetsGoAction)
             }
         }
     }
@@ -136,49 +146,98 @@ fun KeyFeaturesLandscapePager(
     }
 
     HorizontalPager(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier,
         state = pagerState
     ) { page ->
 
         val feature = keyFeatures[page]
 
-        Row(
+        Column(
             modifier = Modifier.fillMaxSize(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            ImageView(
-                imageSource = feature.image,
-                modifier = Modifier.size(Dimens.LargeImageSize)
-            )
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(Dimens.MediumPadding),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
             ) {
-                Text(
-                    text = feature.title,
-                    fontSize = FontSize.LargeFontSize
+                ImageView(
+                    imageSource = feature.image,
+                    modifier = Modifier.size(Dimens.LargeImageSize)
                 )
-                MediumVerticalSpace()
-                Text(
-                    text = feature.description,
-                    textAlign = TextAlign.Center,
-                    fontSize = FontSize.MediumFontSize
-                )
-                MediumVerticalSpace()
-                if(pagerState.currentPage == keyFeatures.lastIndex) {
-                    Button(
-                        onClick = onLetsGoAction
-                    ) {
-                        Text(text = stringResource(R.string.init_let_s_go))
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(Dimens.MediumPadding),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = feature.title,
+                        fontSize = FontSize.LargeFontSize
+                    )
+                    MediumVerticalSpace()
+                    Text(
+                        text = feature.description,
+                        textAlign = TextAlign.Center,
+                        fontSize = FontSize.MediumFontSize
+                    )
+                    MediumVerticalSpace()
+                    if(pagerState.currentPage == keyFeatures.lastIndex) {
+                        PagerButton(onLetsGoAction = onLetsGoAction)
                     }
                 }
             }
+            MediumVerticalSpace()
+            PagerIndicator(
+                pageCount = keyFeatures.size,
+                currentPage = pagerState.currentPage
+            )
         }
     }
+}
+
+@Composable
+fun PagerButton(
+    onLetsGoAction: () -> Unit
+) {
+    Button(
+        onClick = onLetsGoAction,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+        )
+    ) {
+        Text(text = stringResource(R.string.init_let_s_go))
+    }
+}
+
+@Composable
+fun PagerIndicator(
+    pageCount: Int,
+    currentPage: Int,
+    modifier: Modifier = Modifier,
+    activeColor: Color = MaterialTheme.colorScheme.primaryContainer,
+    inactiveColor: Color = activeColor.copy(alpha = 0.3f)
+) {
+
+
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+           repeat(pageCount) { index ->
+               Box(
+                   modifier = Modifier
+                       .padding(4.dp)
+                       .size(if (index == currentPage) 10.dp else 8.dp)
+                       .clip(CircleShape)
+                       .background(if (index == currentPage) activeColor else inactiveColor)
+               )
+           }
+    }
+
 }
 
 @ScreenPreview

@@ -51,6 +51,7 @@ dependencies {
     implementation(project(":features:chats:presentation"))
     implementation(project(":features:favorites:presentation"))
     implementation(project(":core:common-android"))
+    implementation(project(":core:theme"))
 
     //Navigation
     implementation(libs.androidx.navigation3.ui)
