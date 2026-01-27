@@ -95,7 +95,7 @@ fun EmptyFavoriteChatsContent() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         ImageView(
-            imageSource = ImageSource.DrawableRes(R.drawable.ic_no_favorites_chats),
+            imageSource = ImageSource.Empty,
             modifier = Modifier
                 .size(Dimens.MediumImageSize)
                 .alpha(0.5f)

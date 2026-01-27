@@ -8,11 +8,14 @@ import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.compose.SubcomposeAsyncImage
 import com.project.core.theme.Dimens
+import com.project.core.theme.R
 import com.project.core.theme.Shapes
 import com.project.core.theme.previews.PreviewScreenContent
 import com.project.core.theme.previews.ScreenPreview
@@ -60,14 +63,11 @@ fun EmptyImageView(
     contentDescription: String? = null
 ) {
     Image(
-        imageVector = Icons.Default.AccountBox,
+        painter = painterResource(R.drawable.ic_no_favorites_chats),
         contentDescription = contentDescription,
         modifier = modifier
-            .size(250.dp)
-            .background(
-                color = MaterialTheme.colorScheme.secondaryContainer,
-                shape = Shapes.LargeRoundedCornerShape
-            )
+            .size(250.dp),
+        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primaryContainer)
     )
 }
 
@@ -123,7 +123,7 @@ private fun EmptyImageViewPreview() {
     PreviewScreenContent {
         ImageView(
             imageSource = ImageSource.Empty,
-            modifier = Modifier.size(Dimens.LargeImageSize)
+            modifier = Modifier.size(Dimens.LargeImageSize),
         )
     }
 }

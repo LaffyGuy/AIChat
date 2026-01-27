@@ -19,16 +19,20 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -48,7 +52,7 @@ fun MainScreen(viewModel: MainViewModel) {
         onGenerateClick = viewModel::generateAIResponse,
         onTextChanged = viewModel::onTextChanged,
 
-    )
+        )
 
 }
 
@@ -115,14 +119,19 @@ fun MainContent(
 @Composable
 fun WelcomeItem(modifier: Modifier = Modifier) {
     Card(
-        modifier = modifier.size(width = 300.dp, height = 200.dp),
+        modifier = modifier.size(width = 350.dp, height = 210.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color.White
         ),
-        shape = RoundedCornerShape(18.dp)
+        shape = RoundedCornerShape(18.dp),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 4.dp
+        )
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
 
@@ -165,27 +174,30 @@ fun ChatTextField(
             value = value,
             placeholder = {
                 Text(
-                    text = hint
+                    text = hint,
+                    color = colorResource(R.color.medium_gray)
                 )
             },
             onValueChange = onValueChange,
             enabled = isEnabled,
             shape = RoundedCornerShape(16.dp),
             colors = OutlinedTextFieldDefaults.colors(
-                unfocusedContainerColor = colorResource(R.color.medium_gray),
+                focusedTextColor = Color.Black,
+                unfocusedContainerColor = Color.White,
                 focusedContainerColor = Color.White,
                 errorCursorColor = Color.Red,
-                focusedBorderColor = Color.Transparent,
-                unfocusedBorderColor = Color.Transparent,
+                focusedBorderColor = Color.Black,
+                unfocusedBorderColor = Color.Black,
                 disabledBorderColor = Color.Transparent,
-                errorBorderColor = Color.Transparent
+                errorBorderColor = Color.Transparent,
             ),
             trailingIcon = if (isTrailingIconEnabled) {
                 {
                     Icon(
-                        imageVector = Icons.Outlined.Send,
+                        painter = painterResource(R.drawable.ic_send),
                         contentDescription = null,
-                        modifier = Modifier.clickable { onGenerateClick(value) }
+                        modifier = Modifier
+                            .clickable { onGenerateClick(value) }
                     )
                 }
             } else null,
@@ -195,14 +207,13 @@ fun ChatTextField(
                 .fillMaxWidth()
                 .padding(8.dp)
         )
-
-        if (isError) {
-            Text(
-                text = errorTextFieldMessage ?: "",
-                color = Color.Red,
-                fontSize = 12.sp
-            )
-        }
+    }
+    if (isError) {
+        Text(
+            text = errorTextFieldMessage ?: "",
+            color = Color.Red,
+            fontSize = 12.sp
+        )
     }
 
 }
