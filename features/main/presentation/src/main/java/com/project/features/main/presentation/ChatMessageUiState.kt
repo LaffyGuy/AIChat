@@ -17,6 +17,7 @@ fun ChatMessage.toUiState(): ChatMessageUiState {
     return ChatMessageUiState(
         id = id,
         text = text,
-        author = author
+        author = author,
+        timestamp = timestamp
     )
 }

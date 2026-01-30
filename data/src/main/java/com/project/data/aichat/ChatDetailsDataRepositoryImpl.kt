@@ -36,9 +36,9 @@ class ChatDetailsDataRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun saveMessage(chatId: Long, text: String, author: MessageAuthor) {
+    override suspend fun saveMessage(chatMessageDataEntity: ChatMessageDataEntity) {
         aiChatDao.insertMessage(
-            ChatMessageDataEntity(chatId = chatId, text = text, author = author).toChatMessageEntity()
+            chatMessageDataEntity.toChatMessageEntity()
         )
     }
 

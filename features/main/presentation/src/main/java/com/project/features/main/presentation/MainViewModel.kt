@@ -8,6 +8,7 @@ import com.project.features.main.domain.GetAIChatResponseUseCase
 import com.project.features.main.domain.GetChatHistoryUseCase
 import com.project.features.main.domain.SaveMessageUseCase
 import com.project.features.main.domain.SaveNewChatUseCase
+import com.project.features.main.domain.entities.ChatMessage
 import com.project.features.main.domain.entities.MainChatSession
 import com.project.features.main.domain.resources.MainStringProvider
 import com.project.features.main.presentation.mappers.toDomain
@@ -80,92 +81,183 @@ class MainViewModel @AssistedInject constructor(
         }
     }
 
-    fun generateAIResponse(prompt: String) {
+//    fun generateAIResponse(prompt: String) {
+//
+//        if (prompt.isBlank()) {
+//            _inputState.update { it.copy(isError = true, errorMessage = mainStringProvider.emptyPromptErrorMessage) }
+//            return
+//        }
+//
+//        val currentChatId = _chatSessionId.value
+//
+//        val currentTime = System.currentTimeMillis()
+//
+//        val userMessage = ChatMessageUiState(
+//            id = 0,
+//            text = prompt,
+//            author = MessageAuthor.USER
+//        )
+//
+//        val loadingAiMessage = ChatMessageUiState(
+//            id = 0,
+//            text = "",
+//            author = MessageAuthor.AI,
+//            isLoading = true
+//        )
+//
+//        _messages.update { it + userMessage + loadingAiMessage }
+//
+//        _inputState.update {
+//            it.copy(
+//                text = "",
+//                isEnabled = false,
+//                isTrailingIconEnabled = false,
+//                isError = false
+//            )
+//        }
+//
+//        viewModelScope.launch {
+//
+//            val id = if (currentChatId == null) {
+//                val newId = saveNewChatUseCase(
+//                    MainChatSession(
+//                        id =0L,
+//                        title = prompt.take(20),
+//                        isFavorite = false,
+//                        createdAt = LocalDate.now()
+//                    )
+//                )
+//                _chatSessionId.value = newId
+//                loadChatHistory(newId)
+//                newId
+//            } else currentChatId
+//
+//            val userChatMessage = ChatMessage(
+//                id = id,
+//                text = prompt,
+//                author = MessageAuthor.USER
+//            )
+//
+//            saveMessageUseCase(userChatMessage)
+//
+//            _inputState.update { it.copy(text = "", isEnabled = false, isTrailingIconEnabled = false) }
+//
+//            _generatingMessage.value = ChatMessageUiState(
+//                id = -1,
+//                text = "",
+//                author = MessageAuthor.AI,
+//                isLoading = true,
+//                timestamp = System.currentTimeMillis()
+//            )
+//
+//            try {
+//
+//                val historyForAi = _messages.value.map { it.toDomain() }
+//
+//                getAIChatResponseUseCase(historyForAi, prompt)
+//                    .collect { response ->
+//                        _generatingMessage.update { it?.copy(text = response, isLoading = true) }
+//                    }
+//
+//                val finalAiText = _generatingMessage.value?.text ?: ""
+//
+//                val aIChatMessage = ChatMessage(
+//                    id = id,
+//                    text =finalAiText,
+//                    author = MessageAuthor.AI
+//                )
+//
+//                saveMessageUseCase(aIChatMessage)
+//                _generatingMessage.value = null
+//
+//            } catch (e: ConnectionException) {
+//                _generatingMessage.update { it?.copy(isLoading = false, isError = true, errorText = e.message) }
+//            } finally {
+//                _inputState.update {
+//                    it.copy(
+//                        isEnabled = true,
+//                        isTrailingIconEnabled = true
+//                    )
+//                }
+//            }
+//        }
+fun generateAIResponse(prompt: String) {
+    if (prompt.isBlank()) {
+        _inputState.update { it.copy(isError = true, errorMessage = mainStringProvider.emptyPromptErrorMessage) }
+        return
+    }
 
-        if (prompt.isBlank()) {
-            _inputState.update { it.copy(isError = true, errorMessage = mainStringProvider.emptyPromptErrorMessage) }
-            return
-        }
+    val currentChatId = _chatSessionId.value
+    // ФІКСУЄМО ЧАС ОДИН РАЗ ТУТ
+    val currentTime = System.currentTimeMillis()
 
-        val currentChatId = _chatSessionId.value
+    _inputState.update {
+        it.copy(text = "", isEnabled = false, isTrailingIconEnabled = false, isError = false)
+    }
 
-        val userMessage = ChatMessageUiState(
-            id = 0,
-            text = prompt,
-            author = MessageAuthor.USER
-        )
-
-        val loadingAiMessage = ChatMessageUiState(
-            id = 0,
-            text = "",
-            author = MessageAuthor.AI,
-            isLoading = true
-        )
-
-        _messages.update { it + userMessage + loadingAiMessage }
-
-        _inputState.update {
-            it.copy(
-                text = "",
-                isEnabled = false,
-                isTrailingIconEnabled = false,
-                isError = false
-            )
-        }
-
-        viewModelScope.launch {
-
+    viewModelScope.launch {
+        try {
             val id = if (currentChatId == null) {
                 val newId = saveNewChatUseCase(
                     MainChatSession(
-                        id =0L,
+                        id = 0L,
                         title = prompt.take(20),
                         isFavorite = false,
                         createdAt = LocalDate.now()
                     )
                 )
                 _chatSessionId.value = newId
-                loadChatHistory(newId)
+                loadChatHistory(newId) // Починаємо слухати базу
                 newId
             } else currentChatId
 
-            saveMessageUseCase(id, prompt, MessageAuthor.USER)
+            // 1. Зберігаємо повідомлення користувача з ФІКСОВАНИМ часом
+            val userChatMessage = ChatMessage(
+                id = id, // Тут передаємо chatId (або id повідомлення, якщо воно генерується БД)
+                text = prompt,
+                author = MessageAuthor.USER,
+                timestamp = currentTime // ПЕРЕДАЄМО ЧАС
+            )
+            saveMessageUseCase(userChatMessage)
 
-            _inputState.update { it.copy(text = "", isEnabled = false, isTrailingIconEnabled = false) }
-
+            // 2. Стан генерації для ШІ
+            val aiStartTime = System.currentTimeMillis() // Окремий час для відповіді ШІ
             _generatingMessage.value = ChatMessageUiState(
                 id = -1,
                 text = "",
                 author = MessageAuthor.AI,
                 isLoading = true,
-                timestamp = System.currentTimeMillis()
+                timestamp = aiStartTime // ПЕРЕДАЄМО ЧАС У UI STATE
             )
 
-            try {
+            val historyForAi = _messages.value.map { it.toDomain() }
 
-                val historyForAi = _messages.value.map { it.toDomain() }
-
-                getAIChatResponseUseCase(historyForAi, prompt)
-                    .collect { response ->
-                        _generatingMessage.update { it?.copy(text = response, isLoading = true) }
-                    }
-
-                val finalAiText = _generatingMessage.value?.text ?: ""
-                saveMessageUseCase(id, finalAiText, MessageAuthor.AI)
-                _generatingMessage.value = null
-
-            } catch (e: ConnectionException) {
-                _generatingMessage.update { it?.copy(isLoading = false, isError = true, errorText = e.message) }
-            } finally {
-                _inputState.update {
-                    it.copy(
-                        isEnabled = true,
-                        isTrailingIconEnabled = true
-                    )
-                }
+            getAIChatResponseUseCase(historyForAi, prompt).collect { response ->
+                _generatingMessage.update { it?.copy(text = response) }
             }
+
+            val finalAiText = _generatingMessage.value?.text ?: ""
+
+            // 3. Зберігаємо фінальну відповідь ШІ з тим же часом, коли вона почалася
+            val aIChatMessage = ChatMessage(
+                id = id,
+                text = finalAiText,
+                author = MessageAuthor.AI,
+                timestamp = aiStartTime // ЗБЕРІГАЄМО ТОЙ ЖЕ ЧАС У БАЗУ
+            )
+
+            saveMessageUseCase(aIChatMessage)
+            _generatingMessage.value = null
+
+        } catch (e: Exception) {
+            _generatingMessage.update {
+                it?.copy(isLoading = false, isError = true, errorText = e.message)
+            }
+        } finally {
+            _inputState.update { it.copy(isEnabled = true, isTrailingIconEnabled = true) }
         }
     }
+}
 
     @AssistedFactory
     interface Factory {

@@ -14,6 +14,6 @@ interface ChatDetailsDataRepository {
 
     fun getMessages(chatId: Long): Flow<List<ChatMessageDataEntity>>
 
-    suspend fun saveMessage(chatId: Long, text: String, author: MessageAuthor)
+    suspend fun saveMessage(chatMessageDataEntity: ChatMessageDataEntity)
 
 }

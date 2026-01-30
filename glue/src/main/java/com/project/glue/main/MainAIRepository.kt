@@ -2,12 +2,14 @@ package com.project.glue.main
 
 import com.google.firebase.ai.type.content
 import com.project.data.ChatDetailsDataRepository
+import com.project.data.aichat.entities.ChatMessageDataEntity
 import com.project.data.aichat.entities.ChatSessionDataEntity
 import com.project.essentials.entities.MessageAuthor
 import com.project.features.main.domain.entities.ChatMessage
 import com.project.features.main.domain.entities.MainChatSession
 import com.project.features.main.domain.repositories.AIChatRepository
 import com.project.glue.main.mappers.toChatMessage
+import com.project.glue.main.mappers.toChatMessageDataEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
@@ -52,8 +54,8 @@ class MainAIRepository @Inject constructor(private val aiChatDataRepository: Cha
         }
     }
 
-    override suspend fun saveMessage(chatId: Long, text: String, author: MessageAuthor) {
-        aiChatDataRepository.saveMessage(chatId, text, author)
+    override suspend fun saveMessage(chatMessage: ChatMessage) {
+        aiChatDataRepository.saveMessage(chatMessage.toChatMessageDataEntity())
     }
 
 }

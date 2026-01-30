@@ -13,3 +13,7 @@ val Pink40 = Color(0xFF7D5260)
 val LightColor = Color(0xFF000000)
 
 val DarkColor = Color(0xFFFFFFFF)
+
+val PureWhite = Color(0xFFFFFFFF)
+
+val PureBlack = Color(0xFF000000)

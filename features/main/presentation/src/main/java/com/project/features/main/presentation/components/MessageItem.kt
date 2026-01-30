@@ -7,12 +7,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -29,17 +32,20 @@ fun MessageItem(
     isUser: Boolean
 ) {
 
-    Box(
+    Card(
         modifier = Modifier
-            .background(
-                color = if (isUser)
-                    colorResource(R.color.medium_gray).copy(alpha = 0.5f)
-                else
-                    MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-                shape = RoundedCornerShape(16.dp)
-            )
-            .padding(12.dp)
-            .widthIn(max = 280.dp)
+            .widthIn(max = 280.dp),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 8.dp
+        ),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(
+            if (isUser) {
+                colorResource(R.color.white)
+            } else {
+                colorResource(R.color.light_gray)
+            }
+        ),
     ) {
         if (message.isLoading) {
             CircularProgressIndicator(
@@ -47,7 +53,9 @@ fun MessageItem(
                 strokeWidth = 2.dp
             )
         } else {
-            Column {
+            Column(
+                modifier = Modifier.padding(8.dp)
+            ) {
                 if(!message.isError) {
                     Text(text = message.text)
                     Text(

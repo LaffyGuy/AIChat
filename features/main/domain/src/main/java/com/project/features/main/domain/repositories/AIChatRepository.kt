@@ -13,6 +13,6 @@ interface AIChatRepository {
 
     fun getMessages(chatId: Long): Flow<List<ChatMessage>>
 
-    suspend fun saveMessage(chatId: Long, text: String, author: MessageAuthor)
+    suspend fun saveMessage(chatMessage: ChatMessage)
 
 }

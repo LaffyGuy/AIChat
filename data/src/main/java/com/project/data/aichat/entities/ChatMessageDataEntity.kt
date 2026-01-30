@@ -9,7 +9,7 @@ data class ChatMessageDataEntity(
     val text: String,
     val chatId: Long,
     val author: MessageAuthor,
-    val timestamp: Long = System.currentTimeMillis(),
+    val timestamp: Long
 )
 
 fun ChatMessageEntity.toChatMessageDataEntity(): ChatMessageDataEntity {
@@ -17,7 +17,8 @@ fun ChatMessageEntity.toChatMessageDataEntity(): ChatMessageDataEntity {
         id = id,
         text = text,
         chatId = chatId,
-        author = author
+        author = author,
+        timestamp = timestamp
     )
 }
 
@@ -26,7 +27,8 @@ fun ChatMessageDataEntity.toChatMessageEntity(): ChatMessageEntity {
         id = id,
         text = text,
         chatId = chatId,
-        author = author
+        author = author,
+        timestamp = timestamp
     )
 }
 

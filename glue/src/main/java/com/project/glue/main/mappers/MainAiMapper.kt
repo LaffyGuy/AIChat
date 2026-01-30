@@ -11,3 +11,12 @@ fun ChatMessageDataEntity.toChatMessage(): ChatMessage {
         timestamp = timestamp
     )
 }
+
+fun ChatMessage.toChatMessageDataEntity(): ChatMessageDataEntity {
+    return ChatMessageDataEntity(
+        chatId = id,
+        text = text,
+        author = author,
+        timestamp = timestamp
+    )
+}

@@ -6,5 +6,5 @@ data class ChatMessage(
     val id: Long,
     val text: String,
     val author: MessageAuthor,
-    val timestamp: Long = System.currentTimeMillis()
+    val timestamp: Long
 )
