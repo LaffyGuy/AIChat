@@ -22,7 +22,7 @@ fun BottomNavigationBar(
 
     BottomAppBar(
         modifier = modifier,
-        containerColor = MaterialTheme.colorScheme.onPrimaryContainer
+        containerColor = MaterialTheme.colorScheme.background
     ) {
         TOP_LEVEL_DESTINATION.forEach { (topLevelDestination, data) ->
             NavigationBarItem(

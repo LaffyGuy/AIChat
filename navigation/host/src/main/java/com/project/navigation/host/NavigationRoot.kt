@@ -71,7 +71,7 @@ fun NavigationRoot(
                             navigator.navigate(ChatRoute(chatId = null))
                         },
                         containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                        contentColor = MaterialTheme.colorScheme.background
                     ) {
                         Icon(imageVector = Icons.Default.Add, contentDescription = null)
                     }

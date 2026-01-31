@@ -119,6 +119,7 @@ fun PromptsDetailsContentPreview() {
             prompt = PromptSample(
                 id = 1,
                 title = "Hello",
+                imageRes = R.drawable.education_image,
                 promptSample = listOf("", ""),
                 promptStructure = listOf("", ""),
                 promptsExample = listOf("", "")

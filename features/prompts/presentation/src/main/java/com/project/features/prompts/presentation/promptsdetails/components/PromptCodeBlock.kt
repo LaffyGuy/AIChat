@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -31,7 +32,7 @@ fun PromptCodeBlock(
         modifier = modifier
             .fillMaxWidth()
             .background(
-                color = Color.LightGray,
+                color = Color.LightGray.copy(alpha = 0.5f),
                 shape = Shapes.SmallRoundedCornerShape
             )
             .padding(Dimens.MediumPadding)
@@ -42,7 +43,7 @@ fun PromptCodeBlock(
         ) {
             Text(
                 text = stringResource(R.string.prompt_template),
-                color = Color.Gray,
+                color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.8f),
                 fontSize = FontSize.MediumFontSize,
                 modifier = Modifier.weight(1f)
             )
@@ -55,7 +56,7 @@ fun PromptCodeBlock(
             .forEach { line ->
                 Text(
                     text = line,
-                    color = Color.DarkGray,
+                    color = MaterialTheme.colorScheme.primaryContainer,
                     fontFamily = FontFamily.Monospace,
                     fontSize = FontSize.MediumFontSize,
                     lineHeight = 20.sp,

@@ -23,6 +23,7 @@ import com.project.core.theme.MediumVerticalSpace
 import com.project.core.theme.components.ChatItem
 import com.project.core.theme.components.ImageView
 import com.project.core.theme.components.LoadResultView
+import com.project.core.theme.components.SearchView
 import com.project.core.theme.previews.PreviewScreenContent
 import com.project.essentials.entities.ImageSource
 import com.project.features.favorites.domain.entities.FavoriteChatSession
@@ -64,6 +65,16 @@ fun FavoritesContent(
     onClickToChatSession: (Long) -> Unit
 ) {
 
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        SearchView(
+            query = "",
+            onQueryChange = {}
+        )
     LazyColumn(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -80,6 +91,7 @@ fun FavoritesContent(
                 }
             )
         }
+    }
 
     }
 

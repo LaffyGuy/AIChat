@@ -35,15 +35,15 @@ fun MessageItem(
     Card(
         modifier = Modifier
             .widthIn(max = 280.dp),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 8.dp
-        ),
+//        elevation = CardDefaults.cardElevation(
+//            defaultElevation = 4.dp
+//        ),
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
             if (isUser) {
-                colorResource(R.color.white)
-            } else {
                 colorResource(R.color.light_gray)
+            } else {
+                colorResource(R.color.white)
             }
         ),
     ) {

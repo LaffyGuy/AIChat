@@ -2,4 +2,5 @@
 <resources>
     <string name="add_to_favorites">Додати до обраного</string>
     <string name="delete_from_favorites">Видалити з обраного</string>
+    <string name="search">Пошук</string>
 </resources>

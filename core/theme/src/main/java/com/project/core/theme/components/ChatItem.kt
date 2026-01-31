@@ -43,79 +43,70 @@ fun ChatItem(
     onAddDeleteFavorites: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Card(
+    Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(start = 8.dp, end = 8.dp, top = 4.dp, bottom = 4.dp),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 8.dp
-        ),
-        colors = CardDefaults.cardColors(
-            Color.White
-        ),
-        shape = RoundedCornerShape(8.dp)
+            .padding(Dimens.SmallPadding),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Row(
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(Dimens.MediumPadding),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+                .weight(1f)
+                .padding(start = 16.dp)
         ) {
-            Column(
-                modifier = Modifier.weight(1f)
-            ) {
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.titleMedium,
-                    lineHeight = 24.sp
-                )
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleMedium,
+                lineHeight = 24.sp
+            )
 
-                Text(
-                    text = createdAt.formatToDate(),
-                    style = MaterialTheme.typography.bodySmall,
-                    lineHeight = 20.sp
-                )
-            }
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Box {
-                    var expanded by remember { mutableStateOf(false) }
-                    IconButton(
-                        onClick = {
-                            expanded = true
-                        }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.MoreVert,
-                            contentDescription = null
-                        )
-                    }
-                    DropdownMenu(
-                        expanded = expanded,
-                        onDismissRequest = { expanded = false },
-                        containerColor = MaterialTheme.colorScheme.onPrimaryContainer
-                    ) {
-                        DropdownMenuItem(
-                            text = {
-                                if (!isFavorite) {
-                                    Text(text = stringResource(R.string.add_to_favorites))
-                                } else {
-                                    Text(text = stringResource(R.string.delete_from_favorites))
-                                }
-
-                            },
-                            onClick = {
-                                onAddDeleteFavorites()
-                                expanded = false
-                            }
-                        )
-                    }
+            Text(
+                text = createdAt.formatToDate(),
+                style = MaterialTheme.typography.bodySmall,
+                lineHeight = 20.sp
+            )
+        }
+        Box(
+            contentAlignment = Alignment.Center
+        ) {
+            var expanded by remember { mutableStateOf(false) }
+            IconButton(
+                onClick = {
+                    expanded = true
                 }
-
+            ) {
+                Icon(
+                    imageVector = Icons.Default.MoreVert,
+                    contentDescription = null
+                )
             }
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false },
+                containerColor = Color.White
+            ) {
+                DropdownMenuItem(
+                    text = {
+                        if (!isFavorite) {
+                            Text(
+                                text = stringResource(R.string.add_to_favorites),
+                                color = Color.Black
+                            )
+                        } else {
+                            Text(
+                                text = stringResource(R.string.delete_from_favorites),
+                                color = Color.Black
+                            )
+                        }
 
+                    },
+                    onClick = {
+                        onAddDeleteFavorites()
+                        expanded = false
+                    }
+                )
+            }
         }
     }
 
