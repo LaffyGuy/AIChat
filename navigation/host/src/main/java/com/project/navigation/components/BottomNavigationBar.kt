@@ -1,7 +1,6 @@
 package com.project.navigation.components
 
 import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBarItem
@@ -9,8 +8,8 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.NavKey
 import com.project.navigation.TOP_LEVEL_DESTINATION
 
@@ -44,7 +43,8 @@ fun BottomNavigationBar(
                 },
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = MaterialTheme.colorScheme.primaryContainer,
-                    unselectedIconColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
+                    unselectedIconColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
+                    indicatorColor = Color.Transparent
                 )
             )
         }

@@ -17,3 +17,5 @@ val DarkColor = Color(0xFFFFFFFF)
 val PureWhite = Color(0xFFFFFFFF)
 
 val PureBlack = Color(0xFF000000)
+
+val LightGray = Color(0xFFE3E2E2)

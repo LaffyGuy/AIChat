@@ -69,7 +69,6 @@ fun PromptsDetailsContent(
 
         LargeVerticalSpace()
 
-        // ─── PROMPT TEMPLATE ────────────────────────────────────
         if (prompt.promptSample.isNotEmpty()) {
             SectionTitle(text = stringResource(R.string.prompt_template))
             MediumVerticalSpace()
@@ -84,7 +83,6 @@ fun PromptsDetailsContent(
             LargeVerticalSpace()
         }
 
-        // ─── STRUCTURE ──────────────────────────────────────────
         if (prompt.promptStructure.isNotEmpty()) {
             SectionTitle(text = stringResource(R.string.prompt_structure))
             MediumVerticalSpace()

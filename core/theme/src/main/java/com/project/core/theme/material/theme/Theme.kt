@@ -18,7 +18,8 @@ private val DarkColorScheme = darkColorScheme(
     onPrimaryContainer = LightColor,
 
     background = Color(0xFF1C1B1F),
-    surface = Color(0xFF1C1B1F)
+    surface = Color(0xFF1C1B1F),
+
 
 
 )

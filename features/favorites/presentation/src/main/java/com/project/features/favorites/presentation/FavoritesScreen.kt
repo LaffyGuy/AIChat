@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,8 +24,8 @@ import com.project.core.theme.components.ChatItem
 import com.project.core.theme.components.ImageView
 import com.project.core.theme.components.LoadResultView
 import com.project.core.theme.previews.PreviewScreenContent
-import com.project.features.favorites.domain.entities.FavoriteChatSession
 import com.project.essentials.entities.ImageSource
+import com.project.features.favorites.domain.entities.FavoriteChatSession
 import java.time.LocalDate
 
 @Composable
@@ -80,7 +79,6 @@ fun FavoritesContent(
                     onClickToChatSession(chat.id)
                 }
             )
-            HorizontalDivider()
         }
 
     }

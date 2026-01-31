@@ -1,16 +1,19 @@
 package com.project.navigation.host
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
@@ -25,8 +28,8 @@ import com.project.features.prompts.presentation.promptssample.PromptsSampleScre
 import com.project.navigation.Navigator
 import com.project.navigation.TOP_LEVEL_DESTINATION
 import com.project.navigation.common.routes.AboutRoute
-import com.project.navigation.common.routes.ChatsRoute
 import com.project.navigation.common.routes.ChatRoute
+import com.project.navigation.common.routes.ChatsRoute
 import com.project.navigation.common.routes.FavoritesRoute
 import com.project.navigation.common.routes.PromptDetailsRoute
 import com.project.navigation.common.routes.PromptsRoute
@@ -50,12 +53,15 @@ fun NavigationRoot(
     Scaffold(
         modifier = modifier,
         bottomBar = {
-            BottomNavigationBar(
-                selectedKey = navigationState.topLevelRoute,
-                onSelectKey = {
-                    navigator.navigate(it)
-                },
-            )
+            Column {
+                HorizontalDivider(thickness = 1.dp)
+                BottomNavigationBar(
+                    selectedKey = navigationState.topLevelRoute,
+                    onSelectKey = {
+                        navigator.navigate(it)
+                    },
+                )
+            }
         },
         floatingActionButton = {
             when (navigationState.currentRoute) {
