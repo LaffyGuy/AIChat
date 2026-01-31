@@ -2,6 +2,7 @@ package com.project.core.theme.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -45,10 +46,9 @@ fun ChatItem(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(8.dp)
-        ,
+            .padding(start = 8.dp, end = 8.dp, top = 4.dp, bottom = 4.dp),
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 16.dp
+            defaultElevation = 8.dp
         ),
         colors = CardDefaults.cardColors(
             Color.White
@@ -62,20 +62,24 @@ fun ChatItem(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleMedium,
-                lineHeight = 24.sp
-            )
-            Row(
-                verticalAlignment = Alignment.CenterVertically
+            Column(
+                modifier = Modifier.weight(1f)
             ) {
                 Text(
-                    text = "Created at:\n${createdAt.formatToDate()}",
+                    text = title,
+                    style = MaterialTheme.typography.titleMedium,
+                    lineHeight = 24.sp
+                )
+
+                Text(
+                    text = createdAt.formatToDate(),
                     style = MaterialTheme.typography.bodySmall,
                     lineHeight = 20.sp
                 )
-
+            }
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Box {
                     var expanded by remember { mutableStateOf(false) }
                     IconButton(
@@ -90,14 +94,16 @@ fun ChatItem(
                     }
                     DropdownMenu(
                         expanded = expanded,
-                        onDismissRequest = { expanded = false }
+                        onDismissRequest = { expanded = false },
+                        containerColor = MaterialTheme.colorScheme.onPrimaryContainer
                     ) {
                         DropdownMenuItem(
-                            text = { if (!isFavorite) {
-                                Text(text = stringResource(R.string.add_to_favorites))
-                            } else {
-                                Text(text = stringResource(R.string.delete_from_favorites))
-                            }
+                            text = {
+                                if (!isFavorite) {
+                                    Text(text = stringResource(R.string.add_to_favorites))
+                                } else {
+                                    Text(text = stringResource(R.string.delete_from_favorites))
+                                }
 
                             },
                             onClick = {
@@ -109,7 +115,6 @@ fun ChatItem(
                 }
 
             }
-
 
         }
     }
