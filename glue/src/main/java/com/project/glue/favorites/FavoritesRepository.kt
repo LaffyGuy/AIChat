@@ -21,7 +21,18 @@ class FavoritesRepository @Inject constructor(private val favoritesChatsDataRepo
         }
     }
 
-    override suspend fun deleteChatFromFavorites(chatId: Long, isFavrite: Boolean) {
-        favoritesChatsDataRepository.updateFavoriteStatus(chatId, isFavrite)
+    override suspend fun deleteChatFromFavorites(chatId: Long, isFavorite: Boolean) {
+        favoritesChatsDataRepository.updateFavoriteStatus(chatId, isFavorite)
     }
+
+    override fun getFavoriteSearchChats(searchQuery: String): Flow<LoadResult<List<FavoriteChatSession>>> {
+        return favoritesChatsDataRepository.searchFavoriteChats(searchQuery).map { loadResult ->
+            when(loadResult) {
+                LoadResult.Loading -> LoadResult.Loading
+                is LoadResult.Success -> LoadResult.Success(loadResult.data.map { it.toFavoriteChatSession() })
+                is LoadResult.Error -> LoadResult.Error(loadResult.exception)
+            }
+        }
+    }
+
 }

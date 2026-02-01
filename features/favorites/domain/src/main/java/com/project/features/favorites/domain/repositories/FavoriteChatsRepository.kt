@@ -8,6 +8,8 @@ interface FavoriteChatsRepository {
 
     fun getAllFavoritesChats(): Flow<LoadResult<List<FavoriteChatSession>>>
 
-    suspend fun deleteChatFromFavorites(chatId: Long, isFavrite: Boolean)
+    suspend fun deleteChatFromFavorites(chatId: Long, isFavorite: Boolean)
+
+    fun getFavoriteSearchChats(searchQuery: String): Flow<LoadResult<List<FavoriteChatSession>>>
 
 }

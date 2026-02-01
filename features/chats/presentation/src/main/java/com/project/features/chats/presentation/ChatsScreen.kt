@@ -27,7 +27,6 @@ import com.project.core.theme.previews.PreviewScreenContent
 import com.project.essentials.entities.ImageSource
 import com.project.features.chats.domain.entities.ChatSession
 import com.project.core.theme.components.SearchView
-import com.project.essentials.logger.Logger
 import java.time.LocalDate
 
 @Composable
@@ -37,18 +36,19 @@ fun ChatsScreen(
 
     val viewModel: ChatViewModel = hiltViewModel()
     val chatUiState by viewModel.chatUiState.collectAsStateWithLifecycle()
+    val searchField by viewModel.searchFieldValue.collectAsStateWithLifecycle()
 
 
 
     LoadResultView(
         modifier = Modifier.fillMaxSize(),
-        loadResult = chatUiState.data,
+        loadResult = chatUiState.loadResult,
         onTryAgain = {},
         content = { chatState ->
             if (!chatState.isEmpty()) {
                 ChatsContent(
                     listChats = chatState,
-                    query = chatUiState.searchValue,
+                    query = searchField,
                     onQueryChange = viewModel::updateSearchValue,
                     onClickToChatSession = onClickToChatSession,
                     onAddToFavorites = { chatId ->

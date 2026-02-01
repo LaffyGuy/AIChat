@@ -36,15 +36,18 @@ fun FavoritesScreen(
 
 
     val viewModel: FavoritesViewModel = hiltViewModel()
-    val loadResult by viewModel.loadResultFlow.collectAsStateWithLifecycle()
+    val favoritesChatsUiState by viewModel.favoriteChatUiState.collectAsStateWithLifecycle()
+    val searchField by viewModel.searchFieldValue.collectAsStateWithLifecycle()
 
     LoadResultView(
-        loadResult = loadResult,
+        loadResult = favoritesChatsUiState.loadResult,
         onTryAgain = {},
-        content = { state ->
-            if(!state.data.isEmpty()) {
+        content = { data ->
+            if(!data.isEmpty()) {
                 FavoritesContent(
-                    listChats = state.data,
+                    listChats = data,
+                    query = searchField,
+                    onQueryChange = viewModel::updateSearchValue,
                     onClickToChatSession = onClickToChatSession,
                     onDeleteFromFavorites = { chatId ->
                         viewModel.deleteFromFavorites(chatId, false)
@@ -61,6 +64,8 @@ fun FavoritesScreen(
 @Composable
 fun FavoritesContent(
     listChats: List<FavoriteChatSession>,
+    query: String,
+    onQueryChange: (String) -> Unit,
     onDeleteFromFavorites: (Long) -> Unit,
     onClickToChatSession: (Long) -> Unit
 ) {
@@ -72,8 +77,8 @@ fun FavoritesContent(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         SearchView(
-            query = "",
-            onQueryChange = {}
+            query = query,
+            onQueryChange = onQueryChange
         )
     LazyColumn(
         modifier = Modifier.fillMaxSize()
@@ -146,6 +151,8 @@ private fun FavoritesContentPreview() {
                     isFavorite = false,
                     createdAt = LocalDate.now())
             ),
+            query = "",
+            onQueryChange = {},
             onClickToChatSession = {},
             onDeleteFromFavorites = {}
         )

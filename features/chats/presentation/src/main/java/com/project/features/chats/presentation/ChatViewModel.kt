@@ -19,7 +19,6 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -32,6 +31,7 @@ class ChatViewModel @Inject constructor(
 ): ViewModel() {
 
     private val _searchFieldValue = MutableStateFlow("")
+    val searchFieldValue: StateFlow<String> = _searchFieldValue
 
 
     @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
@@ -45,8 +45,7 @@ class ChatViewModel @Inject constructor(
         }
         .map { result ->
             ChatsUiState(
-                data = result,
-                searchValue = _searchFieldValue.value
+                loadResult = result
             )
         }
         .stateIn(
@@ -68,6 +67,6 @@ class ChatViewModel @Inject constructor(
 }
 
 data class ChatsUiState(
-    val data: LoadResult<List<ChatSession>> = LoadResult.Loading,
+    val loadResult: LoadResult<List<ChatSession>> = LoadResult.Loading,
     val searchValue: String = ""
 )
