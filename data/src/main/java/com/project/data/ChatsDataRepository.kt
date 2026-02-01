@@ -16,4 +16,6 @@ interface ChatsDataRepository {
 
     suspend fun updateFavoriteStatus(chatId: Long, isFavorite: Boolean)
 
+    fun searchChats(searchQuery: String): Flow<LoadResult<List<ChatSessionDataEntity>>>
+
 }

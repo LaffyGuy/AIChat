@@ -105,11 +105,8 @@ fun PromptsSampleContent(
                 onClick = onClick
             )
         }
-
-        item {
-            LargeVerticalSpace()
-        }
     }
+
 }
 
 @ScreenPreview

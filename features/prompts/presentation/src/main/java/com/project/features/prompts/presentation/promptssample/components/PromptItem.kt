@@ -35,21 +35,6 @@ fun PromptItem(
     modifier: Modifier = Modifier,
 ) {
 
-//    Card(
-//        modifier = modifier
-//            .fillMaxWidth()
-//            .padding(8.dp)
-//            .clickable {
-//                onClick(promptSample.id)
-//            },
-//        colors = CardDefaults.cardColors(
-//            Color.White
-//        ),
-////        elevation = CardDefaults.cardElevation(
-////            defaultElevation = 8.dp
-////        ),
-//        shape = RoundedCornerShape(8.dp)
-//    ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -64,7 +49,7 @@ fun PromptItem(
             painter = painterResource(id = promptSample.imageRes),
             contentDescription = null,
             modifier = Modifier
-                .size(80.dp)
+                .size(70.dp)
                 .padding(8.dp)
         )
         Column(
@@ -79,7 +64,7 @@ fun PromptItem(
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Medium
             )
-            SmallVerticalSpace()
+            
             promptSample.promptSample.forEach { template ->
                 Text(
                     text = template,
@@ -90,9 +75,6 @@ fun PromptItem(
             }
         }
     }
-
-
-//    }
 
 }
 

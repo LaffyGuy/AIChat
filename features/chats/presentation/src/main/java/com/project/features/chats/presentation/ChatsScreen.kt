@@ -35,17 +35,18 @@ fun ChatsScreen(
 ) {
 
     val viewModel: ChatViewModel = hiltViewModel()
-    val loadResult by viewModel.chatsFlow.collectAsStateWithLifecycle()
+//    val loadResult by viewModel.chatsFlow.collectAsStateWithLifecycle()
+    val chatUiState by viewModel.chatsUiState.collectAsStateWithLifecycle()
 
 
     LoadResultView(
         modifier = Modifier.fillMaxSize(),
-        loadResult = loadResult,
+        loadResult = chatUiState.data,
         onTryAgain = {},
         content = { chatState ->
-            if (!chatState.data.isEmpty()) {
+            if (!chatState.isEmpty()) {
                 ChatsContent(
-                    listChats = chatState.data,
+                    listChats = chatState,
                     onClickToChatSession = onClickToChatSession,
                     onAddToFavorites = { chatId ->
                         viewModel.updateFavoriteStatus(chatId, true)

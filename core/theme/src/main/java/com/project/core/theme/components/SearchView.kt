@@ -74,8 +74,9 @@ fun SearchView(
                         isError = false,
                         interactionSource = interactionSource,
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = Color.Black,
-                            unfocusedContainerColor = Color.Gray.copy(alpha = 0.1f),
+                            focusedBorderColor = Color.LightGray.copy(alpha = 0.5f),
+                            unfocusedBorderColor = Color.LightGray.copy(alpha = 0.5f),
+                            unfocusedContainerColor = Color.LightGray.copy(alpha = 0.1f),
                             focusedContainerColor = Color.White
                         ),
                         shape = RoundedCornerShape(12.dp),

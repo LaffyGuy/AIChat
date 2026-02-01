@@ -13,6 +13,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation3.runtime.entryProvider
@@ -54,7 +55,10 @@ fun NavigationRoot(
         modifier = modifier,
         bottomBar = {
             Column {
-                HorizontalDivider(thickness = 1.dp)
+                HorizontalDivider(
+                    thickness = 1.dp,
+                    color = Color.LightGray
+                )
                 BottomNavigationBar(
                     selectedKey = navigationState.topLevelRoute,
                     onSelectKey = {

@@ -1,6 +1,8 @@
 package com.project.features.main.presentation.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -35,15 +37,12 @@ fun MessageItem(
     Card(
         modifier = Modifier
             .widthIn(max = 280.dp),
-//        elevation = CardDefaults.cardElevation(
-//            defaultElevation = 4.dp
-//        ),
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
             if (isUser) {
-                colorResource(R.color.light_gray)
+                colorResource(R.color.light_purple)
             } else {
-                colorResource(R.color.white)
+                colorResource(R.color.medium_gray).copy(alpha = 0.5f)
             }
         ),
     ) {
@@ -54,14 +53,18 @@ fun MessageItem(
             )
         } else {
             Column(
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp, bottom = 4.dp)
             ) {
                 if(!message.isError) {
-                    Text(text = message.text)
+                    Text(
+                        text = message.text,
+                        color = Color.Black
+                    )
                     Text(
                         text = message.timestamp.longToTime(),
                         fontSize = 12.sp,
-                        modifier = Modifier.align(Alignment.End)
+                        modifier = Modifier.align(Alignment.End),
+                        color = Color.Black
                     )
                 } else {
                     Text(text = message.errorText ?: "Error")

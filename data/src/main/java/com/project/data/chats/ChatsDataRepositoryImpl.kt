@@ -44,4 +44,13 @@ class ChatsDataRepositoryImpl @Inject constructor(private val aiChatDao: AIChatD
         aiChatDao.updateFavoriteStatus(chatId, isFavorite)
     }
 
+    override fun searchChats(searchQuery: String): Flow<LoadResult<List<ChatSessionDataEntity>>> {
+        return aiChatDao.searchChats(searchQuery)
+            .map<List<ChatSessionEntity>, LoadResult<List<ChatSessionDataEntity>>> { entityList->
+                LoadResult.Success(entityList.map { it.toChatSessionDataEntity() })
+        }
+            .onStart { emit(LoadResult.Loading )}
+            .catch { emit(LoadResult.Error(it as Exception)) }
+
+    }
 }

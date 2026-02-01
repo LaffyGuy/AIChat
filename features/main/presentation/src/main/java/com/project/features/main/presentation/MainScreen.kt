@@ -1,5 +1,6 @@
 package com.project.features.main.presentation
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -34,6 +35,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -175,7 +177,8 @@ fun ChatTextField(
             placeholder = {
                 Text(
                     text = hint,
-                    color = colorResource(R.color.medium_gray)
+                    color = Color.Gray,
+                    fontWeight = FontWeight.SemiBold
                 )
             },
             onValueChange = onValueChange,
@@ -183,11 +186,11 @@ fun ChatTextField(
             shape = RoundedCornerShape(16.dp),
             colors = OutlinedTextFieldDefaults.colors(
                 focusedTextColor = Color.Black,
-                unfocusedContainerColor = Color.White,
-                focusedContainerColor = Color.White,
+                unfocusedContainerColor = colorResource(R.color.light_gray),
+                focusedContainerColor = colorResource(R.color.light_gray),
                 errorCursorColor = Color.Red,
-                focusedBorderColor = Color.Black,
-                unfocusedBorderColor = Color.Black,
+                focusedBorderColor = Color.Transparent,
+                unfocusedBorderColor = Color.Transparent,
                 disabledBorderColor = Color.Transparent,
                 errorBorderColor = Color.Transparent,
             ),

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="white">#ffffff</color>
-    <color name="light_gray">#f7fafa</color>
-    <color name="medium_gray">#afb3b3</color>
+    <color name="light_gray">#EDEDED</color>
+    <color name="medium_gray">#DFE0E0</color>
+    <color name="light_purple">#dba9d4</color>
 </resources>

@@ -33,4 +33,14 @@ class ChatsGlueRepository @Inject constructor(private val aiChatDataRepository: 
         aiChatDataRepository.updateFavoriteStatus(chatId, isFavorite)
     }
 
+    override fun getSearchChats(searchQuery: String): Flow<LoadResult<List<ChatSession>>> {
+        return aiChatDataRepository.searchChats(searchQuery).map { loadResult ->
+            when(loadResult) {
+                LoadResult.Loading -> LoadResult.Loading
+                is LoadResult.Success -> LoadResult.Success(loadResult.data.map { it.toChatSession() })
+                is LoadResult.Error -> LoadResult.Error(loadResult.exception)
+            }
+        }
+    }
+
 }

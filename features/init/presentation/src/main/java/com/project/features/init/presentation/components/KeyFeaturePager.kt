@@ -205,7 +205,7 @@ fun PagerButton(
         onClick = onLetsGoAction,
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
-            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+            contentColor = MaterialTheme.colorScheme.background
         )
     ) {
         Text(text = stringResource(R.string.init_let_s_go))

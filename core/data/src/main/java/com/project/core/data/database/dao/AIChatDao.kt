@@ -35,4 +35,7 @@ interface AIChatDao {
     @Query("SELECT * FROM chat_session WHERE isFavorite = 1 ORDER BY createdAt DESC")
     fun getAllFavoritesChat(): Flow<List<ChatSessionEntity>>
 
+    @Query("SELECT * FROM chat_session WHERE title LIKE '%' || :searchQuery || '%'")
+    fun searchChats(searchQuery: String): Flow<List<ChatSessionEntity>>
+
 }
