@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.scan
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,33 +27,39 @@ import javax.inject.Inject
 class ChatViewModel @Inject constructor(
     getChatsUseCase: GetChatsUseCase,
     private val updateFavoriteStatusUseCase: UpdateFavoriteStatusUseCase,
-    private val searchChatsUseCase: GetSearchChatsUseCase
+    private val searchChatsUseCase: GetSearchChatsUseCase,
 //    private val deleteChatUseCase: DeleteChatUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val _searchFieldValue = MutableStateFlow("")
     val searchFieldValue: StateFlow<String> = _searchFieldValue
 
-
     @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
     val chatUiState: StateFlow<ChatsUiState> = _searchFieldValue
-        .debounce { query ->
-            if (query.isBlank()) 0L else 300L
-        }
-        .distinctUntilChanged()
+        .debounce { query -> if (query.isBlank()) 0L else 300L }
+        .distinctUntilChanged { old, new -> old.trim() == new.trim() }
         .flatMapLatest { query ->
-            if (query.isBlank()) getChatsUseCase() else searchChatsUseCase(query)
+            val sanitizedQuery = query.trim()
+            if (sanitizedQuery.isEmpty()) getChatsUseCase() else searchChatsUseCase(sanitizedQuery)
         }
-        .map { result ->
-            ChatsUiState(
-                loadResult = result
-            )
+        .scan(ChatsUiState()) { previousState, result ->
+
+            if (result is LoadResult.Loading && previousState.loadResult is LoadResult.Success) {
+                previousState
+            } else {
+                ChatsUiState(loadResult = result)
+            }
         }
         .stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(1000),
-            initialValue = ChatsUiState()
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = ChatsUiState(loadResult = LoadResult.Loading)
         )
+
+
+    fun updateSearchValue(searchQuery: String) {
+        _searchFieldValue.value = searchQuery
+    }
 
     fun updateFavoriteStatus(chatId: Long, isFavorite: Boolean) {
         viewModelScope.launch {
@@ -60,13 +67,9 @@ class ChatViewModel @Inject constructor(
         }
     }
 
-    fun updateSearchValue(searchQuery: String) {
-        _searchFieldValue.value = searchQuery
-    }
-
 }
 
 data class ChatsUiState(
     val loadResult: LoadResult<List<ChatSession>> = LoadResult.Loading,
-    val searchValue: String = ""
+    val searchValue: String = "",
 )

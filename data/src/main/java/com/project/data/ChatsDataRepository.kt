@@ -20,4 +20,5 @@ interface ChatsDataRepository {
 
     fun searchFavoriteChats(searchQuery: String): Flow<LoadResult<List<ChatSessionDataEntity>>>
 
+
 }

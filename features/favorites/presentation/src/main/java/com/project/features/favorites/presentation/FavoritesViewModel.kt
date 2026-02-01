@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.scan
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,51 +29,30 @@ class FavoritesViewModel @Inject constructor(
     private val getFavoriteSearchChatsUseCase: GetFavoriteSearchChatsUseCase
 ) : ViewModel() {
 
-
-//    val loadResultFlow: StateFlow<LoadResult<FavoritesChatsUiState>> =
-//         getAllFavoritesChatsUseCase().map { loadResult ->
-//             when(loadResult) {
-//                 LoadResult.Loading -> LoadResult.Loading
-//                 is LoadResult.Success -> LoadResult.Success(FavoritesChatsUiState(loadResult.data))
-//                 is LoadResult.Error -> LoadResult.Error(loadResult.exception)
-//             }
-//
-//         }.stateIn(
-//             scope = viewModelScope,
-//             started = SharingStarted.WhileSubscribed(1000),
-//             initialValue = LoadResult.Loading
-//         )
-//
-
-//    }
-
     private val _searchFieldValue = MutableStateFlow("")
     val searchFieldValue: StateFlow<String> = _searchFieldValue
 
-
-    @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
+    @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
     val favoriteChatUiState: StateFlow<FavoritesChatsUiState> = _searchFieldValue
-        .debounce { query ->
-            if (query.isBlank()) 0L else 300L
-        }
-        .distinctUntilChanged()
+        .debounce { query -> if (query.isBlank()) 0L else 300L }
+        .distinctUntilChanged { old, new -> old.trim() == new.trim() }
         .flatMapLatest { query ->
-            if (query.isBlank()) getAllFavoritesChatsUseCase() else getFavoriteSearchChatsUseCase(
-                query
-            )
+            val sanitizedQuery = query.trim()
+            if (sanitizedQuery.isEmpty()) getAllFavoritesChatsUseCase() else getFavoriteSearchChatsUseCase(sanitizedQuery)
         }
-        .map { result ->
-            FavoritesChatsUiState(
-                loadResult = result,
-                searchValue = _searchFieldValue.value
-            )
+        .scan(FavoritesChatsUiState()) { previousState, result ->
+
+            if (result is LoadResult.Loading && previousState.loadResult is LoadResult.Success) {
+                previousState
+            } else {
+                FavoritesChatsUiState(loadResult = result)
+            }
         }
         .stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(1000),
-            initialValue = FavoritesChatsUiState()
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = FavoritesChatsUiState(loadResult = LoadResult.Loading)
         )
-
 
     fun updateSearchValue(query: String) {
         _searchFieldValue.value = query

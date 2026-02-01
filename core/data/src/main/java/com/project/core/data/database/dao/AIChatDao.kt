@@ -38,4 +38,7 @@ interface AIChatDao {
     @Query("SELECT * FROM chat_session WHERE title LIKE '%' || :searchQuery || '%'")
     fun searchChats(searchQuery: String): Flow<List<ChatSessionEntity>>
 
+    @Query("SELECT * FROM chat_session WHERE isFavorite = 1 AND title LIKE '%' || :searchQuery || '%'")
+    fun searchFavoriteChats(searchQuery: String): Flow<List<ChatSessionEntity>>
+
 }

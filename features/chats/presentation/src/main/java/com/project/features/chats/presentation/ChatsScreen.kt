@@ -27,6 +27,7 @@ import com.project.core.theme.previews.PreviewScreenContent
 import com.project.essentials.entities.ImageSource
 import com.project.features.chats.domain.entities.ChatSession
 import com.project.core.theme.components.SearchView
+import com.project.essentials.logger.Logger
 import java.time.LocalDate
 
 @Composable
@@ -38,50 +39,46 @@ fun ChatsScreen(
     val chatUiState by viewModel.chatUiState.collectAsStateWithLifecycle()
     val searchField by viewModel.searchFieldValue.collectAsStateWithLifecycle()
 
+    Logger.d("AAAA load result - ${chatUiState.loadResult}")
 
 
-    LoadResultView(
-        modifier = Modifier.fillMaxSize(),
-        loadResult = chatUiState.loadResult,
-        onTryAgain = {},
-        content = { chatState ->
-            if (!chatState.isEmpty()) {
-                ChatsContent(
-                    listChats = chatState,
-                    query = searchField,
-                    onQueryChange = viewModel::updateSearchValue,
-                    onClickToChatSession = onClickToChatSession,
-                    onAddToFavorites = { chatId ->
-                        viewModel.updateFavoriteStatus(chatId, true)
-                    }
-                )
-            } else {
-                EmptyChatsContent()
+
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        SearchView(
+            query = searchField,
+            onQueryChange = viewModel::updateSearchValue
+        )
+        LoadResultView(
+            modifier = Modifier.fillMaxSize(),
+            loadResult = chatUiState.loadResult,
+            onTryAgain = {},
+            content = { chatState ->
+                if (!chatState.isEmpty()) {
+                    ChatsContent(
+                        listChats = chatState,
+                        onClickToChatSession = onClickToChatSession,
+                        onAddToFavorites = { chatId ->
+                            viewModel.updateFavoriteStatus(chatId, true)
+                        }
+                    )
+                } else {
+                    EmptyChatsContent()
+                }
             }
-        }
-    )
+        )
+    }
+
 
 }
 
 @Composable
 fun ChatsContent(
     listChats: List<ChatSession>,
-    query: String,
-    onQueryChange: (String) -> Unit,
     onClickToChatSession: (Long) -> Unit,
     onAddToFavorites: (Long) -> Unit,
 ) {
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        SearchView(
-            query = query,
-            onQueryChange = onQueryChange
-        )
         LazyColumn(
             modifier = Modifier.fillMaxSize()
         ) {
@@ -99,7 +96,6 @@ fun ChatsContent(
                 )
             }
         }
-    }
 
 }
 
@@ -153,8 +149,6 @@ private fun ChatsContentPreview() {
                     createdAt = LocalDate.now()
                 )
             ),
-            query = "",
-            onQueryChange = {},
             onClickToChatSession = {},
             onAddToFavorites = {}
         )

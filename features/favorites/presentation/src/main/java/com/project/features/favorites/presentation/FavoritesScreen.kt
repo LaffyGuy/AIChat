@@ -39,47 +39,43 @@ fun FavoritesScreen(
     val favoritesChatsUiState by viewModel.favoriteChatUiState.collectAsStateWithLifecycle()
     val searchField by viewModel.searchFieldValue.collectAsStateWithLifecycle()
 
-    LoadResultView(
-        loadResult = favoritesChatsUiState.loadResult,
-        onTryAgain = {},
-        content = { data ->
-            if(!data.isEmpty()) {
-                FavoritesContent(
-                    listChats = data,
-                    query = searchField,
-                    onQueryChange = viewModel::updateSearchValue,
-                    onClickToChatSession = onClickToChatSession,
-                    onDeleteFromFavorites = { chatId ->
-                        viewModel.deleteFromFavorites(chatId, false)
-                    }
-                )
-            } else {
-                EmptyFavoriteChatsContent()
+
+    Column(
+
+    ) {
+        SearchView(
+            query = searchField,
+            onQueryChange = viewModel::updateSearchValue
+        )
+        LoadResultView(
+            loadResult = favoritesChatsUiState.loadResult,
+            onTryAgain = {},
+            content = { data ->
+                if(!data.isEmpty()) {
+                    FavoritesContent(
+                        listChats = data,
+                        onClickToChatSession = onClickToChatSession,
+                        onDeleteFromFavorites = { chatId ->
+                            viewModel.deleteFromFavorites(chatId, false)
+                        }
+                    )
+                } else {
+                    EmptyFavoriteChatsContent()
+                }
             }
-        }
-    )
+        )
+    }
+
 
 }
 
 @Composable
 fun FavoritesContent(
     listChats: List<FavoriteChatSession>,
-    query: String,
-    onQueryChange: (String) -> Unit,
     onDeleteFromFavorites: (Long) -> Unit,
     onClickToChatSession: (Long) -> Unit
 ) {
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        SearchView(
-            query = query,
-            onQueryChange = onQueryChange
-        )
     LazyColumn(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -98,7 +94,6 @@ fun FavoritesContent(
         }
     }
 
-    }
 
 }
 
@@ -151,8 +146,6 @@ private fun FavoritesContentPreview() {
                     isFavorite = false,
                     createdAt = LocalDate.now())
             ),
-            query = "",
-            onQueryChange = {},
             onClickToChatSession = {},
             onDeleteFromFavorites = {}
         )
