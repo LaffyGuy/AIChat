@@ -27,6 +27,7 @@ import com.project.core.theme.previews.PreviewScreenContent
 import com.project.essentials.entities.ImageSource
 import com.project.features.chats.domain.entities.ChatSession
 import com.project.core.theme.components.SearchView
+import com.project.essentials.logger.Logger
 import java.time.LocalDate
 
 @Composable
@@ -35,8 +36,8 @@ fun ChatsScreen(
 ) {
 
     val viewModel: ChatViewModel = hiltViewModel()
-//    val loadResult by viewModel.chatsFlow.collectAsStateWithLifecycle()
-    val chatUiState by viewModel.chatsUiState.collectAsStateWithLifecycle()
+    val chatUiState by viewModel.chatUiState.collectAsStateWithLifecycle()
+
 
 
     LoadResultView(
@@ -47,6 +48,8 @@ fun ChatsScreen(
             if (!chatState.isEmpty()) {
                 ChatsContent(
                     listChats = chatState,
+                    query = chatUiState.searchValue,
+                    onQueryChange = viewModel::updateSearchValue,
                     onClickToChatSession = onClickToChatSession,
                     onAddToFavorites = { chatId ->
                         viewModel.updateFavoriteStatus(chatId, true)
@@ -63,6 +66,8 @@ fun ChatsScreen(
 @Composable
 fun ChatsContent(
     listChats: List<ChatSession>,
+    query: String,
+    onQueryChange: (String) -> Unit,
     onClickToChatSession: (Long) -> Unit,
     onAddToFavorites: (Long) -> Unit,
 ) {
@@ -74,8 +79,8 @@ fun ChatsContent(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         SearchView(
-            query = "",
-            onQueryChange = {}
+            query = query,
+            onQueryChange = onQueryChange
         )
         LazyColumn(
             modifier = Modifier.fillMaxSize()
@@ -148,6 +153,8 @@ private fun ChatsContentPreview() {
                     createdAt = LocalDate.now()
                 )
             ),
+            query = "",
+            onQueryChange = {},
             onClickToChatSession = {},
             onAddToFavorites = {}
         )

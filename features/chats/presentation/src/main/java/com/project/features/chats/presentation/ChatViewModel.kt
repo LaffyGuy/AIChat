@@ -9,9 +9,14 @@ import com.project.features.chats.domain.GetSearchChatsUseCase
 import com.project.features.chats.domain.UpdateFavoriteStatusUseCase
 import com.project.features.chats.domain.entities.ChatSession
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -26,30 +31,29 @@ class ChatViewModel @Inject constructor(
 //    private val deleteChatUseCase: DeleteChatUseCase
 ): ViewModel() {
 
-//    val chatsFlow: StateFlow<LoadResult<ChatsUiState>> =
-//        getChatsUseCase().map { result ->
-//              when(result) {
-//                  LoadResult.Loading -> LoadResult.Loading
-//                  is LoadResult.Success -> LoadResult.Success(ChatsUiState(result.data))
-//                  is LoadResult.Error -> LoadResult.Error(result.exception)
-//              }
-//        }
-//            .stateIn(
-//                scope = viewModelScope,
-//                started = SharingStarted.WhileSubscribed(1000),
-//                initialValue = LoadResult.Loading
-//            )
+    private val _searchFieldValue = MutableStateFlow("")
 
-    private val _chatsUiState = MutableStateFlow(ChatsUiState())
-    val chatsUiState: StateFlow<ChatsUiState> = _chatsUiState
 
-    init {
-        viewModelScope.launch {
-            getChatsUseCase().collect { result ->
-                _chatsUiState.update { it.copy(data = result) }
-            }
+    @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
+    val chatUiState: StateFlow<ChatsUiState> = _searchFieldValue
+        .debounce { query ->
+            if (query.isBlank()) 0L else 300L
         }
-    }
+        .distinctUntilChanged()
+        .flatMapLatest { query ->
+            if (query.isBlank()) getChatsUseCase() else searchChatsUseCase(query)
+        }
+        .map { result ->
+            ChatsUiState(
+                data = result,
+                searchValue = _searchFieldValue.value
+            )
+        }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(1000),
+            initialValue = ChatsUiState()
+        )
 
     fun updateFavoriteStatus(chatId: Long, isFavorite: Boolean) {
         viewModelScope.launch {
@@ -58,7 +62,7 @@ class ChatViewModel @Inject constructor(
     }
 
     fun updateSearchValue(searchQuery: String) {
-        _chatsUiState.update { it.copy(searchValue = searchQuery) }
+        _searchFieldValue.value = searchQuery
     }
 
 }
