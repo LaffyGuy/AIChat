@@ -4,13 +4,17 @@ import com.project.essentials.LoadResult
 import com.project.features.chats.domain.entities.ChatSession
 import com.project.features.chats.domain.repositories.ChatsRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.flowOf
 
 class MockChatRepository: ChatsRepository {
 
-    val chatsFlow = MutableSharedFlow<LoadResult<List<ChatSession>>>()
 
-    override fun getChats(): Flow<LoadResult<List<ChatSession>>> = chatsFlow
+    var resultToReturn: LoadResult<List<ChatSession>> =
+        LoadResult.Success(emptyList())
+
+    override fun getChats(): Flow<LoadResult<List<ChatSession>>> {
+        return flowOf(resultToReturn)
+    }
 
     override suspend fun deleteChat(chatId: Long) {
         TODO("Not yet implemented")
