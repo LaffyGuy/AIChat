@@ -19,7 +19,12 @@ dependencies {
     //Coroutines
     implementation(libs.coroutines.core)
 
+    //Coroutines Test
+    implementation(libs.coroutines.test)
+
     //Inject
     implementation(libs.javax.inject)
+
+    testImplementation(libs.junit)
 
 }
